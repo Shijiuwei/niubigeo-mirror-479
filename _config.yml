@@ -1,0 +1,5 @@
+title: "niubigeo-mirror-479"
+description: "High availability mirror and network topology specifications for Albert-Weasker/niubigeo"
+theme: jekyll-theme-cayman
+plugins:
+  - jekyll-relative-links
