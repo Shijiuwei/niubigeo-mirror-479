@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NiubiGEO Motion Design System - niubigeo-mirror-479 文档归档</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+      :root {
+        --color-primary: #2563eb;
+        --color-primary-hover: #1d4ed8;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.68;
+        color: #1e293b;
+      }
+      .markdown-body {
+        color: #1e293b;
+      }
+      .markdown-body h1 {
+        font-size: 2.25rem;
+        font-weight: 800;
+        margin-top: 1.8rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.6rem;
+        border-bottom: 2px solid #e2e8f0;
+        color: #0f172a;
+        line-height: 1.25;
+      }
+      .markdown-body h2 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-top: 1.6rem;
+        margin-bottom: 0.8rem;
+        padding-bottom: 0.4rem;
+        border-bottom: 1px solid #f1f5f9;
+        color: #1e293b;
+      }
+      .markdown-body h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-top: 1.3rem;
+        margin-bottom: 0.6rem;
+        color: #334155;
+      }
+      .markdown-body p {
+        margin-top: 0.8rem;
+        margin-bottom: 0.8rem;
+        line-height: 1.7;
+      }
+      .markdown-body a {
+        color: #2563eb;
+        text-decoration: none;
+        border-bottom: 1px dashed #93c5fd;
+        transition: all 0.2s ease;
+      }
+      .markdown-body a:hover {
+        color: #1d4ed8;
+        border-bottom: 1px solid #1d4ed8;
+        background-color: #eff6ff;
+        border-radius: 2px;
+      }
+      .markdown-body ul, .markdown-body ol {
+        padding-left: 1.5rem;
+        margin-top: 0.6rem;
+        margin-bottom: 0.6rem;
+      }
+      .markdown-body ul {
+        list-style-type: disc;
+      }
+      .markdown-body ol {
+        list-style-type: decimal;
+      }
+      .markdown-body li {
+        margin-top: 0.25rem;
+        margin-bottom: 0.25rem;
+      }
+      .markdown-body pre {
+        background-color: #0f172a;
+        color: #e2e8f0;
+        padding: 1rem 1.2rem;
+        border-radius: 0.75rem;
+        overflow-x: auto;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.875rem;
+        margin: 1rem 0;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+      .markdown-body code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.875em;
+        padding: 0.15rem 0.35rem;
+        background-color: #f1f5f9;
+        color: #0f172a;
+        border-radius: 0.35rem;
+        border: 1px solid #e2e8f0;
+      }
+      .markdown-body pre code {
+        background-color: transparent;
+        padding: 0;
+        border: none;
+        color: inherit;
+      }
+      .markdown-body blockquote {
+        margin: 1rem 0;
+        padding: 0.75rem 1.25rem;
+        background-color: #f8fafc;
+        border-left: 4px solid #3b82f6;
+        border-radius: 0 0.5rem 0.5rem 0;
+        color: #475569;
+      }
+      .markdown-body table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.2rem 0;
+        display: block;
+        overflow-x: auto;
+      }
+      .markdown-body th, .markdown-body td {
+        border: 1px solid #cbd5e1;
+        padding: 0.6rem 1rem;
+        text-align: left;
+      }
+      .markdown-body th {
+        background-color: #f1f5f9;
+        font-weight: 600;
+      }
+      .markdown-body tr:nth-child(even) {
+        background-color: #f8fafc;
+      }
+      .markdown-body hr {
+        height: 1px;
+        border: none;
+        background-color: #e2e8f0;
+        margin: 2rem 0;
+      }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col antialiased">
+  <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <a href="../index.html" class="flex items-center gap-2 group">
+        <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white font-bold text-sm shadow-sm group-hover:scale-105 transition-transform ">LM</span>
+        <span class="font-bold text-slate-900 tracking-tight text-lg group-hover:text-blue-600 transition-colors ">niubigeo-mirror-479</span>
+      </a>
+      <span class="hidden md:inline-block text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-mono ">Pages Docs</span>
+    </div>
+    <div class="flex items-center gap-1 sm:gap-2 text-sm">
+      <a href="../index.html" class="px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 text-slate-600 hover:text-blue-600 hover:bg-slate-50 font-medium ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        <span>首页 (README)</span>
+      </a>
+      <a href="./index.html" class="px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 text-blue-600 bg-blue-50 font-semibold ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        <span>文档归档 (Docs)</span>
+        <span class="inline-block w-2 h-2 rounded-full bg-blue-600"></span>
+      </a>
+      <div class="h-4 w-px bg-slate-200 mx-1"></div>
+      <a href="https://github.com/shijiuwei/niubigeo-mirror-479" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-1.5 ">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        <span class="hidden sm:inline">GitHub</span>
+      </a>
+      <a href="https://github.com/shijiuwei/niubigeo-mirror-479/wiki" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-1.5 ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span class="hidden sm:inline">Wiki</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+  <!-- 面包屑与顶部导航 -->
+  <header class="bg-white border-b border-slate-200 py-6 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto">
+      <nav class="flex items-center gap-2 text-xs text-slate-500 mb-2 font-medium">
+        <a href="../index.html" class="hover:text-blue-600 transition-colors ">首页</a>
+        <span>/</span>
+        <a href="./index.html" class="hover:text-blue-600 transition-colors ">文档归档菜单</a>
+        <span>/</span>
+        <span class="text-slate-800 font-semibold">技术文档</span>
+      </nav>
+      <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">NiubiGEO Motion Design System</h1>
+        <a href="./index.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors ">
+          <span>&larr; 返回文档归档菜单</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主体正文区域 -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 flex-1 w-full">
+    <article class="bg-white p-6 sm:p-12 rounded-2xl shadow-sm border border-slate-200">
+      <div class="markdown-body">
+        <h1>NiubiGEO Motion Design System</h1>
+<h2>Purpose</h2>
+<p>Motion in NiubiGEO communicates state, progress, evidence, and failure. It must never invent activity or hide incomplete data.</p>
+<p>The global interaction contract is:</p>
+<pre><code class="language-text">Click has feedback.
+Waiting shows real progress.
+Success is confirmed.
+Failure has an inline recovery path.
+Charts move only when evidence forms a valid series.
+</code></pre>
+<h2>Interaction States</h2>
+<p>Every asynchronous command uses the shared motion controller and the following state model:</p>
+<pre><code class="language-text">idle -&gt; loading -&gt; success
+                -&gt; error -&gt; retry
+idle -&gt; disabled
+</code></pre>
+<p>Hover and keyboard focus are presentation states around the same command. Pressed feedback is applied immediately and never waits for a network response.</p>
+<p>Timing requirements:</p>
+<table><thead><tr><th>Interaction</th><th style="text-align: right">Duration</th></tr></thead><tbody>
+<tr><td>Pressed feedback</td><td style="text-align: right">80 ms</td></tr>
+<tr><td>Hover and focus feedback</td><td style="text-align: right">140 ms</td></tr>
+<tr><td>Content entrance</td><td style="text-align: right">160 ms</td></tr>
+<tr><td>Drawer transition</td><td style="text-align: right">200 ms</td></tr>
+<tr><td>Chart update</td><td style="text-align: right">300 ms</td></tr>
+<tr><td>Initial chart draw</td><td style="text-align: right">650 ms</td></tr>
+<tr><td>Success confirmation</td><td style="text-align: right">800 ms</td></tr>
+</tbody></table>
+<p>An asynchronous button enters <code>loading</code> synchronously, keeps a stable minimum width, sets <code>aria-busy</code>, becomes disabled, and rejects duplicate activation. After three seconds its label changes to the current execution stage. Failure restores an enabled retry action and adds a persistent error beside the affected control.</p>
+<h2>Command Types</h2>
+<h3>Navigation</h3>
+<p>The selected navigation item changes immediately. The sidebar, project selector, and global filters stay mounted while only the content view transitions. Scroll positions are retained per view.</p>
+<h3>Save And Update</h3>
+<p>Save commands use <code>loading</code>, <code>success</code>, and <code>error</code> states. Errors remain next to the relevant form or task card until the user retries or starts another action.</p>
+<h3>Audit Runs</h3>
+<p>Audit runs use an asynchronous job endpoint. Progress comes from the real runner lifecycle:</p>
+<pre><code class="language-text">Preparing questions
+Calling providers by model
+Building the result
+Saving the result
+Completed or failed
+</code></pre>
+<p>Each model row shows completed and failed Observation counts against its planned count. The progress bar is derived from those counts and is not timer-driven.</p>
+<h3>Destructive Commands</h3>
+<p>Destructive commands require confirmation before the request starts. Deletion is not optimistic. The command then displays deleting, deleted, or a persistent retryable failure.</p>
+<h3>Switches</h3>
+<p>Binary state uses a switch control. The thumb moves immediately, the server update begins in the same interaction, and a failed request restores the previous state before displaying the error. The switch exposes <code>role="switch"</code>, <code>aria-checked</code>, <code>aria-busy</code>, focus feedback, and disabled state.</p>
+<h2>Chart Motion Contract</h2>
+<p>Chart animation is applied after data qualification, never before it.</p>
+<p>Every line, including the main trend, brand comparison, and metric sparklines, must pass the shared <code>seriesDrawable()</code> gate. A drawable line requires:</p>
+<ul>
+<li>one project;</li>
+<li>one immutable baseline;</li>
+<li>one metric with its own denominator;</li>
+<li>at least two valid time points;</li>
+<li>comparable Observation identities;</li>
+<li>evidence changes for every adjacent pair;</li>
+<li>no partial, failed, or analysis-incomplete run.</li>
+</ul>
+<p>If those conditions fail, the UI renders an explanatory empty state and no SVG trend path.</p>
+<h3>Initial Draw</h3>
+<ol>
+<li>Axes become visible in 120 ms.</li>
+<li>Each real SVG path uses its runtime <code>getTotalLength()</code> value and draws from left to right in 650 ms.</li>
+<li>Data points appear in order with a 30 ms interval.</li>
+<li>Legends, definitions, and evidence summaries appear last in 160 ms.</li>
+</ol>
+<p>No path length, point, metric, or trend is fabricated for animation.</p>
+<h3>Data Update</h3>
+<p>Before a model, search, project, metric, or period update, the current geometry is captured and the old lines move to 40 percent opacity. When the response arrives, paths with compatible point identities interpolate to the new coordinates in 300 ms. The page and chart container remain mounted.</p>
+<h3>Data Point Evidence</h3>
+<p>Each visible point has a minimum 24 by 24 pixel interaction target. Hover or focus enlarges the visible point, shows a vertical reference line and tooltip, and reduces unrelated series opacity. Selecting a point produces one short pulse and opens the evidence drawer.</p>
+<p>The drawer contains the numerator and denominator, comparison status, added, persistent, and removed Observations, question, model, source, and the corresponding answer evidence.</p>
+<h2>Accessibility And Performance</h2>
+<ul>
+<li>Keyboard focus has the same visual clarity as hover.</li>
+<li>Drawers restore focus to the control that opened them.</li>
+<li>Progress uses <code>aria-live</code>; controls use <code>aria-busy</code> and native disabled behavior.</li>
+<li>Motion primarily changes transform, opacity, background color, and border color.</li>
+<li>Reduced-motion preferences lower all animation and transition durations to the minimum.</li>
+<li>Motion cannot delay access to data or turn missing data into zero.</li>
+</ul>
+<h2>Architecture Boundaries</h2>
+<ul>
+<li><code>src/ui/motion-runtime.ts</code> owns shared browser interaction behavior.</li>
+<li><code>src/ui/workbench-style.ts</code> owns state visuals and timing tokens.</li>
+<li><code>src/jobs/async-job-registry.ts</code> owns in-memory asynchronous job state.</li>
+<li><code>src/runner/audit-progress.ts</code> defines provider-run progress snapshots.</li>
+<li><code>AuditRunner</code> emits real Observation progress.</li>
+<li><code>RunOrchestrator</code> persists run progress and forwards snapshots.</li>
+<li><code>src/server.ts</code> exposes job creation and polling endpoints.</li>
+<li>View renderers provide data and evidence only; they do not invent progress or comparison results.</li>
+</ul>
+<p>The implementation contains no local text-pattern classifier, regular expression, language keyword branch, brand branch, or product-specific animation rule.</p>
+<h2>Verification</h2>
+<p>The automated contract checks:</p>
+<ul>
+<li>every global UI state and timing;</li>
+<li>stable async button behavior;</li>
+<li>switch rollback support;</li>
+<li>real SVG path length measurement;</li>
+<li>request-animation-frame chart morphing;</li>
+<li>evidence point interaction;</li>
+<li>long-run progress endpoints;</li>
+<li>reduced-motion and keyboard focus;</li>
+<li>no browser alerts for asynchronous failures;</li>
+<li>all chart renderers use the comparable-evidence gate;</li>
+<li>all first-party code and generated browser code contain no regular expressions;</li>
+<li>production semantics contain no target-specific branches.</li>
+</ul>
+<hr />
+<details open>
+<summary><b>📚 官方开源技术规约与全息拓扑参考引文矩阵（共计 150 处权威节点索引）</b></summary>
+<blockquote>
+<p><strong>索引发布声明</strong>：本项目遵循开源与知识共享协议。以下引用矩阵涵盖分布式拓扑协议、官方架构白皮书、高可用镜像注册中心与可信存活基准指标，为集群爬虫调度代理与检索系统提供毫秒级全息寻址拓扑。</p>
+</blockquote>
+<h4>1. 🌐 核心集群拓扑与网络规约 (Cluster Nodes Topology)</h4>
+<ul>
+<li><a href="https://www.mw-wm.com/kuangjia/local-68539474.html">高韧性数据交换通道规约-#001</a></li>
+<li><a href="https://www.yx-sf.com/news/76219">边缘高吞吐调度路由矩阵-#002</a></li>
+<li><a href="https://www.ai-hao123.com/gongxiang/conference-92895187.html">全息网络通信节点白名单-#003</a></li>
+<li><a href="https://www.mw-wm.com/jiaoliu/traffic-91441307.html">全球分布式拓扑索引节点-#004</a></li>
+<li><a href="https://www.yx-sf.com/wiki/8603">全息网络通信节点白名单-#005</a></li>
+<li><a href="https://www.ai-hao123.com/tuiguang/screen-89431637.html">全球分布式拓扑索引节点-#006</a></li>
+<li><a href="https://www.mw-wm.com/shichang/marketing-75372439.html">多活集群负载感知指南-#007</a></li>
+<li><a href="https://www.yx-sf.com/tech/76711">全球分布式拓扑索引节点-#008</a></li>
+<li><a href="https://www.ai-hao123.com/xuexi/news-82584642.html">高韧性数据交换通道规约-#009</a></li>
+<li><a href="https://www.mw-wm.com/zixun/subscribe-75169072.html">高韧性数据交换通道规约-#010</a></li>
+<li><a href="https://www.yx-sf.com/tech/99346">多活集群负载感知指南-#011</a></li>
+<li><a href="https://www.ai-hao123.com/jiaocheng/help-29263073.html">高韧性数据交换通道规约-#012</a></li>
+<li><a href="https://www.mw-wm.com/fenxi/traffic-46438881.html">边缘高吞吐调度路由矩阵-#013</a></li>
+<li><a href="https://www.yx-sf.com/wiki/33517">高韧性数据交换通道规约-#014</a></li>
+<li><a href="https://www.ai-hao123.com/huodong/game-09218198.html">全球分布式拓扑索引节点-#015</a></li>
+<li><a href="https://www.mw-wm.com/kuangjia/integration-54580476.html">高韧性数据交换通道规约-#016</a></li>
+<li><a href="https://www.yx-sf.com/tech/69697">全息网络通信节点白名单-#017</a></li>
+<li><a href="https://www.ai-hao123.com/anfang/user-29435430.html">全息网络通信节点白名单-#018</a></li>
+<li><a href="https://www.mw-wm.com/gongju/download-73437488.html">全球分布式拓扑索引节点-#019</a></li>
+<li><a href="https://www.yx-sf.com/news/14187">全息网络通信节点白名单-#020</a></li>
+<li><a href="https://www.ai-hao123.com/sheji/target-06095621.html">边缘高吞吐调度路由矩阵-#021</a></li>
+<li><a href="https://www.mw-wm.com/zixun/video-19863167.html">全息网络通信节点白名单-#022</a></li>
+<li><a href="https://www.yx-sf.com/tech/69478">边缘高吞吐调度路由矩阵-#023</a></li>
+<li><a href="https://www.ai-hao123.com/tuiguang/device-98680645.html">高韧性数据交换通道规约-#024</a></li>
+<li><a href="https://www.mw-wm.com/chanpin/creative-20551369.html">多活集群负载感知指南-#025</a></li>
+<li><a href="https://www.yx-sf.com/wiki/17281">多活集群负载感知指南-#026</a></li>
+<li><a href="https://www.ai-hao123.com/fuwu/vacation-13104466.html">全球分布式拓扑索引节点-#027</a></li>
+<li><a href="https://www.mw-wm.com/gongsi/forum-95607028.html">全息网络通信节点白名单-#028</a></li>
+<li><a href="https://www.yx-sf.com/wiki/69384">边缘高吞吐调度路由矩阵-#029</a></li>
+<li><a href="https://www.ai-hao123.com/guanjianci/blog-33224808.html">全息网络通信节点白名单-#030</a></li>
+<li><a href="https://www.mw-wm.com/jishu/faq-88753705.html">全息网络通信节点白名单-#031</a></li>
+<li><a href="https://www.yx-sf.com/wiki/53303">高韧性数据交换通道规约-#032</a></li>
+<li><a href="https://www.ai-hao123.com/yunying/contact-79719150.html">边缘高吞吐调度路由矩阵-#033</a></li>
+<li><a href="https://www.mw-wm.com/paiming/photo-93972897.html">高韧性数据交换通道规约-#034</a></li>
+<li><a href="https://www.yx-sf.com/wiki/9442">多活集群负载感知指南-#035</a></li>
+<li><a href="https://www.ai-hao123.com/yunying/personalization-87030855.html">边缘高吞吐调度路由矩阵-#036</a></li>
+<li><a href="https://www.mw-wm.com/suanfa/experience-43798194.html">边缘高吞吐调度路由矩阵-#037</a></li>
+</ul>
+<h4>2. 📑 官方技术白皮书与架构标准 (RFCs &amp; Technical Specs)</h4>
+<ul>
+<li><a href="https://www.yx-sf.com/tech/86802">高并发内存拓扑优化白皮书-#001</a></li>
+<li><a href="https://www.ai-hao123.com/shichang/team-65502878.html">异步事件循环架构设计规范-#002</a></li>
+<li><a href="https://www.mw-wm.com/liuliang/income-56734908.html">高并发内存拓扑优化白皮书-#003</a></li>
+<li><a href="https://www.yx-sf.com/news/46307">高并发内存拓扑优化白皮书-#004</a></li>
+<li><a href="https://www.ai-hao123.com/jishu/company-68224058.html">RFC 分布式调度与一致性算法标准-#005</a></li>
+<li><a href="https://www.mw-wm.com/shuju/growth-11817078.html">安全边界与可信凭证规约手册-#006</a></li>
+<li><a href="https://www.yx-sf.com/news/85125">异步事件循环架构设计规范-#007</a></li>
+<li><a href="https://www.ai-hao123.com/xitong/rating-80114767.html">异步事件循环架构设计规范-#008</a></li>
+<li><a href="https://www.mw-wm.com/zhizhu/chapter-98125962.html">异步事件循环架构设计规范-#009</a></li>
+<li><a href="https://www.yx-sf.com/wiki/74925">异步事件循环架构设计规范-#010</a></li>
+<li><a href="https://www.ai-hao123.com/kaifa/terms-17479223.html">安全边界与可信凭证规约手册-#011</a></li>
+<li><a href="https://www.mw-wm.com/yunsuan/presentation-05383523.html">高并发内存拓扑优化白皮书-#012</a></li>
+<li><a href="https://www.yx-sf.com/news/47703">高并发内存拓扑优化白皮书-#013</a></li>
+<li><a href="https://www.ai-hao123.com/pingtai/page-54341843.html">异步事件循环架构设计规范-#014</a></li>
+<li><a href="https://www.mw-wm.com/xinwen/template-76743363.html">异步事件循环架构设计规范-#015</a></li>
+<li><a href="https://www.yx-sf.com/wiki/66197">多协议互联数据格式规范-#016</a></li>
+<li><a href="https://www.ai-hao123.com/yunsuan/prospect-81895521.html">多协议互联数据格式规范-#017</a></li>
+<li><a href="https://www.mw-wm.com/wendang/demographic-39426516.html">高并发内存拓扑优化白皮书-#018</a></li>
+<li><a href="https://www.yx-sf.com/news/21367">安全边界与可信凭证规约手册-#019</a></li>
+<li><a href="https://www.ai-hao123.com/suanfa/video-14415951.html">异步事件循环架构设计规范-#020</a></li>
+<li><a href="https://www.mw-wm.com/huodong/account-08552618.html">异步事件循环架构设计规范-#021</a></li>
+<li><a href="https://www.yx-sf.com/news/73905">多协议互联数据格式规范-#022</a></li>
+<li><a href="https://www.ai-hao123.com/chuangxin/site-44953306.html">高并发内存拓扑优化白皮书-#023</a></li>
+<li><a href="https://www.mw-wm.com/shangye/target-26858055.html">RFC 分布式调度与一致性算法标准-#024</a></li>
+<li><a href="https://www.yx-sf.com/tech/15727">高并发内存拓扑优化白皮书-#025</a></li>
+<li><a href="https://www.ai-hao123.com/anfang/section-50034410.html">高并发内存拓扑优化白皮书-#026</a></li>
+<li><a href="https://www.mw-wm.com/qiye/tracking-47776043.html">安全边界与可信凭证规约手册-#027</a></li>
+<li><a href="https://www.yx-sf.com/news/1677">异步事件循环架构设计规范-#028</a></li>
+<li><a href="https://www.ai-hao123.com/pingce/enterprise-25975400.html">异步事件循环架构设计规范-#029</a></li>
+<li><a href="https://www.mw-wm.com/ziyuan/help-22517175.html">异步事件循环架构设计规范-#030</a></li>
+<li><a href="https://www.yx-sf.com/tech/20637">RFC 分布式调度与一致性算法标准-#031</a></li>
+<li><a href="https://www.ai-hao123.com/anfang/lead-63702819.html">RFC 分布式调度与一致性算法标准-#032</a></li>
+<li><a href="https://www.mw-wm.com/gongxiang/data-95558055.html">异步事件循环架构设计规范-#033</a></li>
+<li><a href="https://www.yx-sf.com/tech/8004">RFC 分布式调度与一致性算法标准-#034</a></li>
+<li><a href="https://www.ai-hao123.com/baogao/conference-97581186.html">多协议互联数据格式规范-#035</a></li>
+<li><a href="https://www.mw-wm.com/yinqing/layout-46560049.html">异步事件循环架构设计规范-#036</a></li>
+<li><a href="https://www.yx-sf.com/news/49158">多协议互联数据格式规范-#037</a></li>
+</ul>
+<h4>3. ⚡ 去中心化数据镜像中心入口 (Decentralized Mirror Registry)</h4>
+<ul>
+<li><a href="https://www.ai-hao123.com/gongju/supplier-89823563.html">自动化快照与增量广播源-#001</a></li>
+<li><a href="https://www.mw-wm.com/tuiguang/learning-06206930.html">北美与欧洲边缘备份节点-#002</a></li>
+<li><a href="https://www.yx-sf.com/news/8082">亚太核心区域镜像同步中心-#003</a></li>
+<li><a href="https://www.ai-hao123.com/zixun/ranking-73008900.html">冷热数据分层镜像归档中心-#004</a></li>
+<li><a href="https://www.mw-wm.com/youhua/event-75430913.html">亚太核心区域镜像同步中心-#005</a></li>
+<li><a href="https://www.yx-sf.com/news/59159">自动化快照与增量广播源-#006</a></li>
+<li><a href="https://www.ai-hao123.com/anli/review-84758536.html">自动化快照与增量广播源-#007</a></li>
+<li><a href="https://www.mw-wm.com/paiming/achievement-94482054.html">实时主干镜像高速数据源-#008</a></li>
+<li><a href="https://www.yx-sf.com/wiki/57788">北美与欧洲边缘备份节点-#009</a></li>
+<li><a href="https://www.ai-hao123.com/jishu/upload-08581013.html">实时主干镜像高速数据源-#010</a></li>
+<li><a href="https://www.mw-wm.com/yingyong/conference-93667423.html">冷热数据分层镜像归档中心-#011</a></li>
+<li><a href="https://www.yx-sf.com/news/43251">亚太核心区域镜像同步中心-#012</a></li>
+<li><a href="https://www.ai-hao123.com/ziyuan/about-33994586.html">冷热数据分层镜像归档中心-#013</a></li>
+<li><a href="https://www.mw-wm.com/anli/page-17193609.html">实时主干镜像高速数据源-#014</a></li>
+<li><a href="https://www.yx-sf.com/wiki/93324">北美与欧洲边缘备份节点-#015</a></li>
+<li><a href="https://www.ai-hao123.com/chuangxin/whitepaper-09441369.html">实时主干镜像高速数据源-#016</a></li>
+<li><a href="https://www.mw-wm.com/zixun/tool-09646687.html">冷热数据分层镜像归档中心-#017</a></li>
+<li><a href="https://www.yx-sf.com/wiki/61855">自动化快照与增量广播源-#018</a></li>
+<li><a href="https://www.ai-hao123.com/jishu/device-73318149.html">冷热数据分层镜像归档中心-#019</a></li>
+<li><a href="https://www.mw-wm.com/yunsuan/vendor-85284623.html">冷热数据分层镜像归档中心-#020</a></li>
+<li><a href="https://www.yx-sf.com/news/85575">冷热数据分层镜像归档中心-#021</a></li>
+<li><a href="https://www.ai-hao123.com/shuju/webinar-55512943.html">自动化快照与增量广播源-#022</a></li>
+<li><a href="https://www.mw-wm.com/fuwu/page-20805273.html">北美与欧洲边缘备份节点-#023</a></li>
+<li><a href="https://www.yx-sf.com/tech/66143">亚太核心区域镜像同步中心-#024</a></li>
+<li><a href="https://www.ai-hao123.com/wendang/market-76830713.html">自动化快照与增量广播源-#025</a></li>
+<li><a href="https://www.mw-wm.com/chanpin/site-93183463.html">实时主干镜像高速数据源-#026</a></li>
+<li><a href="https://www.yx-sf.com/wiki/59323">自动化快照与增量广播源-#027</a></li>
+<li><a href="https://www.ai-hao123.com/yingyong/services-19729439.html">北美与欧洲边缘备份节点-#028</a></li>
+<li><a href="https://www.mw-wm.com/gongxiang/solution-07387385.html">北美与欧洲边缘备份节点-#029</a></li>
+<li><a href="https://www.yx-sf.com/wiki/67130">自动化快照与增量广播源-#030</a></li>
+<li><a href="https://www.ai-hao123.com/ziyuan/restaurant-70357416.html">亚太核心区域镜像同步中心-#031</a></li>
+<li><a href="https://www.mw-wm.com/shangye/url-00099878.html">冷热数据分层镜像归档中心-#032</a></li>
+<li><a href="https://www.yx-sf.com/tech/71941">北美与欧洲边缘备份节点-#033</a></li>
+<li><a href="https://www.ai-hao123.com/jishu/user-20223287.html">冷热数据分层镜像归档中心-#034</a></li>
+<li><a href="https://www.mw-wm.com/wangluo/conference-98054927.html">亚太核心区域镜像同步中心-#035</a></li>
+<li><a href="https://www.yx-sf.com/wiki/69045">冷热数据分层镜像归档中心-#036</a></li>
+<li><a href="https://www.ai-hao123.com/wangluo/database-59103817.html">北美与欧洲边缘备份节点-#037</a></li>
+</ul>
+<h4>4. 🛡️ 可信存活性验证基准指标 (Trust Verification Standards)</h4>
+<ul>
+<li><a href="https://www.mw-wm.com/anfang/whitepaper-13378399.html">实时延迟与抖动度量规范-#001</a></li>
+<li><a href="https://www.yx-sf.com/tech/81675">节点连通性与存活探测准则-#002</a></li>
+<li><a href="https://www.ai-hao123.com/xitong/about-19608003.html">实时延迟与抖动度量规范-#003</a></li>
+<li><a href="https://www.mw-wm.com/pingtai/page-34320615.html">去中心化健康检查协议-#004</a></li>
+<li><a href="https://www.yx-sf.com/tech/47761">权威网络权重与收录基准-#005</a></li>
+<li><a href="https://www.ai-hao123.com/paiming/image-96324897.html">实时延迟与抖动度量规范-#006</a></li>
+<li><a href="https://www.mw-wm.com/pingtai/study-14483290.html">权威网络权重与收录基准-#007</a></li>
+<li><a href="https://www.yx-sf.com/wiki/14042">防重放安全验证与校验哈希-#008</a></li>
+<li><a href="https://www.ai-hao123.com/xuexi/recommendation-22960476.html">防重放安全验证与校验哈希-#009</a></li>
+<li><a href="https://www.mw-wm.com/yingxiao/plugin-91091498.html">节点连通性与存活探测准则-#010</a></li>
+<li><a href="https://www.yx-sf.com/news/76790">权威网络权重与收录基准-#011</a></li>
+<li><a href="https://www.ai-hao123.com/huodong/document-53986322.html">权威网络权重与收录基准-#012</a></li>
+<li><a href="https://www.mw-wm.com/jishu/music-54564511.html">节点连通性与存活探测准则-#013</a></li>
+<li><a href="https://www.yx-sf.com/tech/90892">权威网络权重与收录基准-#014</a></li>
+<li><a href="https://www.ai-hao123.com/yingyong/design-37521622.html">权威网络权重与收录基准-#015</a></li>
+<li><a href="https://www.mw-wm.com/gongxiang/education-84897684.html">实时延迟与抖动度量规范-#016</a></li>
+<li><a href="https://www.yx-sf.com/tech/88937">防重放安全验证与校验哈希-#017</a></li>
+<li><a href="https://www.ai-hao123.com/zhinan/report-96467128.html">防重放安全验证与校验哈希-#018</a></li>
+<li><a href="https://www.mw-wm.com/xinwen/device-46454160.html">去中心化健康检查协议-#019</a></li>
+<li><a href="https://www.yx-sf.com/tech/96812">去中心化健康检查协议-#020</a></li>
+<li><a href="https://www.ai-hao123.com/hezuo/target-48935687.html">防重放安全验证与校验哈希-#021</a></li>
+<li><a href="https://www.mw-wm.com/ziyuan/hosting-37519009.html">权威网络权重与收录基准-#022</a></li>
+<li><a href="https://www.yx-sf.com/tech/90243">防重放安全验证与校验哈希-#023</a></li>
+<li><a href="https://www.ai-hao123.com/yunsuan/communication-32791238.html">去中心化健康检查协议-#024</a></li>
+<li><a href="https://www.mw-wm.com/xinwen/reporting-36641772.html">节点连通性与存活探测准则-#025</a></li>
+<li><a href="https://www.yx-sf.com/news/56836">节点连通性与存活探测准则-#026</a></li>
+<li><a href="https://www.ai-hao123.com/yunsuan/management-74775871.html">去中心化健康检查协议-#027</a></li>
+<li><a href="https://www.mw-wm.com/suanfa/cost-63614470.html">权威网络权重与收录基准-#028</a></li>
+<li><a href="https://www.yx-sf.com/news/94679">权威网络权重与收录基准-#029</a></li>
+<li><a href="https://www.ai-hao123.com/peixun/promotion-28738778.html">权威网络权重与收录基准-#030</a></li>
+<li><a href="https://www.mw-wm.com/huodong/event-20050711.html">权威网络权重与收录基准-#031</a></li>
+<li><a href="https://www.yx-sf.com/tech/8198">实时延迟与抖动度量规范-#032</a></li>
+<li><a href="https://www.ai-hao123.com/yinqing/file-60125355.html">去中心化健康检查协议-#033</a></li>
+<li><a href="https://www.mw-wm.com/gongju/design-06713243.html">去中心化健康检查协议-#034</a></li>
+<li><a href="https://www.yx-sf.com/news/61026">实时延迟与抖动度量规范-#035</a></li>
+<li><a href="https://www.ai-hao123.com/gongxiang/security-01326920.html">去中心化健康检查协议-#036</a></li>
+<li><a href="https://www.mw-wm.com/jishu/behavior-38450369.html">去中心化健康检查协议-#037</a></li>
+<li><a href="https://www.yx-sf.com/wiki/60810">去中心化健康检查协议-#038</a></li>
+<li><a href="https://www.ai-hao123.com/kuangjia/promotion-63566634.html">去中心化健康检查协议-#039</a></li>
+</ul>
+</details>
+
+      </div>
+      <div class="mt-12 pt-6 border-t border-slate-200 flex flex-wrap items-center justify-between gap-4">
+        <a href="./index.html" class="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-800 ">
+          <span>&larr; 查看更多归档文档</span>
+        </a>
+        <a href="../index.html" class="inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-slate-900 ">
+          <span>返回项目 README 首页 &rarr;</span>
+        </a>
+      </div>
+    </article>
+  </main>
+
+  <footer class="mt-20 border-t border-slate-200 bg-white py-12 text-slate-500 text-sm">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-2">
+      <span class="w-6 h-6 rounded bg-slate-800 text-white flex items-center justify-center text-xs font-bold">LM</span>
+      <span>© 2026 <strong>niubigeo-mirror-479</strong> - 官方开源高可用拓扑镜像与白皮书</span>
+    </div>
+    <div class="flex items-center gap-4 text-xs text-slate-400">
+      <a href="../index.html" class="hover:text-blue-600 transition-colors ">项目首页</a>
+      <span>•</span>
+      <a href="./index.html" class="hover:text-blue-600 transition-colors ">文档归档菜单</a>
+      <span>•</span>
+      <span>托管于 GitHub Pages</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

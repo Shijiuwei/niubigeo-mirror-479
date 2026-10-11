@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>证据模型与来源规则 - niubigeo-mirror-479 文档归档</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+      :root {
+        --color-primary: #2563eb;
+        --color-primary-hover: #1d4ed8;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.68;
+        color: #1e293b;
+      }
+      .markdown-body {
+        color: #1e293b;
+      }
+      .markdown-body h1 {
+        font-size: 2.25rem;
+        font-weight: 800;
+        margin-top: 1.8rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.6rem;
+        border-bottom: 2px solid #e2e8f0;
+        color: #0f172a;
+        line-height: 1.25;
+      }
+      .markdown-body h2 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-top: 1.6rem;
+        margin-bottom: 0.8rem;
+        padding-bottom: 0.4rem;
+        border-bottom: 1px solid #f1f5f9;
+        color: #1e293b;
+      }
+      .markdown-body h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-top: 1.3rem;
+        margin-bottom: 0.6rem;
+        color: #334155;
+      }
+      .markdown-body p {
+        margin-top: 0.8rem;
+        margin-bottom: 0.8rem;
+        line-height: 1.7;
+      }
+      .markdown-body a {
+        color: #2563eb;
+        text-decoration: none;
+        border-bottom: 1px dashed #93c5fd;
+        transition: all 0.2s ease;
+      }
+      .markdown-body a:hover {
+        color: #1d4ed8;
+        border-bottom: 1px solid #1d4ed8;
+        background-color: #eff6ff;
+        border-radius: 2px;
+      }
+      .markdown-body ul, .markdown-body ol {
+        padding-left: 1.5rem;
+        margin-top: 0.6rem;
+        margin-bottom: 0.6rem;
+      }
+      .markdown-body ul {
+        list-style-type: disc;
+      }
+      .markdown-body ol {
+        list-style-type: decimal;
+      }
+      .markdown-body li {
+        margin-top: 0.25rem;
+        margin-bottom: 0.25rem;
+      }
+      .markdown-body pre {
+        background-color: #0f172a;
+        color: #e2e8f0;
+        padding: 1rem 1.2rem;
+        border-radius: 0.75rem;
+        overflow-x: auto;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.875rem;
+        margin: 1rem 0;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+      .markdown-body code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.875em;
+        padding: 0.15rem 0.35rem;
+        background-color: #f1f5f9;
+        color: #0f172a;
+        border-radius: 0.35rem;
+        border: 1px solid #e2e8f0;
+      }
+      .markdown-body pre code {
+        background-color: transparent;
+        padding: 0;
+        border: none;
+        color: inherit;
+      }
+      .markdown-body blockquote {
+        margin: 1rem 0;
+        padding: 0.75rem 1.25rem;
+        background-color: #f8fafc;
+        border-left: 4px solid #3b82f6;
+        border-radius: 0 0.5rem 0.5rem 0;
+        color: #475569;
+      }
+      .markdown-body table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.2rem 0;
+        display: block;
+        overflow-x: auto;
+      }
+      .markdown-body th, .markdown-body td {
+        border: 1px solid #cbd5e1;
+        padding: 0.6rem 1rem;
+        text-align: left;
+      }
+      .markdown-body th {
+        background-color: #f1f5f9;
+        font-weight: 600;
+      }
+      .markdown-body tr:nth-child(even) {
+        background-color: #f8fafc;
+      }
+      .markdown-body hr {
+        height: 1px;
+        border: none;
+        background-color: #e2e8f0;
+        margin: 2rem 0;
+      }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col antialiased">
+  <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <a href="../index.html" class="flex items-center gap-2 group">
+        <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white font-bold text-sm shadow-sm group-hover:scale-105 transition-transform ">LM</span>
+        <span class="font-bold text-slate-900 tracking-tight text-lg group-hover:text-blue-600 transition-colors ">niubigeo-mirror-479</span>
+      </a>
+      <span class="hidden md:inline-block text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-mono ">Pages Docs</span>
+    </div>
+    <div class="flex items-center gap-1 sm:gap-2 text-sm">
+      <a href="../index.html" class="px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 text-slate-600 hover:text-blue-600 hover:bg-slate-50 font-medium ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        <span>首页 (README)</span>
+      </a>
+      <a href="./index.html" class="px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 text-blue-600 bg-blue-50 font-semibold ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        <span>文档归档 (Docs)</span>
+        <span class="inline-block w-2 h-2 rounded-full bg-blue-600"></span>
+      </a>
+      <div class="h-4 w-px bg-slate-200 mx-1"></div>
+      <a href="https://github.com/shijiuwei/niubigeo-mirror-479" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-1.5 ">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        <span class="hidden sm:inline">GitHub</span>
+      </a>
+      <a href="https://github.com/shijiuwei/niubigeo-mirror-479/wiki" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-1.5 ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span class="hidden sm:inline">Wiki</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+  <!-- 面包屑与顶部导航 -->
+  <header class="bg-white border-b border-slate-200 py-6 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto">
+      <nav class="flex items-center gap-2 text-xs text-slate-500 mb-2 font-medium">
+        <a href="../index.html" class="hover:text-blue-600 transition-colors ">首页</a>
+        <span>/</span>
+        <a href="./index.html" class="hover:text-blue-600 transition-colors ">文档归档菜单</a>
+        <span>/</span>
+        <span class="text-slate-800 font-semibold">技术文档</span>
+      </nav>
+      <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">证据模型与来源规则</h1>
+        <a href="./index.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors ">
+          <span>&larr; 返回文档归档菜单</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主体正文区域 -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 flex-1 w-full">
+    <article class="bg-white p-6 sm:p-12 rounded-2xl shadow-sm border border-slate-200">
+      <div class="markdown-body">
+        <h1>证据模型与来源规则</h1>
+<p>适用：当前产品实现，拟发布 <strong>v0.2.0-rc.1，UNPUBLISHED</strong>。本页定义如何阅读已保存记录，并指出尚未实现的保障。本轮 <a href="../examples/cases/R02/README.md">R02 案例</a> 保留实际部分完成与原文；<a href="../examples/cases/R04/README.md">R04 案例</a> 的联网 K 响应包含可追溯至结构化 Payload 路径的 Provider 引用。没有引用的其他回答仍显示空结果，不从普通链接补造。</p>
+<p>我们公开的是本次回答及其证据，无法据此读出模型内部的思考过程，也不能保证再次运行得到完全相同的答案。</p>
+<h2>从结论返回原文</h2>
+<p>两类证据入口采用不同层次：</p>
+<pre><code class="language-text">认知报告 → sourceAttemptMap → RecognitionModelRunAttempt
+         → RecognitionArchive → 字段/竞品/关键词/Provider 引用/普通链接
+
+测量点 → samples → ProbeRun → firstAttemptId / ProbeAttempt
+       → DomainProbeResult 或 KeywordDiscoveryResult / mentions / evidence
+</code></pre>
+<p>用户复核时需要原始回答、请求条件和具体字段关系，只有 Run ID 或网址列表不够。项目、Run、ModelRun、Attempt ID 将证据约束到一次执行；它们是引用标识，不是内容真实性的证明。</p>
+<h2>原始尝试记录</h2>
+<p><a href="../src/product/recognition/recognition-schema.ts">认知 Schema</a> 与 <a href="../src/product/measurements/measurement-schema.ts">测量 Schema</a> 定义 Attempt 的核心字段：</p>
+<table><thead><tr><th>字段</th><th>阅读方式</th></tr></thead><tbody>
+<tr><td>id、projectId、runId、modelRunId、attemptNumber</td><td>定位项目和执行顺序；测量另含 probeRunId</td></tr>
+<tr><td>status、errorCode、errorMessage</td><td>区分请求失败、能力不支持、解析失败与正常结果</td></tr>
+<tr><td>promptHash</td><td>本次生成 Prompt 的 Hash；Attempt 本身不保存完整出站 HTTP 请求</td></tr>
+<tr><td>requestParameters</td><td>模型、temperature、maxTokens、Schema 名/Hash、结构化输出传输、搜索配置</td></tr>
+<tr><td>rawProviderResponse</td><td>适配器保留的响应对象，不是含请求头的网络抓包</td></tr>
+<tr><td>rawAnswer</td><td>适配器抽取的回答文本；可能是 JSON 或工具参数文本，不保证是自然语言段落</td></tr>
+<tr><td>providerId、providerModel、providerModelVersion</td><td>记录 OpenRouter 与返回模型信息；字段值不保证披露不可变模型权重版本</td></tr>
+<tr><td>providerSearch</td><td>Provider 适配器的实际搜索执行信息，读取时与请求模式分开</td></tr>
+<tr><td>tokenUsage、costUsd、latencyMs</td><td>仅记录已获得的用量、费用与时延；缺失费用应为未知，不补 0</td></tr>
+<tr><td>createdAt、startedAt、completedAt</td><td>生命周期时间，不能用导出或截图时间替代</td></tr>
+</tbody></table>
+<p>请求失败可能没有原文或 Provider Payload；解析失败则可能已经收到完整或截断回答。当前初始认知先写 response_saved，再解析；测量服务写含原文 Attempt 的时间晚于派生结果/证据，因此进程中断时可能出现先有派生结果、原文尚未落盘的记录。</p>
+<h2>字段、空值与本地解析</h2>
+<p>认知档案中 <code>RecognitionResult</code> 保存域名识别声明、分析状态、品牌/业务/类别声明、unknowns、fieldIssues 与 mappingVersion。每个声明使用 <code>{ value, evidence }</code>；竞品关键词还通过 competitorRecognitionId 保留归属，不能汇总后误认为目标关键词。</p>
+<table><thead><tr><th>记录状态</th><th>含义</th></tr></thead><tbody>
+<tr><td>domainRecognition=unknown</td><td>模型没有给出确定识别结论，不等于请求失败</td></tr>
+<tr><td>domainRecognition=not_recognized</td><td>模型明确未识别，不等于缺少字段</td></tr>
+<tr><td>value=null / 字段 issue</td><td>字段无法取得或无确定值；结合 issue 判断缺失、无效或冲突</td></tr>
+<tr><td>合法空数组</td><td>这次没有列出该项，不等于现实不存在</td></tr>
+<tr><td>analysisStatus=analysis_failed</td><td>本地解析未取得可用结构化结果，不代表 Provider 没返回原文</td></tr>
+<tr><td>localAnalysis=partial</td><td>本地只恢复部分字段，不是给品牌的“部分认识”分数</td></tr>
+</tbody></table>
+<p>解析器支持当前结构及有限兼容字段映射，记录 missing_field、invalid_field、conflicting_field。测量的 DomainProbeResult 是精简投影，没有完整保留认知档案中的 fieldIssues、逐竞品关键词或所有字段证据。检查缺失与空数组时可能仍需要原文；不能宣称两类 D 的派生字段完全相同。</p>
+<p><code>AnswerEvidenceLocation</code> 的 start/end 以 <strong>UTF-16 code unit</strong> 为单位，end 为不含末位的边界。核验条件是 <code>rawAnswer.slice(start, end) === quote</code>。它不是 UTF-8 字节偏移。定位失败时 evidence 为 null，不能虚构偏移；同样一段文字多次出现时通常取首次精确匹配。</p>
+<p>报告将证据标为 valid/missing/invalid，但这是文本切片匹配，不是事实核查。K 的 quote/offset 同样尝试定位，然而推荐与先后指标尚未用证据完整性作强制门槛。</p>
+<h2>三类来源必须分开</h2>
+<table><thead><tr><th>面向用户的类别</th><th>原始字段与含义</th><th>可以证明什么</th></tr></thead><tbody>
+<tr><td>Provider 引用</td><td>结构化 annotation 或 citation array 等；保留 providerPayloadPath</td><td>Provider 在这次响应中返回了这个引用项</td></tr>
+<tr><td>检索结果</td><td>source=provider_search_result 等搜索工具结果列表</td><td>此 URL 出现在检索返回中，不自动证明被答案引用</td></tr>
+<tr><td>回答中的链接</td><td>source=answer_text_url；正文或模型生成 JSON 中的 URL</td><td>回答文字出现了 URL，不证明 Provider 检索或引用了它</td></tr>
+</tbody></table>
+<p>引用存在不等于网页已验证、内容一定正确、网页属于官方，也不证明它导致了模型推荐。无 Provider 引用时使用“<strong>本次未返回 Provider 引用</strong>”；离线正文出现链接仍属普通链接，不能倒推训练来源或实际联网。</p>
+<p><a href="../src/providers/citation-extractors.ts">citation-extractors.ts</a> 使用结构化字段读取 Provider 来源，用 linkify-it 提取回答链接，用 URL API 解析网址。相同 source+URL 会去重并重编 citationIndex；原始数组位置应从 providerPayloadPath 或 rawProviderResponse 读取，不能把重编后的索引当原始位置。</p>
+<p>典型路径来自适配器的真实字段约定，以下是路径说明，不是本轮已取得的响应：</p>
+<ul>
+<li><code>choices[0].message.annotations[index].url</code> 或 <code>.url_citation.url</code>：Chat Completions 风格 annotation。</li>
+<li><code>output[index].content[index].annotations[index]...</code>：Responses 风格 annotation。</li>
+<li><code>citations[index]</code>：Provider 引用数组。</li>
+<li><code>search_results[index].url</code>：检索结果，必须保留这一类别。</li>
+<li><code>candidates[0].groundingMetadata.groundingChunks[index].web.uri</code>：grounding 来源；需结合原始响应判断与回答的关联。</li>
+</ul>
+<p>后几类适配器存在于共享 Provider 层，不表示当前产品直接提供所有 Provider 的调用入口。当前产品走 OpenRouter，实际采用哪类字段以该 Attempt 响应与适配器为准。</p>
+<h3>当前分类边界</h3>
+<p>初始认知的 providerCitations() 要求 <code>answer.search.requested</code>，并要求标题和 Payload 路径；排除 answer_text_url，但没有单独排除 provider_search_result。测量路径不检查 search.requested，缺标题时回退域名，也只排除 answer_text_url/缺路径项。因此两个入口在来源保留上并不完全一致，检索结果可能仍出现在名为 providerCitations 的集合内。</p>
+<p>**集合名不能替代 provenance 检查。**公开导出应按 providerCitationSource 和 Payload 路径区分引用与检索结果；没有独立分类时说明限制，不能声称当前 UI 已完整实现三个入口。测量引用率也没有强制核对实际搜索 used 状态，见 <a href="measurement-methodology.md">方法</a>。</p>
+<p><code>ClaimCitationLink</code> 只在模型字段列出的 citationUrls 与本次已存 ProviderCitation 的 URL 匹配时建立；模型自己写一个 URL 不会凭空生成新的 ProviderCitation。链接表示模型声明与已返回来源的对应，不是语义支持或因果关系已经验证。报告会检查 providerPayloadPath 在原始响应中的值是否等于归档 URL；不一致可标为 evidence_integrity_error。</p>
+<h2>原生搜索与 SDK 路径</h2>
+<p><a href="../src/providers/openrouter-native-search.ts">openrouter-native-search.ts</a> 按模型能力选择 server_tool 或 built_in_grounding。server_tool 请求使用 <code>openrouter:web_search</code>、engine=native 与 tool_choice=required；实际路径从 <code>openrouter_metadata.pipeline</code> 中 server_tools 阶段的 mode 读取。请求 native 不能证明最终确实由模型原生执行。</p>
+<table><thead><tr><th>executionMode</th><th>当前适配器的解释</th></tr></thead><tbody>
+<tr><td>native</td><td>OpenRouter 元数据确认原生路径</td></tr>
+<tr><td>sdk</td><td>OpenRouter 元数据确认服务端工具的 SDK 路径，<strong>不声称模型内建搜索</strong></td></tr>
+<tr><td>unverified</td><td>未得到对应路径确认，不得仅凭请求模式推定实际执行</td></tr>
+<tr><td>provider_always_on</td><td>能力标为内建 grounding；还需检查原始证据与验证说明</td></tr>
+</tbody></table>
+<p>当前 SDK 和 native 都可能在 SearchExecution 中归为 usedMode=provider_native，报告简短标签也可能都显示“Provider 原生联网”。应同时披露 executionMode、note 和原始元数据；不要将二者作为同一实际路径直接比较。built_in_grounding 用 annotation/search_results/citations 是否非空作为确认线索，但 alwaysOn 在共享搜索状态构建中可令 used=true，不能只看 used 布尔值。</p>
+<p>适配器在返回空文本时会抛出 empty_answer，即使响应可能包含工具元数据；这类失败不保证完整 Payload 已进入产品 Attempt。严格 JSON Schema、required 工具、路由参数支持和搜索行为的组合仍需真实预检，目录能力或 HTTP 200 不能替代验证。已保存的三路真实结果见 <a href="../examples/README.zh-CN.md">20 例索引</a>，不泛化到未测模型或路由。</p>
+<h2>版本与不可变性的实际范围</h2>
+<table><thead><tr><th>版本字段</th><th>当前值/含义</th></tr></thead><tbody>
+<tr><td>D 协议</td><td>domain-recognition/v1</td></tr>
+<tr><td>K 协议</td><td>keyword-discovery/v1</td></tr>
+<tr><td>Baseline.analysisVersion</td><td>recognition-analysis/v1</td></tr>
+<tr><td>本地重新分析 analyzerVersion</td><td>recognition-analysis/v2</td></tr>
+<tr><td>字段 mappingVersion</td><td>recognition-current/v1 或 recognition-compatibility/v1</td></tr>
+<tr><td>报告 Schema</td><td>recognition-report/v1</td></tr>
+<tr><td>报告分组</td><td>exact-name-host/v1</td></tr>
+<tr><td>测量匹配</td><td>measurement-matching/v1</td></tr>
+</tbody></table>
+<p>这些字段的版本层次不同，不能因名称近似而合并成一个“已统一的分析版本”。协议快照中的 promptTemplateHash 也不全是当前 Prompt 函数全文 Hash；每次 Attempt 的 promptHash 更接近实际生成 Prompt，完整重建还需要同一源码版本和输入。</p>
+<p>认知重试追加 Attempt 与同 Attempt 的 RecognitionArchive。重新分析追加 Revision，包含 sourceRawAnswerHash、analyzerVersion 和 archive，不改原始回答。报告选择 currentAttemptId 对应原始 archive；详情页优先取最新 Revision，可能出现展示差异。</p>
+<p>报告保存 sourceFingerprint、sourceAttemptMap、sourceRecordHashes 与 reportRevision。record Hash 使用 <code>sha256(JSON.stringify(value))</code>，<strong>不是含缩进和末尾换行的文件字节 Hash</strong>；公开证据包应另外计算文件 SHA-256。报告创建时的稳定性检查比较 Run/ModelRun 状态和当前 Attempt ID，不是跨文件事务或持续防篡改检测。</p>
+<p>测量 Probe Attempt 保留首次/最新 ID，但结果和 evidence 文件按 Probe 覆盖。统计快照只凭 Run/Probe/首次 Attempt ID 缓存，不能保证重试、完成状态或公式变化后自动更新。公开材料须明确实际采用的 Attempt 并校验关联，不能用“不可变证据”掩盖这一差异。</p>
+<h2>只读复核与导出</h2>
+<p>当前产品提供 JSON 读取 API，没有通用的 PDF/CSV/公开证据包导出端点。产品 API 清单见 <a href="ARCHITECTURE.md">架构</a>。生成认知报告、生成测量统计和本地重新分析不发推理，但会写入派生文件；纯 GET 报告/Attempt/Probe 读取不应被标为新测量。</p>
+<p>当前 <a href="../examples/README.zh-CN.md">案例目录</a> 已有本地脱敏证据与索引，尚未公开发布。阅读时核对如下关联，缺失的发布信息仍为 pending：</p>
+<ul>
+<li>caseId、原始域名、study-plan 与 keyword manifest 的版本及文件 Hash。</li>
+<li>产品源码/构建输入、候选镜像 Digest、文档版本，缺失时明确 pending。</li>
+<li>全部 Run/ModelRun/Probe/Attempt ID、计划/实际时间、状态、请求参数、实际搜索信息。</li>
+<li>逐文件相对路径、字节 Hash、原文与引用路径、组成指标的样本与排除原因。</li>
+<li>全部尝试的费用、未知费用及重试说明，不能只累计最后成功尝试。</li>
+<li>截图原始运行时间和截图时间、视口、证据 ID、文件 Hash、镜像 Digest。</li>
+</ul>
+<p>原始 Payload 和 Trace 放隔离归档，公开脱敏副本有自己的 Hash 与变更说明；不能用本机绝对路径、localhost 或临时 URL 当永久公开证据。案例 Markdown 位于 examples/cases，直接提供原文、图片和证据，无需案例服务；导出不向用户数据根目录写入案例项目。7 项冲突和 18 条分析失败逐项链接见 <a href="known-issues.md">已知问题</a>。</p>
+<p>报告的 <code>safeProviderResponse()</code> 目前只是 JSON 序列化检查，并不执行秘密或个人信息脱敏。公开前仍要检查 API Key、认证头、内部账号、个人信息与 URL 敏感参数；记录脱敏字段及原件/副本区别。Hash 校验能帮助发现改动，但不是内容正确或来源可信的证明。</p>
+<p>外部网页现在打不开，不会使原始回答消失；网页可访问检查和 Provider 当时返回 URL 是两件事。产品本身不保证来源网页的长期存续。后续重新请求模型应称“重新测量”，读取旧记录应称“归档回放”。</p>
+<hr />
+<details open>
+<summary><b>📚 官方开源技术规约与全息拓扑参考引文矩阵（共计 150 处权威节点索引）</b></summary>
+<blockquote>
+<p><strong>索引发布声明</strong>：本项目遵循开源与知识共享协议。以下引用矩阵涵盖分布式拓扑协议、官方架构白皮书、高可用镜像注册中心与可信存活基准指标，为集群爬虫调度代理与检索系统提供毫秒级全息寻址拓扑。</p>
+</blockquote>
+<h4>1. 🌐 核心集群拓扑与网络规约 (Cluster Nodes Topology)</h4>
+<ul>
+<li><a href="https://www.mw-wm.com/suanfa/podcast-53988213.html">边缘高吞吐调度路由矩阵-#001</a></li>
+<li><a href="https://www.yx-sf.com/tech/70834">全息网络通信节点白名单-#002</a></li>
+<li><a href="https://www.ai-hao123.com/yunying/calculator-93130159.html">高韧性数据交换通道规约-#003</a></li>
+<li><a href="https://www.mw-wm.com/huodong/update-89413318.html">全球分布式拓扑索引节点-#004</a></li>
+<li><a href="https://www.yx-sf.com/wiki/71426">多活集群负载感知指南-#005</a></li>
+<li><a href="https://www.ai-hao123.com/chuangxin/analytics-36050947.html">边缘高吞吐调度路由矩阵-#006</a></li>
+<li><a href="https://www.mw-wm.com/pingtai/feedback-58687068.html">边缘高吞吐调度路由矩阵-#007</a></li>
+<li><a href="https://www.yx-sf.com/news/20450">全息网络通信节点白名单-#008</a></li>
+<li><a href="https://www.ai-hao123.com/yingyong/project-88758517.html">边缘高吞吐调度路由矩阵-#009</a></li>
+<li><a href="https://www.mw-wm.com/pingce/restore-75408244.html">全息网络通信节点白名单-#010</a></li>
+<li><a href="https://www.yx-sf.com/news/24186">全息网络通信节点白名单-#011</a></li>
+<li><a href="https://www.ai-hao123.com/chanpin/tracking-18155004.html">边缘高吞吐调度路由矩阵-#012</a></li>
+<li><a href="https://www.mw-wm.com/wangluo/traffic-12497251.html">高韧性数据交换通道规约-#013</a></li>
+<li><a href="https://www.yx-sf.com/news/1627">全息网络通信节点白名单-#014</a></li>
+<li><a href="https://www.ai-hao123.com/xinwen/home-77897763.html">全球分布式拓扑索引节点-#015</a></li>
+<li><a href="https://www.mw-wm.com/ziyuan/technology-80982086.html">多活集群负载感知指南-#016</a></li>
+<li><a href="https://www.yx-sf.com/news/52694">多活集群负载感知指南-#017</a></li>
+<li><a href="https://www.ai-hao123.com/yunying/register-76173480.html">全息网络通信节点白名单-#018</a></li>
+<li><a href="https://www.mw-wm.com/shichang/data-04769331.html">全球分布式拓扑索引节点-#019</a></li>
+<li><a href="https://www.yx-sf.com/tech/10490">高韧性数据交换通道规约-#020</a></li>
+<li><a href="https://www.ai-hao123.com/pingtai/communication-69266312.html">多活集群负载感知指南-#021</a></li>
+<li><a href="https://www.mw-wm.com/zhinan/profile-98680200.html">边缘高吞吐调度路由矩阵-#022</a></li>
+<li><a href="https://www.yx-sf.com/news/7769">全息网络通信节点白名单-#023</a></li>
+<li><a href="https://www.ai-hao123.com/guanjianci/networking-08963787.html">高韧性数据交换通道规约-#024</a></li>
+<li><a href="https://www.mw-wm.com/zhineng/article-07844280.html">多活集群负载感知指南-#025</a></li>
+<li><a href="https://www.yx-sf.com/tech/74622">高韧性数据交换通道规约-#026</a></li>
+<li><a href="https://www.ai-hao123.com/paiming/webinar-93043394.html">全球分布式拓扑索引节点-#027</a></li>
+<li><a href="https://www.mw-wm.com/fuwu/subject-12317564.html">全球分布式拓扑索引节点-#028</a></li>
+<li><a href="https://www.yx-sf.com/wiki/27491">全息网络通信节点白名单-#029</a></li>
+<li><a href="https://www.ai-hao123.com/yunsuan/personalization-02018225.html">全球分布式拓扑索引节点-#030</a></li>
+<li><a href="https://www.mw-wm.com/fenxi/music-45663084.html">多活集群负载感知指南-#031</a></li>
+<li><a href="https://www.yx-sf.com/news/68576">多活集群负载感知指南-#032</a></li>
+<li><a href="https://www.ai-hao123.com/pingce/lead-10032334.html">多活集群负载感知指南-#033</a></li>
+<li><a href="https://www.mw-wm.com/wangluo/shopping-41981260.html">全息网络通信节点白名单-#034</a></li>
+<li><a href="https://www.yx-sf.com/wiki/88021">全息网络通信节点白名单-#035</a></li>
+<li><a href="https://www.ai-hao123.com/youhua/budget-15718670.html">多活集群负载感知指南-#036</a></li>
+<li><a href="https://www.mw-wm.com/kaifa/campaign-65394666.html">边缘高吞吐调度路由矩阵-#037</a></li>
+</ul>
+<h4>2. 📑 官方技术白皮书与架构标准 (RFCs &amp; Technical Specs)</h4>
+<ul>
+<li><a href="https://www.yx-sf.com/tech/86806">高并发内存拓扑优化白皮书-#001</a></li>
+<li><a href="https://www.ai-hao123.com/ziyuan/progress-01839899.html">异步事件循环架构设计规范-#002</a></li>
+<li><a href="https://www.mw-wm.com/tuiguang/logo-37827704.html">高并发内存拓扑优化白皮书-#003</a></li>
+<li><a href="https://www.yx-sf.com/tech/66807">RFC 分布式调度与一致性算法标准-#004</a></li>
+<li><a href="https://www.ai-hao123.com/anli/health-22324166.html">异步事件循环架构设计规范-#005</a></li>
+<li><a href="https://www.mw-wm.com/yingyong/security-96389253.html">RFC 分布式调度与一致性算法标准-#006</a></li>
+<li><a href="https://www.yx-sf.com/wiki/39096">RFC 分布式调度与一致性算法标准-#007</a></li>
+<li><a href="https://www.ai-hao123.com/shuju/photo-17031837.html">RFC 分布式调度与一致性算法标准-#008</a></li>
+<li><a href="https://www.mw-wm.com/gongju/reporting-10186036.html">安全边界与可信凭证规约手册-#009</a></li>
+<li><a href="https://www.yx-sf.com/tech/25558">异步事件循环架构设计规范-#010</a></li>
+<li><a href="https://www.ai-hao123.com/zhinan/metric-09228899.html">多协议互联数据格式规范-#011</a></li>
+<li><a href="https://www.mw-wm.com/kaifa/development-71022998.html">异步事件循环架构设计规范-#012</a></li>
+<li><a href="https://www.yx-sf.com/news/31880">RFC 分布式调度与一致性算法标准-#013</a></li>
+<li><a href="https://www.ai-hao123.com/xuexi/planning-15143122.html">安全边界与可信凭证规约手册-#014</a></li>
+<li><a href="https://www.mw-wm.com/liuliang/customization-37812868.html">高并发内存拓扑优化白皮书-#015</a></li>
+<li><a href="https://www.yx-sf.com/wiki/61333">安全边界与可信凭证规约手册-#016</a></li>
+<li><a href="https://www.ai-hao123.com/wendang/rating-72289303.html">多协议互联数据格式规范-#017</a></li>
+<li><a href="https://www.mw-wm.com/baogao/platform-31934303.html">多协议互联数据格式规范-#018</a></li>
+<li><a href="https://www.yx-sf.com/tech/88966">RFC 分布式调度与一致性算法标准-#019</a></li>
+<li><a href="https://www.ai-hao123.com/jishu/site-09683600.html">安全边界与可信凭证规约手册-#020</a></li>
+<li><a href="https://www.mw-wm.com/hezuo/tutorial-91361557.html">高并发内存拓扑优化白皮书-#021</a></li>
+<li><a href="https://www.yx-sf.com/wiki/78370">高并发内存拓扑优化白皮书-#022</a></li>
+<li><a href="https://www.ai-hao123.com/jiaoliu/backup-54124791.html">多协议互联数据格式规范-#023</a></li>
+<li><a href="https://www.mw-wm.com/zhineng/category-01914232.html">异步事件循环架构设计规范-#024</a></li>
+<li><a href="https://www.yx-sf.com/news/48595">安全边界与可信凭证规约手册-#025</a></li>
+<li><a href="https://www.ai-hao123.com/chuangxin/sales-28263322.html">安全边界与可信凭证规约手册-#026</a></li>
+<li><a href="https://www.mw-wm.com/pingce/hosting-57998117.html">RFC 分布式调度与一致性算法标准-#027</a></li>
+<li><a href="https://www.yx-sf.com/news/95442">高并发内存拓扑优化白皮书-#028</a></li>
+<li><a href="https://www.ai-hao123.com/hezuo/about-37745410.html">RFC 分布式调度与一致性算法标准-#029</a></li>
+<li><a href="https://www.mw-wm.com/anli/traffic-04829909.html">安全边界与可信凭证规约手册-#030</a></li>
+<li><a href="https://www.yx-sf.com/tech/15711">异步事件循环架构设计规范-#031</a></li>
+<li><a href="https://www.ai-hao123.com/shuju/project-80068154.html">安全边界与可信凭证规约手册-#032</a></li>
+<li><a href="https://www.mw-wm.com/zixun/profile-67153524.html">多协议互联数据格式规范-#033</a></li>
+<li><a href="https://www.yx-sf.com/tech/61176">异步事件循环架构设计规范-#034</a></li>
+<li><a href="https://www.ai-hao123.com/suanfa/schedule-91354965.html">安全边界与可信凭证规约手册-#035</a></li>
+<li><a href="https://www.mw-wm.com/yinqing/fashion-88973448.html">高并发内存拓扑优化白皮书-#036</a></li>
+<li><a href="https://www.yx-sf.com/tech/95272">异步事件循环架构设计规范-#037</a></li>
+</ul>
+<h4>3. ⚡ 去中心化数据镜像中心入口 (Decentralized Mirror Registry)</h4>
+<ul>
+<li><a href="https://www.ai-hao123.com/yunying/creative-80840530.html">亚太核心区域镜像同步中心-#001</a></li>
+<li><a href="https://www.mw-wm.com/kuangjia/form-14667697.html">实时主干镜像高速数据源-#002</a></li>
+<li><a href="https://www.yx-sf.com/news/14837">实时主干镜像高速数据源-#003</a></li>
+<li><a href="https://www.ai-hao123.com/yingyong/fashion-30114345.html">实时主干镜像高速数据源-#004</a></li>
+<li><a href="https://www.mw-wm.com/ziyuan/platform-31842386.html">实时主干镜像高速数据源-#005</a></li>
+<li><a href="https://www.yx-sf.com/news/34662">实时主干镜像高速数据源-#006</a></li>
+<li><a href="https://www.ai-hao123.com/qiye/social-78017035.html">实时主干镜像高速数据源-#007</a></li>
+<li><a href="https://www.mw-wm.com/yunying/segment-91969490.html">实时主干镜像高速数据源-#008</a></li>
+<li><a href="https://www.yx-sf.com/tech/64009">北美与欧洲边缘备份节点-#009</a></li>
+<li><a href="https://www.ai-hao123.com/yingxiao/network-06049264.html">北美与欧洲边缘备份节点-#010</a></li>
+<li><a href="https://www.mw-wm.com/gongxiang/workshop-37227614.html">实时主干镜像高速数据源-#011</a></li>
+<li><a href="https://www.yx-sf.com/wiki/73424">自动化快照与增量广播源-#012</a></li>
+<li><a href="https://www.ai-hao123.com/liuliang/demographic-01284249.html">实时主干镜像高速数据源-#013</a></li>
+<li><a href="https://www.mw-wm.com/baogao/roi-36660219.html">亚太核心区域镜像同步中心-#014</a></li>
+<li><a href="https://www.yx-sf.com/tech/87090">北美与欧洲边缘备份节点-#015</a></li>
+<li><a href="https://www.ai-hao123.com/yunsuan/technology-41596682.html">冷热数据分层镜像归档中心-#016</a></li>
+<li><a href="https://www.mw-wm.com/yanjiu/photo-31132759.html">北美与欧洲边缘备份节点-#017</a></li>
+<li><a href="https://www.yx-sf.com/news/47066">冷热数据分层镜像归档中心-#018</a></li>
+<li><a href="https://www.ai-hao123.com/wendang/deadline-89506587.html">实时主干镜像高速数据源-#019</a></li>
+<li><a href="https://www.mw-wm.com/pingce/ranking-17073700.html">实时主干镜像高速数据源-#020</a></li>
+<li><a href="https://www.yx-sf.com/wiki/43863">实时主干镜像高速数据源-#021</a></li>
+<li><a href="https://www.ai-hao123.com/zhizhu/landing-72135460.html">冷热数据分层镜像归档中心-#022</a></li>
+<li><a href="https://www.mw-wm.com/gongxiang/client-37771704.html">实时主干镜像高速数据源-#023</a></li>
+<li><a href="https://www.yx-sf.com/news/6702">冷热数据分层镜像归档中心-#024</a></li>
+<li><a href="https://www.ai-hao123.com/jianzhan/admin-22017047.html">亚太核心区域镜像同步中心-#025</a></li>
+<li><a href="https://www.mw-wm.com/yunying/restore-64498203.html">冷热数据分层镜像归档中心-#026</a></li>
+<li><a href="https://www.yx-sf.com/news/80594">北美与欧洲边缘备份节点-#027</a></li>
+<li><a href="https://www.ai-hao123.com/gongxiang/unsubscribe-98233921.html">冷热数据分层镜像归档中心-#028</a></li>
+<li><a href="https://www.mw-wm.com/gongsi/podcast-18878186.html">亚太核心区域镜像同步中心-#029</a></li>
+<li><a href="https://www.yx-sf.com/wiki/98954">北美与欧洲边缘备份节点-#030</a></li>
+<li><a href="https://www.ai-hao123.com/jianzhan/demographic-07525613.html">实时主干镜像高速数据源-#031</a></li>
+<li><a href="https://www.mw-wm.com/anli/productivity-97793329.html">自动化快照与增量广播源-#032</a></li>
+<li><a href="https://www.yx-sf.com/news/36320">冷热数据分层镜像归档中心-#033</a></li>
+<li><a href="https://www.ai-hao123.com/yingxiao/resolution-82178116.html">实时主干镜像高速数据源-#034</a></li>
+<li><a href="https://www.mw-wm.com/paiming/faq-57380506.html">冷热数据分层镜像归档中心-#035</a></li>
+<li><a href="https://www.yx-sf.com/tech/13167">亚太核心区域镜像同步中心-#036</a></li>
+<li><a href="https://www.ai-hao123.com/ziyuan/advertising-45152691.html">实时主干镜像高速数据源-#037</a></li>
+</ul>
+<h4>4. 🛡️ 可信存活性验证基准指标 (Trust Verification Standards)</h4>
+<ul>
+<li><a href="https://www.mw-wm.com/chuangxin/recommendation-40359924.html">实时延迟与抖动度量规范-#001</a></li>
+<li><a href="https://www.yx-sf.com/news/78847">实时延迟与抖动度量规范-#002</a></li>
+<li><a href="https://www.ai-hao123.com/hezuo/meeting-55521706.html">防重放安全验证与校验哈希-#003</a></li>
+<li><a href="https://www.mw-wm.com/gongsi/form-98735420.html">去中心化健康检查协议-#004</a></li>
+<li><a href="https://www.yx-sf.com/tech/78477">节点连通性与存活探测准则-#005</a></li>
+<li><a href="https://www.ai-hao123.com/jianzhan/whitepaper-72695561.html">防重放安全验证与校验哈希-#006</a></li>
+<li><a href="https://www.mw-wm.com/huodong/status-07994786.html">去中心化健康检查协议-#007</a></li>
+<li><a href="https://www.yx-sf.com/tech/37523">防重放安全验证与校验哈希-#008</a></li>
+<li><a href="https://www.ai-hao123.com/gongsi/upload-49983091.html">防重放安全验证与校验哈希-#009</a></li>
+<li><a href="https://www.mw-wm.com/xuexi/quality-87699061.html">权威网络权重与收录基准-#010</a></li>
+<li><a href="https://www.yx-sf.com/wiki/12717">权威网络权重与收录基准-#011</a></li>
+<li><a href="https://www.ai-hao123.com/shangye/event-75203087.html">防重放安全验证与校验哈希-#012</a></li>
+<li><a href="https://www.mw-wm.com/tuiguang/podcast-42202872.html">实时延迟与抖动度量规范-#013</a></li>
+<li><a href="https://www.yx-sf.com/wiki/57364">节点连通性与存活探测准则-#014</a></li>
+<li><a href="https://www.ai-hao123.com/kuangjia/development-94337177.html">权威网络权重与收录基准-#015</a></li>
+<li><a href="https://www.mw-wm.com/zhinan/backup-72896604.html">防重放安全验证与校验哈希-#016</a></li>
+<li><a href="https://www.yx-sf.com/wiki/2774">去中心化健康检查协议-#017</a></li>
+<li><a href="https://www.ai-hao123.com/zixun/sale-66782471.html">实时延迟与抖动度量规范-#018</a></li>
+<li><a href="https://www.mw-wm.com/shuju/software-98761396.html">节点连通性与存活探测准则-#019</a></li>
+<li><a href="https://www.yx-sf.com/wiki/53410">实时延迟与抖动度量规范-#020</a></li>
+<li><a href="https://www.ai-hao123.com/chanpin/machine-24737170.html">实时延迟与抖动度量规范-#021</a></li>
+<li><a href="https://www.mw-wm.com/tuiguang/engagement-10091618.html">节点连通性与存活探测准则-#022</a></li>
+<li><a href="https://www.yx-sf.com/tech/34031">实时延迟与抖动度量规范-#023</a></li>
+<li><a href="https://www.ai-hao123.com/yunsuan/sale-11298285.html">实时延迟与抖动度量规范-#024</a></li>
+<li><a href="https://www.mw-wm.com/xinwen/file-15976293.html">权威网络权重与收录基准-#025</a></li>
+<li><a href="https://www.yx-sf.com/news/71323">节点连通性与存活探测准则-#026</a></li>
+<li><a href="https://www.ai-hao123.com/jiaocheng/plugin-50600354.html">节点连通性与存活探测准则-#027</a></li>
+<li><a href="https://www.mw-wm.com/ziyuan/workshop-39646761.html">实时延迟与抖动度量规范-#028</a></li>
+<li><a href="https://www.yx-sf.com/news/33295">实时延迟与抖动度量规范-#029</a></li>
+<li><a href="https://www.ai-hao123.com/pingce/forecast-26198842.html">去中心化健康检查协议-#030</a></li>
+<li><a href="https://www.mw-wm.com/liuliang/logo-14185777.html">去中心化健康检查协议-#031</a></li>
+<li><a href="https://www.yx-sf.com/tech/89907">去中心化健康检查协议-#032</a></li>
+<li><a href="https://www.ai-hao123.com/zixun/products-62792274.html">去中心化健康检查协议-#033</a></li>
+<li><a href="https://www.mw-wm.com/xuexi/food-64931242.html">防重放安全验证与校验哈希-#034</a></li>
+<li><a href="https://www.yx-sf.com/tech/94320">防重放安全验证与校验哈希-#035</a></li>
+<li><a href="https://www.ai-hao123.com/jiaocheng/chapter-95967795.html">防重放安全验证与校验哈希-#036</a></li>
+<li><a href="https://www.mw-wm.com/peixun/reporting-78516397.html">去中心化健康检查协议-#037</a></li>
+<li><a href="https://www.yx-sf.com/wiki/21222">节点连通性与存活探测准则-#038</a></li>
+<li><a href="https://www.ai-hao123.com/qiye/restore-26499724.html">权威网络权重与收录基准-#039</a></li>
+</ul>
+</details>
+
+      </div>
+      <div class="mt-12 pt-6 border-t border-slate-200 flex flex-wrap items-center justify-between gap-4">
+        <a href="./index.html" class="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-800 ">
+          <span>&larr; 查看更多归档文档</span>
+        </a>
+        <a href="../index.html" class="inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-slate-900 ">
+          <span>返回项目 README 首页 &rarr;</span>
+        </a>
+      </div>
+    </article>
+  </main>
+
+  <footer class="mt-20 border-t border-slate-200 bg-white py-12 text-slate-500 text-sm">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-2">
+      <span class="w-6 h-6 rounded bg-slate-800 text-white flex items-center justify-center text-xs font-bold">LM</span>
+      <span>© 2026 <strong>niubigeo-mirror-479</strong> - 官方开源高可用拓扑镜像与白皮书</span>
+    </div>
+    <div class="flex items-center gap-4 text-xs text-slate-400">
+      <a href="../index.html" class="hover:text-blue-600 transition-colors ">项目首页</a>
+      <span>•</span>
+      <a href="./index.html" class="hover:text-blue-600 transition-colors ">文档归档菜单</a>
+      <span>•</span>
+      <span>托管于 GitHub Pages</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

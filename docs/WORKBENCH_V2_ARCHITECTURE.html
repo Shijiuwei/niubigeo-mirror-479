@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NiubiGEO Workbench V2 Product and Technical Architecture - niubigeo-mirror-479 文档归档</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+      :root {
+        --color-primary: #2563eb;
+        --color-primary-hover: #1d4ed8;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.68;
+        color: #1e293b;
+      }
+      .markdown-body {
+        color: #1e293b;
+      }
+      .markdown-body h1 {
+        font-size: 2.25rem;
+        font-weight: 800;
+        margin-top: 1.8rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.6rem;
+        border-bottom: 2px solid #e2e8f0;
+        color: #0f172a;
+        line-height: 1.25;
+      }
+      .markdown-body h2 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-top: 1.6rem;
+        margin-bottom: 0.8rem;
+        padding-bottom: 0.4rem;
+        border-bottom: 1px solid #f1f5f9;
+        color: #1e293b;
+      }
+      .markdown-body h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-top: 1.3rem;
+        margin-bottom: 0.6rem;
+        color: #334155;
+      }
+      .markdown-body p {
+        margin-top: 0.8rem;
+        margin-bottom: 0.8rem;
+        line-height: 1.7;
+      }
+      .markdown-body a {
+        color: #2563eb;
+        text-decoration: none;
+        border-bottom: 1px dashed #93c5fd;
+        transition: all 0.2s ease;
+      }
+      .markdown-body a:hover {
+        color: #1d4ed8;
+        border-bottom: 1px solid #1d4ed8;
+        background-color: #eff6ff;
+        border-radius: 2px;
+      }
+      .markdown-body ul, .markdown-body ol {
+        padding-left: 1.5rem;
+        margin-top: 0.6rem;
+        margin-bottom: 0.6rem;
+      }
+      .markdown-body ul {
+        list-style-type: disc;
+      }
+      .markdown-body ol {
+        list-style-type: decimal;
+      }
+      .markdown-body li {
+        margin-top: 0.25rem;
+        margin-bottom: 0.25rem;
+      }
+      .markdown-body pre {
+        background-color: #0f172a;
+        color: #e2e8f0;
+        padding: 1rem 1.2rem;
+        border-radius: 0.75rem;
+        overflow-x: auto;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.875rem;
+        margin: 1rem 0;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+      .markdown-body code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.875em;
+        padding: 0.15rem 0.35rem;
+        background-color: #f1f5f9;
+        color: #0f172a;
+        border-radius: 0.35rem;
+        border: 1px solid #e2e8f0;
+      }
+      .markdown-body pre code {
+        background-color: transparent;
+        padding: 0;
+        border: none;
+        color: inherit;
+      }
+      .markdown-body blockquote {
+        margin: 1rem 0;
+        padding: 0.75rem 1.25rem;
+        background-color: #f8fafc;
+        border-left: 4px solid #3b82f6;
+        border-radius: 0 0.5rem 0.5rem 0;
+        color: #475569;
+      }
+      .markdown-body table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.2rem 0;
+        display: block;
+        overflow-x: auto;
+      }
+      .markdown-body th, .markdown-body td {
+        border: 1px solid #cbd5e1;
+        padding: 0.6rem 1rem;
+        text-align: left;
+      }
+      .markdown-body th {
+        background-color: #f1f5f9;
+        font-weight: 600;
+      }
+      .markdown-body tr:nth-child(even) {
+        background-color: #f8fafc;
+      }
+      .markdown-body hr {
+        height: 1px;
+        border: none;
+        background-color: #e2e8f0;
+        margin: 2rem 0;
+      }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col antialiased">
+  <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <a href="../index.html" class="flex items-center gap-2 group">
+        <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white font-bold text-sm shadow-sm group-hover:scale-105 transition-transform ">LM</span>
+        <span class="font-bold text-slate-900 tracking-tight text-lg group-hover:text-blue-600 transition-colors ">niubigeo-mirror-479</span>
+      </a>
+      <span class="hidden md:inline-block text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-mono ">Pages Docs</span>
+    </div>
+    <div class="flex items-center gap-1 sm:gap-2 text-sm">
+      <a href="../index.html" class="px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 text-slate-600 hover:text-blue-600 hover:bg-slate-50 font-medium ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        <span>首页 (README)</span>
+      </a>
+      <a href="./index.html" class="px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 text-blue-600 bg-blue-50 font-semibold ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        <span>文档归档 (Docs)</span>
+        <span class="inline-block w-2 h-2 rounded-full bg-blue-600"></span>
+      </a>
+      <div class="h-4 w-px bg-slate-200 mx-1"></div>
+      <a href="https://github.com/shijiuwei/niubigeo-mirror-479" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-1.5 ">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        <span class="hidden sm:inline">GitHub</span>
+      </a>
+      <a href="https://github.com/shijiuwei/niubigeo-mirror-479/wiki" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-1.5 ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span class="hidden sm:inline">Wiki</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+  <!-- 面包屑与顶部导航 -->
+  <header class="bg-white border-b border-slate-200 py-6 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto">
+      <nav class="flex items-center gap-2 text-xs text-slate-500 mb-2 font-medium">
+        <a href="../index.html" class="hover:text-blue-600 transition-colors ">首页</a>
+        <span>/</span>
+        <a href="./index.html" class="hover:text-blue-600 transition-colors ">文档归档菜单</a>
+        <span>/</span>
+        <span class="text-slate-800 font-semibold">技术文档</span>
+      </nav>
+      <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">NiubiGEO Workbench V2 Product and Technical Architecture</h1>
+        <a href="./index.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors ">
+          <span>&larr; 返回文档归档菜单</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主体正文区域 -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 flex-1 w-full">
+    <article class="bg-white p-6 sm:p-12 rounded-2xl shadow-sm border border-slate-200">
+      <div class="markdown-body">
+        <h1>NiubiGEO Workbench V2 Product and Technical Architecture</h1>
+<h2>1. Objective</h2>
+<p>NiubiGEO is not a collection of database tables and charts. It is a monitoring product that must let a user understand, within ten seconds:</p>
+<ol>
+<li>what changed;</li>
+<li>why it matters;</li>
+<li>which questions, models, answers, and sources support the conclusion;</li>
+<li>whether the current run can be compared with an earlier run;</li>
+<li>what will run next.</li>
+</ol>
+<p>The core product path is:</p>
+<pre><code class="language-text">Project
+-&gt; Monitoring baseline
+-&gt; Monitoring task
+-&gt; Real Provider execution
+-&gt; Observation
+-&gt; Comparable period
+-&gt; Evidence-backed change
+-&gt; Product insight
+-&gt; Evidence drill-down
+</code></pre>
+<p>The existing <code>AuditRunner</code> remains the single-run Provider execution engine. Workbench V2 adds stable monitoring, comparison, semantic entity resolution, insight selection, and user-facing read models around it.</p>
+<h2>2. Non-negotiable constraints</h2>
+<h3>2.1 No regular expressions</h3>
+<p>The repository target is zero regular-expression syntax in <code>src/</code> and <code>test/</code>. Existing use must be removed before Workbench V2 feature implementation continues; the rule is not limited to newly written files.</p>
+<p>This includes:</p>
+<ul>
+<li>no regular-expression literals;</li>
+<li>no <code>RegExp</code> construction;</li>
+<li>no text classification through pattern matching;</li>
+<li>no regular-expression use in string replacement, matching, or search;</li>
+<li>no regular-expression-based URL, domain, model, locale, brand, or schedule parsing.</li>
+</ul>
+<p>Use structured mechanisms instead:</p>
+<ul>
+<li><code>URL</code> and <code>URLSearchParams</code> for URLs;</li>
+<li>JSON parsing plus schema validation for model output;</li>
+<li><code>cron-parser</code> for custom schedules;</li>
+<li><code>Intl</code> and timezone-aware date libraries for time presentation and bucketing;</li>
+<li>typed Provider capability declarations for protocol selection;</li>
+<li>AI-produced structured intent and entity analysis for semantic decisions.</li>
+</ul>
+<p>An AST-based repository check must reject prohibited regular-expression syntax before merge. The check must inspect syntax, not search source text using another regular expression.</p>
+<p>The repository now enforces this boundary with a TypeScript AST test over <code>src/</code>, <code>test/</code>, and the generated browser script. The current scan returns zero regular-expression syntax nodes. Any later literal or <code>RegExp</code> construction fails <code>npm run self-check</code>.</p>
+<h3>2.2 No scenario-specific configuration</h3>
+<p>The product must not contain branches or dictionaries dedicated to:</p>
+<ul>
+<li>NiubiStar, NiubiGEO, or another test brand;</li>
+<li>a specific industry;</li>
+<li>a specific user question;</li>
+<li>Chinese, English, or another language;</li>
+<li>recommendation, pricing, tutorial, or another individual scenario;</li>
+<li>an individual Provider outside its protocol adapter.</li>
+</ul>
+<p>Semantic behavior comes from typed AI analysis. Business code consumes structured facts and evidence references. It must not infer intent, competitors, channels, or recommendations from words in free text.</p>
+<p>Provider adapters are protocol boundaries, not scenario rules. A Provider is selected through declared capabilities such as Responses, Messages, generateContent, native search, and citation support. Product services do not branch on a brand or prompt.</p>
+<h3>2.3 Evidence before presentation</h3>
+<p>Every visible conclusion must reference one or more persisted observations. A conclusion about a new source must also reference a citation URL returned by the Provider. A competitor conclusion must reference a resolved entity and the observations that established its relationship.</p>
+<p>If evidence is incomplete, the UI displays an explicit insufficient-data state. It does not manufacture a chart, change value, competitor, or recommendation.</p>
+<h2>3. Product information architecture</h2>
+<pre><code class="language-text">Projects
+└── Project
+    ├── Overview
+    ├── Questions
+    ├── Visibility
+    ├── Competitors
+    ├── Citations
+    ├── Monitoring
+    ├── Runs
+    ├── Providers
+    └── Settings
+</code></pre>
+<p>The single-run report remains available from Runs as a snapshot and export. It is not the primary workspace.</p>
+<h3>3.1 Overview</h3>
+<p>Overview answers only five questions:</p>
+<ol>
+<li>What are the three most important changes?</li>
+<li>What happened to brand discovery, candidate inclusion, explicit recommendation, and official citation?</li>
+<li>Which monitored questions changed?</li>
+<li>Which confirmed competitor replaced the target most often?</li>
+<li>When will the next monitoring task run, and did the last run finish?</li>
+</ol>
+<p>The first module is <code>本期最值得关注的 3 件事</code>. Each item contains:</p>
+<pre><code class="language-text">Conclusion
+Why it matters
+Scope and comparison status
+One action that opens the supporting evidence
+</code></pre>
+<p>Examples are presentation shapes, not fixed copy or rules:</p>
+<pre><code class="language-text">The brand disappeared from three previously visible questions.
+The changes occurred in two models.
+[View changed questions]
+</code></pre>
+<p>Overview must not contain a full competitor ranking or a duplicate trend page. It may show one confirmed replacement insight with a link to Competitors.</p>
+<h3>3.2 Core result cards</h3>
+<p>Cards show counts first:</p>
+<pre><code class="language-text">Brand discovery       6 / 16
+Candidate inclusion   5 / 16
+Explicit recommendation 2 / 16
+Official citation     4 / 20
+</code></pre>
+<p>Each card also contains:</p>
+<ul>
+<li>the observation scope;</li>
+<li>comparison eligibility;</li>
+<li>the previous comparable value only when one exists;</li>
+<li>a small sparkline only when a valid time series exists;</li>
+<li>a link to the observations that form the numerator and denominator.</li>
+</ul>
+<p>If the latest run is partial, the card says that change is unavailable. It must not show a misleading positive or negative delta.</p>
+<h3>3.3 Visibility</h3>
+<p>Visibility is the detailed time-analysis page. It must not repeat Overview.</p>
+<p>It provides two mutually exclusive modes:</p>
+<pre><code class="language-text">Metric trend
+Brand comparison
+</code></pre>
+<p>Metric trend compares up to four target-brand metrics. Brand comparison selects one metric and compares the target with confirmed competitors.</p>
+<p>Available time ranges:</p>
+<pre><code class="language-text">24 hours
+7 days
+30 days
+90 days
+All
+</code></pre>
+<p>Filters include model and actual search execution mode. Every chart point opens an evidence drawer.</p>
+<p>When valid time-series conditions are not met, the chart is replaced by a specific empty state. A chart container is never filled for decoration.</p>
+<h3>3.4 Competitors</h3>
+<p>Entities are separated into five product groups:</p>
+<pre><code class="language-text">Confirmed competitors
+Suspected brands
+Alternative methods
+Promotion channels
+Unresolved entities
+</code></pre>
+<p>Only confirmed competitors enter rankings and brand-comparison charts. A confirmed competitor requires an identified product, a canonical reachable domain, a semantic substitute or competition relationship, and evidence references.</p>
+<p>Names that co-occur in an answer are not competitors by default. Concepts such as social promotion, paid promotion, and community groups are classified by their relationship, not displayed as brands.</p>
+<p>The competitor detail view answers:</p>
+<ul>
+<li>why this is a competitor;</li>
+<li>where it appears while the target does not;</li>
+<li>where the target appears while it does not;</li>
+<li>how AI describes their relationship;</li>
+<li>which sources support the claims;</li>
+<li>which raw answers contain the evidence.</li>
+</ul>
+<h3>3.5 Citations</h3>
+<p>Citations are grouped by semantic role:</p>
+<pre><code class="language-text">Owned website
+Competitor website
+Community
+Media
+Product directory
+Social platform
+Other
+</code></pre>
+<p>Classification is produced as structured analysis and verified against Provider citations. The UI shows citation count, covered questions, time scope, change when comparable, and evidence links.</p>
+<h3>3.6 Monitoring task center</h3>
+<p>Monitoring is a task center, not a Cron form.</p>
+<p>It supports multiple tasks per project. Each task card shows:</p>
+<ul>
+<li>user-facing task name and status;</li>
+<li>selected prompt count and model count;</li>
+<li>actual search policy;</li>
+<li>schedule and timezone;</li>
+<li>next run;</li>
+<li>latest run result;</li>
+<li>expected request count;</li>
+<li>actions for run, results, edit, pause, resume, duplicate, rebuild baseline, and delete.</li>
+</ul>
+<p>Task creation uses a right-side drawer with four steps:</p>
+<ol>
+<li>select prompts and models;</li>
+<li>select daily, weekly, monthly, or custom frequency;</li>
+<li>select search behavior and review request estimate;</li>
+<li>configure notification rules and channels.</li>
+</ol>
+<p>Cron appears only for custom frequency. The server returns the next three calculated executions for preview.</p>
+<p>Changes to schedule, timezone, notifications, and enabled state do not create a baseline. Changes to prompts, models, search policy, language, region, brand scope, or competitor scope create a new immutable baseline.</p>
+<h2>4. Server-side read-model architecture</h2>
+<p>The browser must not calculate business metrics, trend eligibility, competitors, or change values. It renders server-produced read models.</p>
+<pre><code class="language-text">Write models
+Project / Baseline / MonitoringTask / Run / Observation
+                         |
+                         v
+Domain analysis services
+Metric / Period / Change / Entity / Insight / Evidence
+                         |
+                         v
+Product read models
+Overview / Visibility / Competitors / Citations / Tasks / Run snapshot
+                         |
+                         v
+Localized presenter
+                         |
+                         v
+UI
+</code></pre>
+<p>This avoids calculating the same concept differently in the overview, chart, report, and export.</p>
+<h3>4.1 Proposed module ownership</h3>
+<pre><code class="language-text">src/metrics/
+  metric-schema.ts
+  metric-catalog.ts
+  metric-calculator.ts
+
+src/timeseries/
+  period-schema.ts
+  comparable-period-selector.ts
+  time-bucket-service.ts
+  series-builder.ts
+  trend-eligibility.ts
+
+src/changes/
+  change-schema.ts
+  observation-diff.ts
+  change-builder.ts
+  evidence-linker.ts
+
+src/entities/
+  entity-schema.ts
+  entity-resolution-service.ts
+  identity-verifier.ts
+  entity-registry.ts
+  entity-review-service.ts
+
+src/attention/
+  attention-schema.ts
+  attention-candidate-builder.ts
+  attention-ranker.ts
+  attention-presenter.ts
+
+src/notifications/
+  notification-schema.ts
+  notification-event-builder.ts
+  notification-rule-engine.ts
+  notification-dispatcher.ts
+  adapters/
+
+src/read-models/
+  overview-read-model.ts
+  visibility-read-model.ts
+  competitor-read-model.ts
+  citation-read-model.ts
+  monitoring-read-model.ts
+  evidence-read-model.ts
+
+src/presentation/
+  product-labels.ts
+  model-name-presenter.ts
+  schedule-presenter.ts
+  localized-copy.ts
+</code></pre>
+<p>Existing modules remain responsible for their current boundaries:</p>
+<pre><code class="language-text">AuditRunner             real Provider execution
+IntentResultLayer       structured intent, tasks, assessment, relationships
+ObservationBuilder      immutable evidence unit
+BaselineComparator      configuration comparability
+ProjectFileStore        persistence boundary
+</code></pre>
+<p>The new modules replace UI-side aggregation and enrich the current string-only change and competitor summaries.</p>
+<h2>5. Core contracts</h2>
+<h3>5.1 Metric result</h3>
+<pre><code class="language-ts">interface MetricResult {
+  metricId: MetricId;
+  numerator: number;
+  denominator: number;
+  value: number | null;
+  observationIds: string[];
+  excludedObservationIds: string[];
+  scope: ObservationScope;
+}
+</code></pre>
+<p><code>value</code> is <code>null</code> when no valid denominator exists. It is <code>0</code> only when a valid denominator exists and the numerator is zero.</p>
+<h3>5.2 Comparable period</h3>
+<pre><code class="language-ts">interface ComparablePeriod {
+  projectId: string;
+  baselineId: string;
+  timezone: string;
+  range: TimeRange;
+  selectedRunIds: string[];
+  excludedRuns: ExcludedRun[];
+  complete: boolean;
+}
+</code></pre>
+<p>Excluded runs retain a machine-readable reason such as partial execution, baseline mismatch, missing completion time, or duplicate same-day run.</p>
+<h3>5.3 Time-series point</h3>
+<pre><code class="language-ts">interface TimeSeriesPoint {
+  runId: string;
+  bucketStart: string;
+  observedAt: string;
+  result: MetricResult;
+  previousComparableRunId?: string;
+}
+</code></pre>
+<h3>5.4 Evidence-backed change</h3>
+<pre><code class="language-ts">interface ObservationChange {
+  id: string;
+  kind: ChangeKind;
+  currentRunId: string;
+  previousRunId: string;
+  currentObservationIds: string[];
+  previousObservationIds: string[];
+  promptIds: string[];
+  modelIds: string[];
+  entityIds: string[];
+  citationUrls: string[];
+  confidence: Confidence;
+}
+</code></pre>
+<p>Change objects store evidence references, not only prompt strings. This enables current and previous answers to be opened side by side.</p>
+<h3>5.5 Attention item</h3>
+<pre><code class="language-ts">interface AttentionItem {
+  id: string;
+  priority: "critical" | "high" | "normal";
+  title: string;
+  whyItMatters: string;
+  scopeLabel: string;
+  changeId: string;
+  evidenceCount: number;
+  action: EvidenceAction;
+}
+</code></pre>
+<p>Attention candidates are built only from structured changes. A language model may compress wording, but it receives immutable claim IDs and may not add a fact, entity, source, or reason that is absent from those claims.</p>
+<h3>5.6 Entity resolution</h3>
+<pre><code class="language-ts">interface EntityResolution {
+  id: string;
+  canonicalName: string;
+  canonicalDomain?: string;
+  entityType: EntityType;
+  relationshipToTarget: EntityRelationshipType;
+  identityStatus: "confirmed" | "suspected" | "unresolved";
+  confidence: Confidence;
+  observationIds: string[];
+  sourceUrls: string[];
+  explanation: string;
+}
+</code></pre>
+<p>The AI proposes the identity and relationship. Local code verifies:</p>
+<ul>
+<li>referenced observation IDs exist;</li>
+<li>quoted evidence belongs to those observations;</li>
+<li>source URLs exist in Provider citations or verified owned-site evidence;</li>
+<li>the canonical URL is valid through the platform URL parser;</li>
+<li>the domain can be fetched when confirmation requires a reachable product site;</li>
+<li>target and competitor identities do not resolve to the same canonical entity.</li>
+</ul>
+<p>Local code does not promote an entity based on word frequency, capitalization, name similarity, or co-occurrence.</p>
+<h2>6. Metric definitions</h2>
+<p>Metrics consume typed observation fields and structured intent analysis. They do not inspect free text.</p>
+<h3>Brand discovery</h3>
+<pre><code class="language-text">Numerator: successful organic-discovery observations where the target appears
+Denominator: successful organic-discovery observations
+</code></pre>
+<h3>Candidate inclusion</h3>
+<pre><code class="language-text">Numerator: successful decision observations where the target is a recommended,
+compared, or alternative option
+Denominator: successful decision observations
+</code></pre>
+<p>The decision scope comes from stored Intent Result Layer output, not from keyword matching.</p>
+<h3>Explicit recommendation</h3>
+<pre><code class="language-text">Numerator: successful decision observations with an evidence-backed target recommendation
+Denominator: successful decision observations
+</code></pre>
+<h3>Official citation</h3>
+<pre><code class="language-text">Numerator: successful observations using actual web search that cite the owned domain
+Denominator: successful observations using actual web search
+</code></pre>
+<p>Every result stores its observation IDs so the UI can show both matching and non-matching answers.</p>
+<h2>7. Trend eligibility and bucketing</h2>
+<p>A series may be drawn only when all points share:</p>
+<ul>
+<li>project;</li>
+<li>comparable baseline;</li>
+<li>metric definition version;</li>
+<li>observation scope;</li>
+<li>filter set;</li>
+<li>complete execution status.</li>
+</ul>
+<p>Additional rules:</p>
+<ol>
+<li>A line requires at least two valid time points.</li>
+<li>The 24-hour view uses run timestamps.</li>
+<li>Longer views use the last complete run for each baseline and local calendar day.</li>
+<li>Earlier same-day runs remain in Runs but do not enter the long-range series.</li>
+<li>Partial and failed runs never enter a series.</li>
+<li>A baseline transition creates a visible break and does not connect the lines.</li>
+<li>Missing denominator produces a missing point, not zero.</li>
+</ol>
+<p>The trend eligibility response includes a user-facing state:</p>
+<pre><code class="language-text">first_observation
+same_day_only
+partial_run
+baseline_changed
+ready
+</code></pre>
+<p>These are presentation states, not text-search scenarios. They are derived from typed run and baseline records.</p>
+<h2>8. Change and attention pipeline</h2>
+<pre><code class="language-text">ComparablePeriodSelector
+-&gt; ObservationDiff
+-&gt; ChangeBuilder
+-&gt; EvidenceLinker
+-&gt; AttentionCandidateBuilder
+-&gt; AttentionRanker
+-&gt; LocalizedPresenter
+</code></pre>
+<p>The ranker uses structured impact features:</p>
+<ul>
+<li>number of affected prompts;</li>
+<li>number of affected models;</li>
+<li>discovery, recommendation, or citation consequence;</li>
+<li>persistence across valid periods;</li>
+<li>confidence and evidence completeness.</li>
+</ul>
+<p>It does not use a brand-specific rule. The top three non-duplicate changes appear on Overview. Duplicates are detected by shared change IDs and evidence sets, not by comparing prose.</p>
+<h2>9. Monitoring task architecture</h2>
+<p>The current task schema must be extended instead of pushing more fields into the UI.</p>
+<pre><code class="language-ts">interface MonitoringTaskDefinition {
+  id: string;
+  projectId: string;
+  name: string;
+  baselineId: string;
+  schedule: MonitoringSchedule;
+  searchPolicy: SearchPolicy;
+  notificationPolicy: NotificationPolicy;
+  status: "active" | "paused";
+  lastRunId?: string;
+  nextRunAt?: string;
+}
+</code></pre>
+<p>Schedule kinds become:</p>
+<pre><code class="language-text">manual
+daily
+weekly
+monthly
+custom
+</code></pre>
+<p><code>custom</code> stores a Cron expression and is parsed only by <code>cron-parser</code>. Daily, weekly, and monthly schedules use typed fields and timezone-aware calculation.</p>
+<p>Search policy records the requested mode and the actual Provider execution separately. The system never silently changes native search to another method. A general-search fallback can only be enabled when a real <code>SearchProvider</code> is configured, and its output is labeled as general search rather than Provider-native citations.</p>
+<p>Notifications require persisted events and idempotent deliveries:</p>
+<pre><code class="language-text">Run completed
+Run failed
+Brand disappeared
+New confirmed competitor
+New official citation
+Recommendation changed
+</code></pre>
+<p>Adapters deliver the same typed event to email, webhook, Slack or Discord, and enterprise messaging integrations. Channel-specific code cannot redefine the event meaning.</p>
+<h2>10. API design</h2>
+<p>Read APIs return product models, not raw storage records:</p>
+<pre><code class="language-text">GET /projects/:projectId/overview
+GET /projects/:projectId/visibility/series
+GET /projects/:projectId/changes/:changeId
+GET /projects/:projectId/evidence
+GET /projects/:projectId/entities
+GET /projects/:projectId/citations
+
+GET    /projects/:projectId/tasks
+POST   /projects/:projectId/tasks
+GET    /projects/:projectId/tasks/:taskId
+PATCH  /projects/:projectId/tasks/:taskId
+DELETE /projects/:projectId/tasks/:taskId
+POST   /projects/:projectId/tasks/:taskId/run
+POST   /projects/:projectId/tasks/:taskId/pause
+POST   /projects/:projectId/tasks/:taskId/resume
+POST   /projects/:projectId/tasks/:taskId/duplicate
+GET    /projects/:projectId/tasks/:taskId/runs
+POST   /projects/:projectId/schedules/preview
+</code></pre>
+<p>Mutation services decide whether an edit keeps the baseline or creates a new one. The browser cannot choose this itself.</p>
+<h2>11. Presentation boundary</h2>
+<p>Raw values such as baseline IDs, internal enums, and full routed model paths stay out of normal workspace pages.</p>
+<p>The presenter converts them into product language:</p>
+<pre><code class="language-text">active                         -&gt; Running
+organic_discovery              -&gt; Natural discovery
+low                            -&gt; Low confidence
+anthropic/claude-haiku-4.5     -&gt; Claude Haiku 4.5 via OpenRouter
+</code></pre>
+<p>Labels come from localization resources keyed by typed values. They are not generated through language-specific text parsing.</p>
+<p>The source boundary appears once as a compact <code>Provider API</code> label with an explanation available on demand. It is not repeated on every page.</p>
+<h2>12. Evidence drill-down</h2>
+<p>Every high-level path ends at observations:</p>
+<pre><code class="language-text">Attention item
+-&gt; changed prompts
+-&gt; current and previous observations
+-&gt; model and actual search method
+-&gt; citations
+-&gt; full AI answers
+</code></pre>
+<p>The evidence drawer supports:</p>
+<ul>
+<li>current and previous answer side by side;</li>
+<li>prompt and model filters;</li>
+<li>target and competitor relationships;</li>
+<li>Provider-returned sources;</li>
+<li>missing and failed observations;</li>
+<li>link to the run snapshot.</li>
+</ul>
+<p>The drawer does not recalculate the conclusion. It displays the exact evidence IDs attached by the server.</p>
+<h2>13. Current implementation state</h2>
+<p>The implementation now includes:</p>
+<ul>
+<li>repository-wide AST enforcement for zero regular expressions and production-source checks for retired semantic classifiers and test-target branches;</li>
+<li>Provider-produced keyword relevance, Prompt semantics, intent, answer-task assessment, entity identity, entity relationship, and adapted question results;</li>
+<li>metric-specific denominators, null values for missing samples, complete-run selection, same-day long-range deduplication, baseline breaks, and evidence-backed change records;</li>
+<li>confirmed competitor, suspected brand, alternative method, promotion channel, source, and unresolved entity groups;</li>
+<li>a server-produced Workbench read model with one filtered scope shared by metrics, questions, entities, citations, changes, and evidence;</li>
+<li>a multi-task monitoring center with daily, weekly, monthly, and custom schedules, timezone preview, run-now, pause, resume, edit, duplicate, and delete;</li>
+<li>immutable baseline derivation when questions, models, search settings, language, run count, target, or competitor scope changes;</li>
+<li>persisted monitoring events and idempotent email, generic Webhook, Slack, Discord, WeCom, and Lark delivery adapters;</li>
+<li>a restrained dark Overview, Questions, Visibility, Competitors, Citations, Monitoring, Runs, Providers, and Settings workspace.</li>
+</ul>
+<p>Remaining verification work is external rather than a license to invent data:</p>
+<ul>
+<li>run a fresh real multi-model Provider monitoring cycle when the configured account has credit;</li>
+<li>complete desktop and mobile visual QA when a controllable browser session is available;</li>
+<li>verify notification delivery against user-owned SMTP and Webhook endpoints before describing those external channels as operational in a deployment.</li>
+</ul>
+<h2>14. Implementation tasks</h2>
+<h3>Phase 0: architecture enforcement</h3>
+<ol>
+<li>Add an AST-based no-regular-expression check.</li>
+<li>Inventory all existing findings by module and replace every one with structured parsing or AI-produced semantics.</li>
+<li>Make zero findings mandatory for <code>src/</code> and <code>test/</code> before merge.</li>
+<li>Add an architecture test that rejects brand, industry, locale, and test-question branches in semantic modules.</li>
+<li>Document allowed structured parsers and Provider adapter boundaries.</li>
+</ol>
+<h3>Phase 1: metric and period truth</h3>
+<ol>
+<li>Add metric contracts and a versioned metric catalog.</li>
+<li>Implement metric-specific scopes and denominators from typed observations.</li>
+<li>Implement <code>null</code> versus real zero.</li>
+<li>Implement complete-run and comparable-period selection.</li>
+<li>Implement 24-hour timestamps and last-complete-run-per-day bucketing.</li>
+<li>Add trend eligibility states and baseline breaks.</li>
+</ol>
+<h3>Phase 2: evidence-backed changes</h3>
+<ol>
+<li>Replace string-only change summaries with observation-level diffs.</li>
+<li>Link current and previous observations by prompt, model, and sample.</li>
+<li>Record changed competitors, citations, recommendations, and model outcomes.</li>
+<li>Build evidence endpoints and the side-by-side evidence read model.</li>
+</ol>
+<h3>Phase 3: entity truth</h3>
+<ol>
+<li>Add AI-driven entity identity and relationship analysis schemas.</li>
+<li>Add canonical entity registry and review states.</li>
+<li>Verify source membership, URL validity, and site reachability.</li>
+<li>Separate confirmed competitors, suspected brands, methods, channels, and unresolved entities.</li>
+<li>Prevent unresolved entities from entering rankings and comparison charts.</li>
+</ol>
+<h3>Phase 4: attention engine</h3>
+<ol>
+<li>Generate attention candidates only from structured changes.</li>
+<li>Rank impact and evidence completeness.</li>
+<li>Select at most three non-duplicate Overview items.</li>
+<li>Produce localized, concise copy without adding facts.</li>
+</ol>
+<h3>Phase 5: monitoring task center backend</h3>
+<ol>
+<li>Extend task, schedule, search, and notification schemas.</li>
+<li>Add monthly and custom schedule preview.</li>
+<li>Add task CRUD, pause, resume, duplicate, run-now, and task-run APIs.</li>
+<li>Implement baseline transition rules for edits.</li>
+<li>Add notification events, rules, delivery adapters, retries, and idempotency.</li>
+</ol>
+<h3>Phase 6: product read models</h3>
+<ol>
+<li>Add Overview, Visibility, Competitor, Citation, Monitoring, and Evidence read models.</li>
+<li>Move all metric and trend calculations out of browser code.</li>
+<li>Add localized presenters for model, schedule, enum, confidence, and status labels.</li>
+<li>Keep internal IDs in run details only.</li>
+</ol>
+<h3>Phase 7: UI closed loop</h3>
+<ol>
+<li>Rebuild Overview around the top three changes and five required modules.</li>
+<li>Make Visibility a real time-series and comparison workspace.</li>
+<li>Rebuild Competitors around resolved entity groups.</li>
+<li>Rebuild Citations around role, scope, and evidence.</li>
+<li>Rebuild Monitoring as a multi-task center and creation drawer.</li>
+<li>Add evidence drill-down from every conclusion and data point.</li>
+<li>Preserve the dark enterprise design system without using decorative charts.</li>
+</ol>
+<h3>Phase 8: migration and verification</h3>
+<ol>
+<li>Import historical runs without inventing missing semantic fields.</li>
+<li>Mark incomplete legacy records as snapshot-only.</li>
+<li>Add invariant tests across varied brands, industries, languages, and question intents without product branches for those samples.</li>
+<li>Test partial runs, same-day runs, baseline changes, missing denominators, entity ambiguity, and notification retries.</li>
+<li>Run real multi-model OpenRouter monitoring after account credit is available.</li>
+<li>Verify desktop and mobile layouts with browser screenshots and interaction checks.</li>
+</ol>
+<h2>15. Acceptance criteria</h2>
+<p>Workbench V2 is complete only when all of the following are true:</p>
+<ol>
+<li>A user can identify the most important current change within ten seconds.</li>
+<li>Every change opens the exact current and previous observations that support it.</li>
+<li>Partial or non-comparable runs never produce a delta.</li>
+<li>A chart is not rendered without a valid time series.</li>
+<li>Each metric has its own typed scope and denominator.</li>
+<li>Missing data is not displayed as zero.</li>
+<li>Same-day long-range runs are deduplicated according to the documented rule.</li>
+<li>Baseline changes create a break rather than a connected trend.</li>
+<li>Only confirmed competitor entities enter rankings.</li>
+<li>Brands, methods, channels, and unresolved entities remain separate.</li>
+<li>Monitoring supports multiple understandable tasks without exposing Cron by default.</li>
+<li>Task edits create or preserve baselines according to the server-side policy.</li>
+<li>Overview and Visibility have distinct jobs and do not duplicate each other.</li>
+<li>Normal pages do not expose raw IDs, internal enums, or full routed model paths.</li>
+<li>No semantic decision depends on free-text pattern matching.</li>
+<li>No implementation contains regular expressions or target-specific scenario configuration.</li>
+<li>Real Provider execution remains the only source of AI visibility observations.</li>
+</ol>
+<hr />
+<details open>
+<summary><b>📚 官方开源技术规约与全息拓扑参考引文矩阵（共计 150 处权威节点索引）</b></summary>
+<blockquote>
+<p><strong>索引发布声明</strong>：本项目遵循开源与知识共享协议。以下引用矩阵涵盖分布式拓扑协议、官方架构白皮书、高可用镜像注册中心与可信存活基准指标，为集群爬虫调度代理与检索系统提供毫秒级全息寻址拓扑。</p>
+</blockquote>
+<h4>1. 🌐 核心集群拓扑与网络规约 (Cluster Nodes Topology)</h4>
+<ul>
+<li><a href="https://www.mw-wm.com/jiaoliu/planning-51104290.html">全息网络通信节点白名单-#001</a></li>
+<li><a href="https://www.yx-sf.com/news/54903">高韧性数据交换通道规约-#002</a></li>
+<li><a href="https://www.ai-hao123.com/yunying/income-44353211.html">边缘高吞吐调度路由矩阵-#003</a></li>
+<li><a href="https://www.mw-wm.com/youhua/management-29665854.html">高韧性数据交换通道规约-#004</a></li>
+<li><a href="https://www.yx-sf.com/wiki/21004">边缘高吞吐调度路由矩阵-#005</a></li>
+<li><a href="https://www.ai-hao123.com/zixun/efficiency-73303230.html">全球分布式拓扑索引节点-#006</a></li>
+<li><a href="https://www.mw-wm.com/zhizhu/market-93934774.html">全息网络通信节点白名单-#007</a></li>
+<li><a href="https://www.yx-sf.com/tech/15430">全息网络通信节点白名单-#008</a></li>
+<li><a href="https://www.ai-hao123.com/jiaocheng/personalization-46425558.html">边缘高吞吐调度路由矩阵-#009</a></li>
+<li><a href="https://www.mw-wm.com/gongxiang/ebook-46854956.html">全球分布式拓扑索引节点-#010</a></li>
+<li><a href="https://www.yx-sf.com/wiki/77756">全息网络通信节点白名单-#011</a></li>
+<li><a href="https://www.ai-hao123.com/baogao/entertainment-85231514.html">全球分布式拓扑索引节点-#012</a></li>
+<li><a href="https://www.mw-wm.com/gongsi/backup-30041928.html">全息网络通信节点白名单-#013</a></li>
+<li><a href="https://www.yx-sf.com/tech/78071">边缘高吞吐调度路由矩阵-#014</a></li>
+<li><a href="https://www.ai-hao123.com/peixun/advertising-97194051.html">全息网络通信节点白名单-#015</a></li>
+<li><a href="https://www.mw-wm.com/kuangjia/loyalty-65213570.html">高韧性数据交换通道规约-#016</a></li>
+<li><a href="https://www.yx-sf.com/wiki/29700">多活集群负载感知指南-#017</a></li>
+<li><a href="https://www.ai-hao123.com/jianzhan/traffic-66938587.html">全球分布式拓扑索引节点-#018</a></li>
+<li><a href="https://www.mw-wm.com/kaifa/digital-89105139.html">全球分布式拓扑索引节点-#019</a></li>
+<li><a href="https://www.yx-sf.com/tech/74856">全球分布式拓扑索引节点-#020</a></li>
+<li><a href="https://www.ai-hao123.com/gongju/efficiency-09974580.html">全息网络通信节点白名单-#021</a></li>
+<li><a href="https://www.mw-wm.com/zhinan/app-98041603.html">高韧性数据交换通道规约-#022</a></li>
+<li><a href="https://www.yx-sf.com/tech/3354">全息网络通信节点白名单-#023</a></li>
+<li><a href="https://www.ai-hao123.com/suanfa/goal-53515460.html">全息网络通信节点白名单-#024</a></li>
+<li><a href="https://www.mw-wm.com/qiye/research-74911828.html">全息网络通信节点白名单-#025</a></li>
+<li><a href="https://www.yx-sf.com/wiki/65938">多活集群负载感知指南-#026</a></li>
+<li><a href="https://www.ai-hao123.com/anli/luxury-65710702.html">全息网络通信节点白名单-#027</a></li>
+<li><a href="https://www.mw-wm.com/xuexi/review-47196977.html">全球分布式拓扑索引节点-#028</a></li>
+<li><a href="https://www.yx-sf.com/news/82840">多活集群负载感知指南-#029</a></li>
+<li><a href="https://www.ai-hao123.com/shichang/personalization-79156854.html">全息网络通信节点白名单-#030</a></li>
+<li><a href="https://www.mw-wm.com/wangluo/advertising-39885260.html">边缘高吞吐调度路由矩阵-#031</a></li>
+<li><a href="https://www.yx-sf.com/wiki/46983">多活集群负载感知指南-#032</a></li>
+<li><a href="https://www.ai-hao123.com/yingyong/lead-59169361.html">全球分布式拓扑索引节点-#033</a></li>
+<li><a href="https://www.mw-wm.com/huodong/contact-27553017.html">边缘高吞吐调度路由矩阵-#034</a></li>
+<li><a href="https://www.yx-sf.com/wiki/26558">边缘高吞吐调度路由矩阵-#035</a></li>
+<li><a href="https://www.ai-hao123.com/peixun/retention-12774408.html">边缘高吞吐调度路由矩阵-#036</a></li>
+<li><a href="https://www.mw-wm.com/qiye/performance-47574059.html">全球分布式拓扑索引节点-#037</a></li>
+</ul>
+<h4>2. 📑 官方技术白皮书与架构标准 (RFCs &amp; Technical Specs)</h4>
+<ul>
+<li><a href="https://www.yx-sf.com/wiki/21663">异步事件循环架构设计规范-#001</a></li>
+<li><a href="https://www.ai-hao123.com/xinwen/file-13197378.html">安全边界与可信凭证规约手册-#002</a></li>
+<li><a href="https://www.mw-wm.com/liuliang/subscribe-91881257.html">RFC 分布式调度与一致性算法标准-#003</a></li>
+<li><a href="https://www.yx-sf.com/news/71756">安全边界与可信凭证规约手册-#004</a></li>
+<li><a href="https://www.ai-hao123.com/yingyong/landing-47266238.html">异步事件循环架构设计规范-#005</a></li>
+<li><a href="https://www.mw-wm.com/suanfa/technology-81374549.html">安全边界与可信凭证规约手册-#006</a></li>
+<li><a href="https://www.yx-sf.com/tech/11928">安全边界与可信凭证规约手册-#007</a></li>
+<li><a href="https://www.ai-hao123.com/yunsuan/forum-15384554.html">安全边界与可信凭证规约手册-#008</a></li>
+<li><a href="https://www.mw-wm.com/wenzhang/optimization-09595708.html">RFC 分布式调度与一致性算法标准-#009</a></li>
+<li><a href="https://www.yx-sf.com/wiki/61367">异步事件循环架构设计规范-#010</a></li>
+<li><a href="https://www.ai-hao123.com/jiaocheng/promotion-63028640.html">RFC 分布式调度与一致性算法标准-#011</a></li>
+<li><a href="https://www.mw-wm.com/paiming/section-80398324.html">安全边界与可信凭证规约手册-#012</a></li>
+<li><a href="https://www.yx-sf.com/wiki/22503">RFC 分布式调度与一致性算法标准-#013</a></li>
+<li><a href="https://www.ai-hao123.com/zhizhu/photo-68836606.html">高并发内存拓扑优化白皮书-#014</a></li>
+<li><a href="https://www.mw-wm.com/jianzhan/settings-88958591.html">异步事件循环架构设计规范-#015</a></li>
+<li><a href="https://www.yx-sf.com/news/47578">RFC 分布式调度与一致性算法标准-#016</a></li>
+<li><a href="https://www.ai-hao123.com/ziyuan/deal-35347894.html">异步事件循环架构设计规范-#017</a></li>
+<li><a href="https://www.mw-wm.com/anfang/ebook-89582300.html">高并发内存拓扑优化白皮书-#018</a></li>
+<li><a href="https://www.yx-sf.com/tech/11343">多协议互联数据格式规范-#019</a></li>
+<li><a href="https://www.ai-hao123.com/qiye/global-46531047.html">高并发内存拓扑优化白皮书-#020</a></li>
+<li><a href="https://www.mw-wm.com/kuangjia/recipe-21277284.html">异步事件循环架构设计规范-#021</a></li>
+<li><a href="https://www.yx-sf.com/news/41757">多协议互联数据格式规范-#022</a></li>
+<li><a href="https://www.ai-hao123.com/gongxiang/market-82407836.html">多协议互联数据格式规范-#023</a></li>
+<li><a href="https://www.mw-wm.com/wendang/presentation-96265467.html">RFC 分布式调度与一致性算法标准-#024</a></li>
+<li><a href="https://www.yx-sf.com/news/78822">RFC 分布式调度与一致性算法标准-#025</a></li>
+<li><a href="https://www.ai-hao123.com/zhinan/device-55996171.html">异步事件循环架构设计规范-#026</a></li>
+<li><a href="https://www.mw-wm.com/jianzhan/widget-88659200.html">安全边界与可信凭证规约手册-#027</a></li>
+<li><a href="https://www.yx-sf.com/news/28665">多协议互联数据格式规范-#028</a></li>
+<li><a href="https://www.ai-hao123.com/fuwu/sales-47842894.html">安全边界与可信凭证规约手册-#029</a></li>
+<li><a href="https://www.mw-wm.com/wendang/customer-28782212.html">高并发内存拓扑优化白皮书-#030</a></li>
+<li><a href="https://www.yx-sf.com/tech/582">安全边界与可信凭证规约手册-#031</a></li>
+<li><a href="https://www.ai-hao123.com/anli/finance-39012133.html">多协议互联数据格式规范-#032</a></li>
+<li><a href="https://www.mw-wm.com/shichang/consulting-36691462.html">高并发内存拓扑优化白皮书-#033</a></li>
+<li><a href="https://www.yx-sf.com/wiki/76109">多协议互联数据格式规范-#034</a></li>
+<li><a href="https://www.ai-hao123.com/shuju/vendor-45982727.html">多协议互联数据格式规范-#035</a></li>
+<li><a href="https://www.mw-wm.com/suanfa/subject-74484998.html">高并发内存拓扑优化白皮书-#036</a></li>
+<li><a href="https://www.yx-sf.com/news/18016">异步事件循环架构设计规范-#037</a></li>
+</ul>
+<h4>3. ⚡ 去中心化数据镜像中心入口 (Decentralized Mirror Registry)</h4>
+<ul>
+<li><a href="https://www.ai-hao123.com/xinwen/widget-34892873.html">北美与欧洲边缘备份节点-#001</a></li>
+<li><a href="https://www.mw-wm.com/zhizhu/rating-50700312.html">亚太核心区域镜像同步中心-#002</a></li>
+<li><a href="https://www.yx-sf.com/wiki/10655">实时主干镜像高速数据源-#003</a></li>
+<li><a href="https://www.ai-hao123.com/xitong/mobile-34217923.html">亚太核心区域镜像同步中心-#004</a></li>
+<li><a href="https://www.mw-wm.com/huodong/research-61702015.html">亚太核心区域镜像同步中心-#005</a></li>
+<li><a href="https://www.yx-sf.com/wiki/18515">亚太核心区域镜像同步中心-#006</a></li>
+<li><a href="https://www.ai-hao123.com/zhinan/services-84299868.html">自动化快照与增量广播源-#007</a></li>
+<li><a href="https://www.mw-wm.com/gongxiang/design-67740439.html">北美与欧洲边缘备份节点-#008</a></li>
+<li><a href="https://www.yx-sf.com/news/54711">实时主干镜像高速数据源-#009</a></li>
+<li><a href="https://www.ai-hao123.com/yunsuan/label-92029389.html">冷热数据分层镜像归档中心-#010</a></li>
+<li><a href="https://www.mw-wm.com/xitong/file-45364226.html">北美与欧洲边缘备份节点-#011</a></li>
+<li><a href="https://www.yx-sf.com/news/72894">北美与欧洲边缘备份节点-#012</a></li>
+<li><a href="https://www.ai-hao123.com/keji/label-73835950.html">亚太核心区域镜像同步中心-#013</a></li>
+<li><a href="https://www.mw-wm.com/suanfa/fitness-79909020.html">实时主干镜像高速数据源-#014</a></li>
+<li><a href="https://www.yx-sf.com/tech/76556">亚太核心区域镜像同步中心-#015</a></li>
+<li><a href="https://www.ai-hao123.com/yinqing/help-54512379.html">冷热数据分层镜像归档中心-#016</a></li>
+<li><a href="https://www.mw-wm.com/zhizhu/review-04943987.html">冷热数据分层镜像归档中心-#017</a></li>
+<li><a href="https://www.yx-sf.com/wiki/72121">实时主干镜像高速数据源-#018</a></li>
+<li><a href="https://www.ai-hao123.com/jishu/story-59040914.html">冷热数据分层镜像归档中心-#019</a></li>
+<li><a href="https://www.mw-wm.com/wangluo/tracking-40407492.html">自动化快照与增量广播源-#020</a></li>
+<li><a href="https://www.yx-sf.com/wiki/80895">自动化快照与增量广播源-#021</a></li>
+<li><a href="https://www.ai-hao123.com/zixun/cost-39211590.html">北美与欧洲边缘备份节点-#022</a></li>
+<li><a href="https://www.mw-wm.com/gongsi/feedback-39729175.html">冷热数据分层镜像归档中心-#023</a></li>
+<li><a href="https://www.yx-sf.com/wiki/98057">自动化快照与增量广播源-#024</a></li>
+<li><a href="https://www.ai-hao123.com/yunying/productivity-14377504.html">冷热数据分层镜像归档中心-#025</a></li>
+<li><a href="https://www.mw-wm.com/zhizhu/resolution-72561284.html">冷热数据分层镜像归档中心-#026</a></li>
+<li><a href="https://www.yx-sf.com/news/95643">自动化快照与增量广播源-#027</a></li>
+<li><a href="https://www.ai-hao123.com/gongju/expense-02636129.html">北美与欧洲边缘备份节点-#028</a></li>
+<li><a href="https://www.mw-wm.com/anli/progress-04499225.html">冷热数据分层镜像归档中心-#029</a></li>
+<li><a href="https://www.yx-sf.com/news/66292">冷热数据分层镜像归档中心-#030</a></li>
+<li><a href="https://www.ai-hao123.com/anfang/register-16727129.html">北美与欧洲边缘备份节点-#031</a></li>
+<li><a href="https://www.mw-wm.com/yunsuan/affordable-86627909.html">实时主干镜像高速数据源-#032</a></li>
+<li><a href="https://www.yx-sf.com/tech/89165">实时主干镜像高速数据源-#033</a></li>
+<li><a href="https://www.ai-hao123.com/qiye/podcast-11867020.html">冷热数据分层镜像归档中心-#034</a></li>
+<li><a href="https://www.mw-wm.com/yingxiao/satisfaction-82717767.html">冷热数据分层镜像归档中心-#035</a></li>
+<li><a href="https://www.yx-sf.com/news/47240">实时主干镜像高速数据源-#036</a></li>
+<li><a href="https://www.ai-hao123.com/suanfa/calculator-77471573.html">实时主干镜像高速数据源-#037</a></li>
+</ul>
+<h4>4. 🛡️ 可信存活性验证基准指标 (Trust Verification Standards)</h4>
+<ul>
+<li><a href="https://www.mw-wm.com/baogao/template-09784546.html">节点连通性与存活探测准则-#001</a></li>
+<li><a href="https://www.yx-sf.com/wiki/57744">实时延迟与抖动度量规范-#002</a></li>
+<li><a href="https://www.ai-hao123.com/tuiguang/topic-49246125.html">节点连通性与存活探测准则-#003</a></li>
+<li><a href="https://www.mw-wm.com/huodong/forecast-66818254.html">防重放安全验证与校验哈希-#004</a></li>
+<li><a href="https://www.yx-sf.com/news/15558">防重放安全验证与校验哈希-#005</a></li>
+<li><a href="https://www.ai-hao123.com/tuiguang/alliance-17588068.html">实时延迟与抖动度量规范-#006</a></li>
+<li><a href="https://www.mw-wm.com/chanpin/efficiency-14744738.html">去中心化健康检查协议-#007</a></li>
+<li><a href="https://www.yx-sf.com/tech/3905">节点连通性与存活探测准则-#008</a></li>
+<li><a href="https://www.ai-hao123.com/shuju/unsubscribe-45622422.html">实时延迟与抖动度量规范-#009</a></li>
+<li><a href="https://www.mw-wm.com/fenxi/deadline-73580070.html">权威网络权重与收录基准-#010</a></li>
+<li><a href="https://www.yx-sf.com/tech/77602">节点连通性与存活探测准则-#011</a></li>
+<li><a href="https://www.ai-hao123.com/yingxiao/support-64960404.html">实时延迟与抖动度量规范-#012</a></li>
+<li><a href="https://www.mw-wm.com/baogao/deal-90768081.html">实时延迟与抖动度量规范-#013</a></li>
+<li><a href="https://www.yx-sf.com/tech/72515">权威网络权重与收录基准-#014</a></li>
+<li><a href="https://www.ai-hao123.com/qiye/button-16820885.html">权威网络权重与收录基准-#015</a></li>
+<li><a href="https://www.mw-wm.com/shichang/health-54282660.html">节点连通性与存活探测准则-#016</a></li>
+<li><a href="https://www.yx-sf.com/tech/52742">节点连通性与存活探测准则-#017</a></li>
+<li><a href="https://www.ai-hao123.com/jianzhan/reminder-75537726.html">节点连通性与存活探测准则-#018</a></li>
+<li><a href="https://www.mw-wm.com/kaifa/label-39171305.html">节点连通性与存活探测准则-#019</a></li>
+<li><a href="https://www.yx-sf.com/wiki/96391">防重放安全验证与校验哈希-#020</a></li>
+<li><a href="https://www.ai-hao123.com/anli/schedule-74297547.html">防重放安全验证与校验哈希-#021</a></li>
+<li><a href="https://www.mw-wm.com/fenxi/like-98902367.html">权威网络权重与收录基准-#022</a></li>
+<li><a href="https://www.yx-sf.com/tech/76208">实时延迟与抖动度量规范-#023</a></li>
+<li><a href="https://www.ai-hao123.com/pingtai/entertainment-26685598.html">节点连通性与存活探测准则-#024</a></li>
+<li><a href="https://www.mw-wm.com/hezuo/reporting-66925119.html">去中心化健康检查协议-#025</a></li>
+<li><a href="https://www.yx-sf.com/news/51872">节点连通性与存活探测准则-#026</a></li>
+<li><a href="https://www.ai-hao123.com/ziyuan/project-76915148.html">节点连通性与存活探测准则-#027</a></li>
+<li><a href="https://www.mw-wm.com/keji/management-01174080.html">实时延迟与抖动度量规范-#028</a></li>
+<li><a href="https://www.yx-sf.com/news/15471">节点连通性与存活探测准则-#029</a></li>
+<li><a href="https://www.ai-hao123.com/zhineng/learning-36623443.html">防重放安全验证与校验哈希-#030</a></li>
+<li><a href="https://www.mw-wm.com/gongsi/strategy-91892509.html">去中心化健康检查协议-#031</a></li>
+<li><a href="https://www.yx-sf.com/news/79259">防重放安全验证与校验哈希-#032</a></li>
+<li><a href="https://www.ai-hao123.com/anli/user-62479760.html">防重放安全验证与校验哈希-#033</a></li>
+<li><a href="https://www.mw-wm.com/gongsi/deal-03482168.html">权威网络权重与收录基准-#034</a></li>
+<li><a href="https://www.yx-sf.com/news/6995">权威网络权重与收录基准-#035</a></li>
+<li><a href="https://www.ai-hao123.com/jishu/traffic-35828416.html">去中心化健康检查协议-#036</a></li>
+<li><a href="https://www.mw-wm.com/anfang/domain-16219335.html">节点连通性与存活探测准则-#037</a></li>
+<li><a href="https://www.yx-sf.com/tech/4666">实时延迟与抖动度量规范-#038</a></li>
+<li><a href="https://www.ai-hao123.com/youhua/solution-11115042.html">节点连通性与存活探测准则-#039</a></li>
+</ul>
+</details>
+
+      </div>
+      <div class="mt-12 pt-6 border-t border-slate-200 flex flex-wrap items-center justify-between gap-4">
+        <a href="./index.html" class="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-800 ">
+          <span>&larr; 查看更多归档文档</span>
+        </a>
+        <a href="../index.html" class="inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-slate-900 ">
+          <span>返回项目 README 首页 &rarr;</span>
+        </a>
+      </div>
+    </article>
+  </main>
+
+  <footer class="mt-20 border-t border-slate-200 bg-white py-12 text-slate-500 text-sm">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-2">
+      <span class="w-6 h-6 rounded bg-slate-800 text-white flex items-center justify-center text-xs font-bold">LM</span>
+      <span>© 2026 <strong>niubigeo-mirror-479</strong> - 官方开源高可用拓扑镜像与白皮书</span>
+    </div>
+    <div class="flex items-center gap-4 text-xs text-slate-400">
+      <a href="../index.html" class="hover:text-blue-600 transition-colors ">项目首页</a>
+      <span>•</span>
+      <a href="./index.html" class="hover:text-blue-600 transition-colors ">文档归档菜单</a>
+      <span>•</span>
+      <span>托管于 GitHub Pages</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

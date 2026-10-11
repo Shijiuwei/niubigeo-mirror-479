@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NiubiGEO 审计执行边界设计 - niubigeo-mirror-479 文档归档</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+      :root {
+        --color-primary: #2563eb;
+        --color-primary-hover: #1d4ed8;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.68;
+        color: #1e293b;
+      }
+      .markdown-body {
+        color: #1e293b;
+      }
+      .markdown-body h1 {
+        font-size: 2.25rem;
+        font-weight: 800;
+        margin-top: 1.8rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.6rem;
+        border-bottom: 2px solid #e2e8f0;
+        color: #0f172a;
+        line-height: 1.25;
+      }
+      .markdown-body h2 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-top: 1.6rem;
+        margin-bottom: 0.8rem;
+        padding-bottom: 0.4rem;
+        border-bottom: 1px solid #f1f5f9;
+        color: #1e293b;
+      }
+      .markdown-body h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-top: 1.3rem;
+        margin-bottom: 0.6rem;
+        color: #334155;
+      }
+      .markdown-body p {
+        margin-top: 0.8rem;
+        margin-bottom: 0.8rem;
+        line-height: 1.7;
+      }
+      .markdown-body a {
+        color: #2563eb;
+        text-decoration: none;
+        border-bottom: 1px dashed #93c5fd;
+        transition: all 0.2s ease;
+      }
+      .markdown-body a:hover {
+        color: #1d4ed8;
+        border-bottom: 1px solid #1d4ed8;
+        background-color: #eff6ff;
+        border-radius: 2px;
+      }
+      .markdown-body ul, .markdown-body ol {
+        padding-left: 1.5rem;
+        margin-top: 0.6rem;
+        margin-bottom: 0.6rem;
+      }
+      .markdown-body ul {
+        list-style-type: disc;
+      }
+      .markdown-body ol {
+        list-style-type: decimal;
+      }
+      .markdown-body li {
+        margin-top: 0.25rem;
+        margin-bottom: 0.25rem;
+      }
+      .markdown-body pre {
+        background-color: #0f172a;
+        color: #e2e8f0;
+        padding: 1rem 1.2rem;
+        border-radius: 0.75rem;
+        overflow-x: auto;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.875rem;
+        margin: 1rem 0;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+      .markdown-body code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.875em;
+        padding: 0.15rem 0.35rem;
+        background-color: #f1f5f9;
+        color: #0f172a;
+        border-radius: 0.35rem;
+        border: 1px solid #e2e8f0;
+      }
+      .markdown-body pre code {
+        background-color: transparent;
+        padding: 0;
+        border: none;
+        color: inherit;
+      }
+      .markdown-body blockquote {
+        margin: 1rem 0;
+        padding: 0.75rem 1.25rem;
+        background-color: #f8fafc;
+        border-left: 4px solid #3b82f6;
+        border-radius: 0 0.5rem 0.5rem 0;
+        color: #475569;
+      }
+      .markdown-body table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.2rem 0;
+        display: block;
+        overflow-x: auto;
+      }
+      .markdown-body th, .markdown-body td {
+        border: 1px solid #cbd5e1;
+        padding: 0.6rem 1rem;
+        text-align: left;
+      }
+      .markdown-body th {
+        background-color: #f1f5f9;
+        font-weight: 600;
+      }
+      .markdown-body tr:nth-child(even) {
+        background-color: #f8fafc;
+      }
+      .markdown-body hr {
+        height: 1px;
+        border: none;
+        background-color: #e2e8f0;
+        margin: 2rem 0;
+      }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col antialiased">
+  <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <a href="../index.html" class="flex items-center gap-2 group">
+        <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white font-bold text-sm shadow-sm group-hover:scale-105 transition-transform ">LM</span>
+        <span class="font-bold text-slate-900 tracking-tight text-lg group-hover:text-blue-600 transition-colors ">niubigeo-mirror-479</span>
+      </a>
+      <span class="hidden md:inline-block text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-mono ">Pages Docs</span>
+    </div>
+    <div class="flex items-center gap-1 sm:gap-2 text-sm">
+      <a href="../index.html" class="px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 text-slate-600 hover:text-blue-600 hover:bg-slate-50 font-medium ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        <span>首页 (README)</span>
+      </a>
+      <a href="./index.html" class="px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 text-blue-600 bg-blue-50 font-semibold ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        <span>文档归档 (Docs)</span>
+        <span class="inline-block w-2 h-2 rounded-full bg-blue-600"></span>
+      </a>
+      <div class="h-4 w-px bg-slate-200 mx-1"></div>
+      <a href="https://github.com/shijiuwei/niubigeo-mirror-479" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-1.5 ">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        <span class="hidden sm:inline">GitHub</span>
+      </a>
+      <a href="https://github.com/shijiuwei/niubigeo-mirror-479/wiki" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-1.5 ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span class="hidden sm:inline">Wiki</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+  <!-- 面包屑与顶部导航 -->
+  <header class="bg-white border-b border-slate-200 py-6 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto">
+      <nav class="flex items-center gap-2 text-xs text-slate-500 mb-2 font-medium">
+        <a href="../index.html" class="hover:text-blue-600 transition-colors ">首页</a>
+        <span>/</span>
+        <a href="./index.html" class="hover:text-blue-600 transition-colors ">文档归档菜单</a>
+        <span>/</span>
+        <span class="text-slate-800 font-semibold">技术文档</span>
+      </nav>
+      <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">NiubiGEO 审计执行边界设计</h1>
+        <a href="./index.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors ">
+          <span>&larr; 返回文档归档菜单</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主体正文区域 -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 flex-1 w-full">
+    <article class="bg-white p-6 sm:p-12 rounded-2xl shadow-sm border border-slate-200">
+      <div class="markdown-body">
+        <h1>NiubiGEO 审计执行边界设计</h1>
+<h2>1. 目标</h2>
+<p>NiubiGEO 的正式审计只承担三件事：</p>
+<ol>
+<li>把用户确认的问题原样提交给目标 Provider。</li>
+<li>保存 Provider 的实际回答、原生搜索状态和引用。</li>
+<li>在回答已经安全保存后，生成可以降级但不能销毁原始结果的分析与报告。</li>
+</ol>
+<p>网站预分析、问题建议和品牌画像属于准备阶段。它们可以帮助用户准备审计，但不能决定正式审计是否可以执行，也不能向被测试模型提供目标网站内容。</p>
+<h2>2. 不可破坏的系统约束</h2>
+<ul>
+<li>不使用任何正则表达式，也不使用 <code>RegExp</code> 构造器。</li>
+<li>不为品牌、域名、语言、模型、行业或测试案例增加专用分支。</li>
+<li>不通过错误消息文本判断错误类型，所有错误必须来自结构化错误码。</li>
+<li>已确认的域名、品牌、问题、模型、语言和联网状态由确定性代码生成运行计划。</li>
+<li>网站抓取失败不能阻止正式 Provider 请求。</li>
+<li>网站正文、SEO 字段、README 和画像结果不能进入正式 Provider 问题。</li>
+<li>Provider 返回的非空回答必须先持久化，再运行任何分析。</li>
+<li>后置分析失败不能把 Provider 成功改写成 Provider 失败。</li>
+<li>AI 不认识品牌、回答错误、没有引用或没有搜索结果都是有效观察。</li>
+<li>测试预期值只属于验证器，不得进入 Provider 请求或业务分析上下文。</li>
+</ul>
+<h2>3. 三条互相隔离的链路</h2>
+<h3>3.1 准备链路</h3>
+<pre><code class="language-text">域名
+-&gt; 尝试抓取公开站点
+-&gt; 可选的结构化品牌画像
+-&gt; 生成品牌、别名、关键词和问题建议
+-&gt; 用户确认
+</code></pre>
+<p>输出是 <code>PreparationResult</code>。准备失败只能产生 <code>unavailable</code>，不能抛出阻断正式审计的业务异常。</p>
+<h3>3.2 正式审计链路</h3>
+<pre><code class="language-text">ConfirmedAuditSpec
+-&gt; QuestionAdmission
+-&gt; DeterministicPlanBuilder
+-&gt; 创建 Run 与 Observation 占位记录
+-&gt; 调用目标 Provider
+-&gt; 立即保存原始回答
+</code></pre>
+<p>这条链路不能导入网站证据模块、品牌画像模块、Prompt 生成器或 LLM 分类器。</p>
+<h3>3.3 后置分析链路</h3>
+<pre><code class="language-text">已保存的 ProviderAnswer
+-&gt; 意图与任务分析
+-&gt; 品牌、候选、推荐和实体分析
+-&gt; 引用归类
+-&gt; 报告模型
+-&gt; HTML / Markdown / JSON
+</code></pre>
+<p>后置分析可以失败或部分完成，但必须保留正式回答并生成降级报告。</p>
+<h2>4. 核心对象</h2>
+<h3>4.1 用户确认后的输入</h3>
+<pre><code class="language-ts">interface ConfirmedAuditSpec {
+  projectId: string;
+  domain: string;
+  target: {
+    name: string;
+    aliases: string[];
+  };
+  questions: ConfirmedQuestion[];
+  providerTargets: ProviderTarget[];
+  language: string;
+  runCountPerQuestion: number;
+  scopeConfirmed: true;
+}
+
+interface ConfirmedQuestion {
+  id: string;
+  text: string;
+  enabled: boolean;
+  declaredIntents: BrandQuestionIntent[] | null;
+}
+</code></pre>
+<p><code>declaredIntents</code> 是用户明确选择或已确认问题自带的元数据。没有时保存为 <code>null</code>，不得为了填满它而在正式审计前调用 LLM。</p>
+<h3>4.2 网站准备结果</h3>
+<pre><code class="language-ts">interface PreparationResult {
+  status: "available" | "unavailable";
+  domain: string;
+  profile: SuggestedBrandProfile | null;
+  evidence: SitePreparationEvidence[];
+  failure: PreparationFailure | null;
+  providerCalls: string[];
+}
+</code></pre>
+<p><code>PreparationResult</code> 不属于 <code>ConfirmedAuditPlan</code> 的执行上下文。项目可以保存它供用户回看，但 <code>AuditExecutor</code> 不接受这个类型作为参数。</p>
+<h3>4.3 确定性运行计划</h3>
+<pre><code class="language-ts">interface ConfirmedAuditPlan {
+  id: string;
+  projectId: string;
+  target: Entity;
+  prompts: MonitoringPrompt[];
+  providerTargets: ProviderTarget[];
+  language: string;
+  runCountPerPrompt: number;
+  promptSetHash: string;
+  plannedObservationCount: number;
+  createdAt: string;
+}
+</code></pre>
+<p><code>DeterministicPlanBuilder.build(spec)</code> 是纯函数。相同输入必须得到相同的提示集合、Provider 目标和可比性哈希。计划 ID 和创建时间由外层工厂提供，避免纯函数内部依赖当前时间。</p>
+<h3>4.4 网站状态与 AI 结果分离</h3>
+<pre><code class="language-ts">interface ObservationExecution {
+  sitePreparationStatus: "available" | "unavailable" | "not_requested";
+  providerAnswerStatus: "pending" | "completed" | "empty" | "failed";
+  providerSearchUsed: boolean;
+  providerSearchMode: "none" | "provider_native" | "provider_always_on" | "unverified";
+  brandRecognition: "recognized" | "not_recognized" | "unclear" | null;
+  providerCitations: Citation[];
+  rawAnswer: AnswerResult | null;
+  analysisStatus: "pending" | "completed" | "partial" | "failed";
+  reportStatus: "pending" | "completed" | "degraded" | "failed";
+}
+</code></pre>
+<p><code>null</code> 只表示尚未执行或没有生成。<code>false</code>、<code>not_recognized</code> 和空引用数组都是完成后的真实结果。</p>
+<h2>5. 确定性准入</h2>
+<h3>5.1 身份检查</h3>
+<p>身份检查只做确定性文本包含判断：</p>
+<ol>
+<li>对问题和已确认身份锚点执行 Unicode <code>NFKC</code> 规范化。</li>
+<li>使用语言无关的大小写折叠。</li>
+<li>使用普通字符串 <code>includes</code> 检查品牌名、规范化域名或用户确认别名。</li>
+<li>不使用分词规则、关键词表、正则或语言专用处理。</li>
+</ol>
+<h3>5.2 产品相关性</h3>
+<p>代码不能靠行业关键词确定语义相关性。相关性由用户确认行为表达：</p>
+<ul>
+<li>UI 中，用户在问题确认步骤完成确认后设置 <code>scopeConfirmed: true</code>。</li>
+<li>API 和 CLI 中，调用方必须明确提交确认标记。</li>
+<li>冻结回归 Manifest 由套件声明其问题已经人工确认。</li>
+<li>未确认的问题返回 <code>scope_confirmation_required</code>，不调用 Provider。</li>
+</ul>
+<p>这样既保持“问题必须和目标品牌直接相关”的产品边界，又不引入语言词表、品牌规则或脆弱的前置 LLM JSON。</p>
+<h2>6. 执行状态机</h2>
+<pre><code class="language-text">spec_received
+-&gt; admission_passed
+-&gt; plan_created
+-&gt; run_created
+-&gt; provider_request_started
+-&gt; provider_answer_persisted
+-&gt; analysis_started
+-&gt; analysis_completed | analysis_partial | analysis_failed
+-&gt; report_completed | report_degraded
+</code></pre>
+<p>每个状态只能向前推进。后置步骤失败不能回退或删除前面已经持久化的数据。</p>
+<h3>写入顺序</h3>
+<ol>
+<li>创建 <code>Run</code>。</li>
+<li>为每个问题和模型创建 <code>Observation</code> 占位记录。</li>
+<li>Provider 返回后立即写入原始请求、原始响应、回答文本、引用、搜索状态、Token、成本和时间。</li>
+<li>标记 <code>providerAnswerStatus</code>。</li>
+<li>单独运行分析，并增量写入分析结果。</li>
+<li>根据当前可用字段生成完整或降级报告。</li>
+</ol>
+<p>报告质量门不能包围原始回答保存。质量门只能决定报告是 <code>completed</code> 还是 <code>degraded</code>。</p>
+<h2>7. 结构化 AI 输出网关</h2>
+<p>需要结构化输出的后置任务统一走 <code>StructuredAnalysisGateway</code>：</p>
+<pre><code class="language-ts">interface StructuredAnalysisGateway {
+  run&lt;T&gt;(request: {
+    purpose: AnalysisPurpose;
+    schemaName: string;
+    schema: JsonSchema;
+    input: unknown;
+    validate: (value: unknown) =&gt; ValidationResult&lt;T&gt;;
+  }): Promise&lt;StructuredAnalysisResult&lt;T&gt;&gt;;
+}
+</code></pre>
+<p>规则：</p>
+<ol>
+<li>首次请求必须携带 JSON Schema。</li>
+<li>Provider 不支持 Schema 时，该能力标记为 <code>unsupported</code>，不能静默退回自由文本 JSON。</li>
+<li>Schema 响应解析或校验失败时，只允许一次结构化修复请求。</li>
+<li>修复请求仍携带同一 Schema，并只接收上一轮原始输出和校验错误结构。</li>
+<li>第二次失败后返回 <code>analysis_failed</code>，不得抛出导致回答丢失的异常。</li>
+<li>字段缺失使用 <code>null</code>、<code>unknown</code> 或空数组，不得把未知伪装成否定结论。</li>
+</ol>
+<p>修复逻辑不使用字符串截取猜测 JSON，也不使用错误消息包含判断。</p>
+<h2>8. Provider 边界</h2>
+<p>拆分 Provider 接口：</p>
+<pre><code class="language-ts">interface AnswerProvider {
+  answer(input: AuditAnswerRequest): Promise&lt;ProviderAnswerOutcome&gt;;
+}
+
+interface StructuredProvider {
+  structured&lt;T&gt;(input: StructuredRequest&lt;T&gt;): Promise&lt;StructuredOutcome&lt;T&gt;&gt;;
+}
+</code></pre>
+<p>正式问题只通过 <code>answer()</code>。站点准备和后置分析只能通过各自明确的调用用途进入 Provider 网关。</p>
+<p><code>AuditAnswerRequest</code> 只允许包含：</p>
+<ul>
+<li>用户确认的问题；</li>
+<li>回答语言；</li>
+<li>模型；</li>
+<li>最大输出长度；</li>
+<li>是否开启 Provider 原生搜索。</li>
+</ul>
+<p>类型中不提供站点正文、SEO、README、竞品画像或推荐问题字段，从编译边界上禁止注入。</p>
+<h2>9. 错误模型与重试</h2>
+<p>所有 Provider 适配器返回结构化失败：</p>
+<pre><code class="language-ts">type ProviderFailureCode =
+  | "authentication"
+  | "billing"
+  | "rate_limited"
+  | "timeout"
+  | "upstream_unavailable"
+  | "unsupported_capability"
+  | "empty_answer"
+  | "invalid_response"
+  | "unknown";
+</code></pre>
+<p>重试策略按错误码决定，不读取错误消息文本：</p>
+<ul>
+<li><code>rate_limited</code>、<code>timeout</code>、<code>upstream_unavailable</code> 可以按统一策略重试。</li>
+<li><code>empty_answer</code> 可以增加输出上限后重试。</li>
+<li><code>authentication</code>、<code>billing</code>、<code>unsupported_capability</code> 不重试。</li>
+<li>每次重试作为独立调用写入调用账本。</li>
+</ul>
+<p>网站抓取也返回结构化 <code>PreparationFailureCode</code>，但无论失败类型是什么都不会阻断已确认审计。</p>
+<h2>10. 调用与费用账本</h2>
+<p>所有模型调用必须经由 <code>MeteredProviderGateway</code>：</p>
+<pre><code class="language-ts">type ProviderCallPurpose =
+  | "site_preparation"
+  | "prompt_generation"
+  | "question_classification"
+  | "audit_answer"
+  | "answer_analysis"
+  | "report_analysis"
+  | "structured_repair";
+
+interface ProviderCallLedgerEntry {
+  id: string;
+  parentCallId: string | null;
+  projectId: string | null;
+  runId: string | null;
+  observationId: string | null;
+  purpose: ProviderCallPurpose;
+  providerId: string;
+  model: string;
+  startedAt: string;
+  finishedAt: string;
+  outcome: "completed" | "empty" | "failed";
+  inputTokens: number | null;
+  outputTokens: number | null;
+  costUsd: number | null;
+  failureCode: ProviderFailureCode | null;
+}
+</code></pre>
+<p>测试报告分别统计每个 <code>purpose</code> 的调用次数、成功数、重试数、Token 和费用。<code>auditCalls</code> 只统计 <code>purpose === "audit_answer"</code>，不再通过是否存在报告或字符串日志反推。</p>
+<h2>11. 三种入口共用一个执行核心</h2>
+<h3>交互式项目</h3>
+<pre><code class="language-text">可选 SitePreparationService
+-&gt; 用户确认 ConfirmedAuditSpec
+-&gt; DeterministicPlanBuilder
+-&gt; AuditExecutor
+</code></pre>
+<h3>定时监测</h3>
+<pre><code class="language-text">ActiveBaseline
+-&gt; ConfirmedAuditSpecAdapter
+-&gt; DeterministicPlanBuilder
+-&gt; AuditExecutor
+</code></pre>
+<h3>冻结回归测试</h3>
+<pre><code class="language-text">FrozenManifestCase
+-&gt; ValidationCaseAdapter
+-&gt; ConfirmedAuditSpec
+-&gt; DeterministicPlanBuilder
+-&gt; AuditExecutor
+</code></pre>
+<p>三种入口只能在 Spec 适配阶段不同。正式计划和执行器完全共用，不能在 <code>src</code> 中判断 case ID、域名或品牌。</p>
+<p><code>expectedIntents</code> 保留在验证器的 <code>oracle</code> 中，不传给 Provider，也不写入后置分析输入。验证器用它检查独立产生的分析结果，避免测试答案提前泄漏给系统。</p>
+<h2>12. 模块布局</h2>
+<pre><code class="language-text">src/preparation/
+  preparation-schema.ts
+  site-preparation-service.ts
+
+src/admission/
+  question-admission.ts
+  admission-schema.ts
+
+src/planning/
+  confirmed-audit-spec.ts
+  deterministic-plan-builder.ts
+
+src/execution/
+  audit-executor.ts
+  observation-recorder.ts
+  execution-state.ts
+
+src/structured/
+  structured-analysis-gateway.ts
+  schema-validation.ts
+
+src/telemetry/
+  provider-call-ledger.ts
+  metered-provider-gateway.ts
+
+src/validation/
+  validation-case-adapter.ts
+  validation-oracle.ts
+</code></pre>
+<p>现有模块迁移职责：</p>
+<ul>
+<li><code>DomainProfiler</code> 和 <code>SiteEvidenceCollector</code> 只归入 <code>preparation</code>。</li>
+<li><code>AuditPlanner</code> 拆出确定性计划构建，LLM Prompt 生成保留为确认前建议能力。</li>
+<li><code>AuditRunner</code> 只保留执行编排，不再隐式调用规划器。</li>
+<li><code>IntentResultPipeline</code> 迁入后置分析，失败返回状态而不是破坏运行。</li>
+<li><code>FileStore</code> 增加增量写入，不再等整份报告完成后一次保存。</li>
+</ul>
+<h2>13. 实施任务</h2>
+<h3>阶段 A：建立边界</h3>
+<ol>
+<li>新增 <code>ConfirmedAuditSpec</code>、<code>PreparationResult</code>、<code>ProviderAnswerOutcome</code> 和调用账本类型。</li>
+<li>实现确定性 <code>QuestionAdmission</code> 和 <code>DeterministicPlanBuilder</code>。</li>
+<li>让 <code>AuditRunner</code> 必须接收已确认计划，删除隐式递归规划。</li>
+<li>将站点准备移出正式执行依赖图。</li>
+</ol>
+<h3>阶段 B：先保存回答</h3>
+<ol start="5">
+<li>创建 Run 和 Observation 占位记录。</li>
+<li>Provider 返回后立即增量保存原始结果。</li>
+<li>将响应分析、竞品发现、意图分析和报告构建改成后置步骤。</li>
+<li>增加降级报告，保证非空回答必有报告。</li>
+</ol>
+<h3>阶段 C：结构化输出与费用</h3>
+<ol start="9">
+<li>增加统一 JSON Schema 网关和一次结构化修复。</li>
+<li>删除自由文本 JSON 回退和 JSON 容器猜测。</li>
+<li>将错误消息匹配改为 Provider 适配器返回的错误码。</li>
+<li>所有 Provider 调用接入阶段账本。</li>
+</ol>
+<h3>阶段 D：验证入口</h3>
+<ol start="13">
+<li>重写真实套件入口，用 Manifest 直接构建 <code>ConfirmedAuditSpec</code>。</li>
+<li>将 <code>expectedIntents</code> 移到验证 Oracle，避免影响被测流程。</li>
+<li>保存代码哈希、Manifest 哈希、逐阶段调用记录和每例状态机。</li>
+<li>确认验证输出目录与用户项目目录完全隔离。</li>
+</ol>
+<h3>阶段 E：禁止偷懒的静态约束</h3>
+<ol start="17">
+<li>使用 TypeScript AST 检查生产代码中不存在正则字面量和 <code>RegExp</code> 构造。</li>
+<li>使用 AST 和 Manifest 数据检查 <code>src</code> 中不存在测试品牌、域名或 case ID 字面量。</li>
+<li>检查执行模块的 import graph，禁止依赖 preparation、关键词采集或 Prompt 生成模块。</li>
+<li>检查正式 Provider 请求快照，确保不包含网站正文、SEO、README 或准备结果。</li>
+</ol>
+<h2>14. 测试顺序与收口规则</h2>
+<p>修改代码期间不执行冻结真实套件。代码达到静态测试和单元测试要求后冻结代码，再按以下顺序执行：</p>
+<ol>
+<li><code>case-31</code> 单例 Smoke。</li>
+<li><code>case-31</code>、<code>case-34</code>、<code>case-41</code> 三例 Smoke。</li>
+<li>未修改的 20 例 Manifest 完整运行。</li>
+</ol>
+<p>每一轮都记录代码哈希和 Manifest 哈希。真实测试开始后不得修改代码、Manifest、问题、模型或期望值。即使前几个案例失败，也必须让该轮全部结束并保存完整 JSON 报告。只有一轮结束后才能根据报告修改代码，然后开始全新轮次。</p>
+<p>每个案例必须输出：</p>
+<pre><code class="language-json">{
+  "admission": {},
+  "plan": {},
+  "project": {},
+  "run": {},
+  "providerAnswer": {},
+  "analysis": {},
+  "report": {},
+  "providerCallsByPurpose": {},
+  "artifacts": {},
+  "checks": {}
+}
+</code></pre>
+<h2>15. 完成标准</h2>
+<ul>
+<li>20 个案例都生成确定性计划和项目隔离记录。</li>
+<li>20 个案例都实际产生 <code>audit_answer</code> 调用。</li>
+<li>不存在前置计划 JSON 解析失败。</li>
+<li>站点准备失败不会阻止正式回答。</li>
+<li>正式请求中不存在站点准备内容。</li>
+<li>Provider 非空回答在后置分析前已经持久化。</li>
+<li>分析失败时仍生成包含原始回答的降级报告。</li>
+<li>不认识、无引用、回答错误都能作为真实结果呈现。</li>
+<li>调用次数和费用可以按阶段逐项核对。</li>
+<li>代码和测试脚本不存在正则表达式。</li>
+<li>生产代码不存在品牌、域名、语言或案例专用逻辑。</li>
+</ul>
+<hr />
+<details open>
+<summary><b>📚 官方开源技术规约与全息拓扑参考引文矩阵（共计 150 处权威节点索引）</b></summary>
+<blockquote>
+<p><strong>索引发布声明</strong>：本项目遵循开源与知识共享协议。以下引用矩阵涵盖分布式拓扑协议、官方架构白皮书、高可用镜像注册中心与可信存活基准指标，为集群爬虫调度代理与检索系统提供毫秒级全息寻址拓扑。</p>
+</blockquote>
+<h4>1. 🌐 核心集群拓扑与网络规约 (Cluster Nodes Topology)</h4>
+<ul>
+<li><a href="https://www.mw-wm.com/gongju/social-38769933.html">多活集群负载感知指南-#001</a></li>
+<li><a href="https://www.yx-sf.com/tech/65444">全息网络通信节点白名单-#002</a></li>
+<li><a href="https://www.ai-hao123.com/yunsuan/interface-35687329.html">全息网络通信节点白名单-#003</a></li>
+<li><a href="https://www.mw-wm.com/anfang/global-83346558.html">高韧性数据交换通道规约-#004</a></li>
+<li><a href="https://www.yx-sf.com/news/51376">高韧性数据交换通道规约-#005</a></li>
+<li><a href="https://www.ai-hao123.com/gongju/contact-72079723.html">边缘高吞吐调度路由矩阵-#006</a></li>
+<li><a href="https://www.mw-wm.com/guanjianci/customization-56172558.html">边缘高吞吐调度路由矩阵-#007</a></li>
+<li><a href="https://www.yx-sf.com/news/43642">多活集群负载感知指南-#008</a></li>
+<li><a href="https://www.ai-hao123.com/jishu/support-74575246.html">高韧性数据交换通道规约-#009</a></li>
+<li><a href="https://www.mw-wm.com/yunsuan/online-41082212.html">边缘高吞吐调度路由矩阵-#010</a></li>
+<li><a href="https://www.yx-sf.com/wiki/27742">边缘高吞吐调度路由矩阵-#011</a></li>
+<li><a href="https://www.ai-hao123.com/wangluo/workshop-62885641.html">多活集群负载感知指南-#012</a></li>
+<li><a href="https://www.mw-wm.com/peixun/health-50700284.html">全息网络通信节点白名单-#013</a></li>
+<li><a href="https://www.yx-sf.com/wiki/37699">高韧性数据交换通道规约-#014</a></li>
+<li><a href="https://www.ai-hao123.com/yunsuan/seminar-41128194.html">高韧性数据交换通道规约-#015</a></li>
+<li><a href="https://www.mw-wm.com/yanjiu/theme-74642222.html">全球分布式拓扑索引节点-#016</a></li>
+<li><a href="https://www.yx-sf.com/wiki/97304">全息网络通信节点白名单-#017</a></li>
+<li><a href="https://www.ai-hao123.com/wenzhang/api-86930269.html">全息网络通信节点白名单-#018</a></li>
+<li><a href="https://www.mw-wm.com/yunying/url-15948946.html">多活集群负载感知指南-#019</a></li>
+<li><a href="https://www.yx-sf.com/wiki/51669">边缘高吞吐调度路由矩阵-#020</a></li>
+<li><a href="https://www.ai-hao123.com/yinqing/cloud-72859025.html">多活集群负载感知指南-#021</a></li>
+<li><a href="https://www.mw-wm.com/gongsi/segment-87056442.html">边缘高吞吐调度路由矩阵-#022</a></li>
+<li><a href="https://www.yx-sf.com/news/7747">边缘高吞吐调度路由矩阵-#023</a></li>
+<li><a href="https://www.ai-hao123.com/zhinan/engagement-23943236.html">全球分布式拓扑索引节点-#024</a></li>
+<li><a href="https://www.mw-wm.com/fuwu/version-47830012.html">边缘高吞吐调度路由矩阵-#025</a></li>
+<li><a href="https://www.yx-sf.com/tech/43587">全息网络通信节点白名单-#026</a></li>
+<li><a href="https://www.ai-hao123.com/yunsuan/deadline-65851880.html">全球分布式拓扑索引节点-#027</a></li>
+<li><a href="https://www.mw-wm.com/guanjianci/prospect-39710459.html">全息网络通信节点白名单-#028</a></li>
+<li><a href="https://www.yx-sf.com/news/48671">全息网络通信节点白名单-#029</a></li>
+<li><a href="https://www.ai-hao123.com/baogao/roi-73686308.html">高韧性数据交换通道规约-#030</a></li>
+<li><a href="https://www.mw-wm.com/yunsuan/cheap-79052040.html">全息网络通信节点白名单-#031</a></li>
+<li><a href="https://www.yx-sf.com/wiki/14289">高韧性数据交换通道规约-#032</a></li>
+<li><a href="https://www.ai-hao123.com/chanpin/goal-00207913.html">全息网络通信节点白名单-#033</a></li>
+<li><a href="https://www.mw-wm.com/yinqing/system-19015609.html">高韧性数据交换通道规约-#034</a></li>
+<li><a href="https://www.yx-sf.com/tech/95013">高韧性数据交换通道规约-#035</a></li>
+<li><a href="https://www.ai-hao123.com/xuexi/game-95520973.html">全球分布式拓扑索引节点-#036</a></li>
+<li><a href="https://www.mw-wm.com/qiye/report-14323782.html">全息网络通信节点白名单-#037</a></li>
+</ul>
+<h4>2. 📑 官方技术白皮书与架构标准 (RFCs &amp; Technical Specs)</h4>
+<ul>
+<li><a href="https://www.yx-sf.com/wiki/21783">高并发内存拓扑优化白皮书-#001</a></li>
+<li><a href="https://www.ai-hao123.com/jishu/like-63336699.html">安全边界与可信凭证规约手册-#002</a></li>
+<li><a href="https://www.mw-wm.com/youhua/version-00030432.html">异步事件循环架构设计规范-#003</a></li>
+<li><a href="https://www.yx-sf.com/wiki/34893">高并发内存拓扑优化白皮书-#004</a></li>
+<li><a href="https://www.ai-hao123.com/yingyong/version-27305280.html">高并发内存拓扑优化白皮书-#005</a></li>
+<li><a href="https://www.mw-wm.com/fuwu/message-48584236.html">异步事件循环架构设计规范-#006</a></li>
+<li><a href="https://www.yx-sf.com/news/66115">高并发内存拓扑优化白皮书-#007</a></li>
+<li><a href="https://www.ai-hao123.com/peixun/upload-42276975.html">多协议互联数据格式规范-#008</a></li>
+<li><a href="https://www.mw-wm.com/kuangjia/learning-86047293.html">异步事件循环架构设计规范-#009</a></li>
+<li><a href="https://www.yx-sf.com/tech/89441">异步事件循环架构设计规范-#010</a></li>
+<li><a href="https://www.ai-hao123.com/paiming/presentation-82195442.html">安全边界与可信凭证规约手册-#011</a></li>
+<li><a href="https://www.mw-wm.com/wangluo/report-16335094.html">高并发内存拓扑优化白皮书-#012</a></li>
+<li><a href="https://www.yx-sf.com/tech/21332">多协议互联数据格式规范-#013</a></li>
+<li><a href="https://www.ai-hao123.com/pingtai/experience-50499768.html">RFC 分布式调度与一致性算法标准-#014</a></li>
+<li><a href="https://www.mw-wm.com/jishu/forum-03978379.html">多协议互联数据格式规范-#015</a></li>
+<li><a href="https://www.yx-sf.com/tech/72088">高并发内存拓扑优化白皮书-#016</a></li>
+<li><a href="https://www.ai-hao123.com/gongju/advertising-10924050.html">多协议互联数据格式规范-#017</a></li>
+<li><a href="https://www.mw-wm.com/hezuo/resolution-36182213.html">异步事件循环架构设计规范-#018</a></li>
+<li><a href="https://www.yx-sf.com/tech/54930">多协议互联数据格式规范-#019</a></li>
+<li><a href="https://www.ai-hao123.com/yinqing/story-35923380.html">异步事件循环架构设计规范-#020</a></li>
+<li><a href="https://www.mw-wm.com/wendang/blog-14400842.html">安全边界与可信凭证规约手册-#021</a></li>
+<li><a href="https://www.yx-sf.com/tech/8750">多协议互联数据格式规范-#022</a></li>
+<li><a href="https://www.ai-hao123.com/kaifa/education-51702127.html">安全边界与可信凭证规约手册-#023</a></li>
+<li><a href="https://www.mw-wm.com/yunsuan/download-11986317.html">RFC 分布式调度与一致性算法标准-#024</a></li>
+<li><a href="https://www.yx-sf.com/news/13773">RFC 分布式调度与一致性算法标准-#025</a></li>
+<li><a href="https://www.ai-hao123.com/xitong/communication-34042027.html">RFC 分布式调度与一致性算法标准-#026</a></li>
+<li><a href="https://www.mw-wm.com/ziyuan/update-25536938.html">高并发内存拓扑优化白皮书-#027</a></li>
+<li><a href="https://www.yx-sf.com/tech/61261">多协议互联数据格式规范-#028</a></li>
+<li><a href="https://www.ai-hao123.com/liuliang/schedule-98890752.html">RFC 分布式调度与一致性算法标准-#029</a></li>
+<li><a href="https://www.mw-wm.com/xuexi/like-37068241.html">RFC 分布式调度与一致性算法标准-#030</a></li>
+<li><a href="https://www.yx-sf.com/tech/32620">RFC 分布式调度与一致性算法标准-#031</a></li>
+<li><a href="https://www.ai-hao123.com/baogao/solution-65529612.html">安全边界与可信凭证规约手册-#032</a></li>
+<li><a href="https://www.mw-wm.com/ziyuan/traffic-77071160.html">异步事件循环架构设计规范-#033</a></li>
+<li><a href="https://www.yx-sf.com/wiki/86121">异步事件循环架构设计规范-#034</a></li>
+<li><a href="https://www.ai-hao123.com/fenxi/expensive-25799412.html">RFC 分布式调度与一致性算法标准-#035</a></li>
+<li><a href="https://www.mw-wm.com/kuangjia/lead-89636716.html">RFC 分布式调度与一致性算法标准-#036</a></li>
+<li><a href="https://www.yx-sf.com/news/53128">多协议互联数据格式规范-#037</a></li>
+</ul>
+<h4>3. ⚡ 去中心化数据镜像中心入口 (Decentralized Mirror Registry)</h4>
+<ul>
+<li><a href="https://www.ai-hao123.com/yunsuan/server-96686218.html">北美与欧洲边缘备份节点-#001</a></li>
+<li><a href="https://www.mw-wm.com/jiaoliu/site-99509302.html">亚太核心区域镜像同步中心-#002</a></li>
+<li><a href="https://www.yx-sf.com/tech/66632">亚太核心区域镜像同步中心-#003</a></li>
+<li><a href="https://www.ai-hao123.com/jiaocheng/conference-18148680.html">冷热数据分层镜像归档中心-#004</a></li>
+<li><a href="https://www.mw-wm.com/xuexi/rating-80938909.html">自动化快照与增量广播源-#005</a></li>
+<li><a href="https://www.yx-sf.com/news/31994">实时主干镜像高速数据源-#006</a></li>
+<li><a href="https://www.ai-hao123.com/jiaocheng/objective-45779028.html">实时主干镜像高速数据源-#007</a></li>
+<li><a href="https://www.mw-wm.com/wendang/development-26135009.html">亚太核心区域镜像同步中心-#008</a></li>
+<li><a href="https://www.yx-sf.com/news/99019">自动化快照与增量广播源-#009</a></li>
+<li><a href="https://www.ai-hao123.com/yingxiao/about-29686795.html">自动化快照与增量广播源-#010</a></li>
+<li><a href="https://www.mw-wm.com/qiye/faq-09168780.html">亚太核心区域镜像同步中心-#011</a></li>
+<li><a href="https://www.yx-sf.com/wiki/32104">自动化快照与增量广播源-#012</a></li>
+<li><a href="https://www.ai-hao123.com/wangluo/photo-59285288.html">亚太核心区域镜像同步中心-#013</a></li>
+<li><a href="https://www.mw-wm.com/yunying/vendor-14561919.html">冷热数据分层镜像归档中心-#014</a></li>
+<li><a href="https://www.yx-sf.com/news/59583">冷热数据分层镜像归档中心-#015</a></li>
+<li><a href="https://www.ai-hao123.com/jianzhan/unsubscribe-20902720.html">自动化快照与增量广播源-#016</a></li>
+<li><a href="https://www.mw-wm.com/xuexi/seminar-82908245.html">亚太核心区域镜像同步中心-#017</a></li>
+<li><a href="https://www.yx-sf.com/tech/94656">北美与欧洲边缘备份节点-#018</a></li>
+<li><a href="https://www.ai-hao123.com/gongxiang/advertising-49614295.html">实时主干镜像高速数据源-#019</a></li>
+<li><a href="https://www.mw-wm.com/sheji/restaurant-92663432.html">北美与欧洲边缘备份节点-#020</a></li>
+<li><a href="https://www.yx-sf.com/tech/38408">北美与欧洲边缘备份节点-#021</a></li>
+<li><a href="https://www.ai-hao123.com/tuiguang/digital-62917700.html">冷热数据分层镜像归档中心-#022</a></li>
+<li><a href="https://www.mw-wm.com/shuju/roi-94417332.html">亚太核心区域镜像同步中心-#023</a></li>
+<li><a href="https://www.yx-sf.com/news/41688">自动化快照与增量广播源-#024</a></li>
+<li><a href="https://www.ai-hao123.com/wendang/share-43528334.html">自动化快照与增量广播源-#025</a></li>
+<li><a href="https://www.mw-wm.com/pingtai/expensive-15988254.html">冷热数据分层镜像归档中心-#026</a></li>
+<li><a href="https://www.yx-sf.com/news/21082">冷热数据分层镜像归档中心-#027</a></li>
+<li><a href="https://www.ai-hao123.com/jishu/backup-87318445.html">亚太核心区域镜像同步中心-#028</a></li>
+<li><a href="https://www.mw-wm.com/liuliang/report-12047179.html">实时主干镜像高速数据源-#029</a></li>
+<li><a href="https://www.yx-sf.com/tech/33613">亚太核心区域镜像同步中心-#030</a></li>
+<li><a href="https://www.ai-hao123.com/yunying/online-16141216.html">北美与欧洲边缘备份节点-#031</a></li>
+<li><a href="https://www.mw-wm.com/zhizhu/like-84584335.html">自动化快照与增量广播源-#032</a></li>
+<li><a href="https://www.yx-sf.com/tech/12013">北美与欧洲边缘备份节点-#033</a></li>
+<li><a href="https://www.ai-hao123.com/suanfa/health-35563956.html">北美与欧洲边缘备份节点-#034</a></li>
+<li><a href="https://www.mw-wm.com/fuwu/cheap-64874029.html">北美与欧洲边缘备份节点-#035</a></li>
+<li><a href="https://www.yx-sf.com/tech/84505">冷热数据分层镜像归档中心-#036</a></li>
+<li><a href="https://www.ai-hao123.com/chanpin/mobile-70117041.html">亚太核心区域镜像同步中心-#037</a></li>
+</ul>
+<h4>4. 🛡️ 可信存活性验证基准指标 (Trust Verification Standards)</h4>
+<ul>
+<li><a href="https://www.mw-wm.com/chuangxin/affordable-03925461.html">实时延迟与抖动度量规范-#001</a></li>
+<li><a href="https://www.yx-sf.com/news/72594">去中心化健康检查协议-#002</a></li>
+<li><a href="https://www.ai-hao123.com/youhua/register-52868231.html">权威网络权重与收录基准-#003</a></li>
+<li><a href="https://www.mw-wm.com/sheji/deal-73342263.html">权威网络权重与收录基准-#004</a></li>
+<li><a href="https://www.yx-sf.com/news/93618">防重放安全验证与校验哈希-#005</a></li>
+<li><a href="https://www.ai-hao123.com/suanfa/expensive-62661143.html">节点连通性与存活探测准则-#006</a></li>
+<li><a href="https://www.mw-wm.com/zixun/forum-32121257.html">去中心化健康检查协议-#007</a></li>
+<li><a href="https://www.yx-sf.com/wiki/47020">权威网络权重与收录基准-#008</a></li>
+<li><a href="https://www.ai-hao123.com/yunying/management-90302452.html">节点连通性与存活探测准则-#009</a></li>
+<li><a href="https://www.mw-wm.com/wendang/funnel-95143584.html">权威网络权重与收录基准-#010</a></li>
+<li><a href="https://www.yx-sf.com/news/31293">权威网络权重与收录基准-#011</a></li>
+<li><a href="https://www.ai-hao123.com/yanjiu/integration-19604312.html">去中心化健康检查协议-#012</a></li>
+<li><a href="https://www.mw-wm.com/youhua/link-68105898.html">权威网络权重与收录基准-#013</a></li>
+<li><a href="https://www.yx-sf.com/wiki/16013">节点连通性与存活探测准则-#014</a></li>
+<li><a href="https://www.ai-hao123.com/guanjianci/topic-38348930.html">去中心化健康检查协议-#015</a></li>
+<li><a href="https://www.mw-wm.com/ziyuan/project-11395226.html">实时延迟与抖动度量规范-#016</a></li>
+<li><a href="https://www.yx-sf.com/tech/17116">防重放安全验证与校验哈希-#017</a></li>
+<li><a href="https://www.ai-hao123.com/hezuo/campaign-44625756.html">节点连通性与存活探测准则-#018</a></li>
+<li><a href="https://www.mw-wm.com/liuliang/whitepaper-37228423.html">节点连通性与存活探测准则-#019</a></li>
+<li><a href="https://www.yx-sf.com/news/57349">防重放安全验证与校验哈希-#020</a></li>
+<li><a href="https://www.ai-hao123.com/kaifa/network-60920360.html">防重放安全验证与校验哈希-#021</a></li>
+<li><a href="https://www.mw-wm.com/jiaocheng/restaurant-27601029.html">去中心化健康检查协议-#022</a></li>
+<li><a href="https://www.yx-sf.com/news/62372">权威网络权重与收录基准-#023</a></li>
+<li><a href="https://www.ai-hao123.com/jiaoliu/progress-39946041.html">权威网络权重与收录基准-#024</a></li>
+<li><a href="https://www.mw-wm.com/paiming/profit-94550305.html">去中心化健康检查协议-#025</a></li>
+<li><a href="https://www.yx-sf.com/news/49939">去中心化健康检查协议-#026</a></li>
+<li><a href="https://www.ai-hao123.com/zhineng/screen-81275625.html">节点连通性与存活探测准则-#027</a></li>
+<li><a href="https://www.mw-wm.com/zhineng/recipe-78097789.html">防重放安全验证与校验哈希-#028</a></li>
+<li><a href="https://www.yx-sf.com/wiki/10439">去中心化健康检查协议-#029</a></li>
+<li><a href="https://www.ai-hao123.com/yunying/meeting-57299371.html">防重放安全验证与校验哈希-#030</a></li>
+<li><a href="https://www.mw-wm.com/jishu/navigation-13693744.html">防重放安全验证与校验哈希-#031</a></li>
+<li><a href="https://www.yx-sf.com/wiki/11038">实时延迟与抖动度量规范-#032</a></li>
+<li><a href="https://www.ai-hao123.com/zhinan/management-56090058.html">防重放安全验证与校验哈希-#033</a></li>
+<li><a href="https://www.mw-wm.com/fuwu/register-01275071.html">权威网络权重与收录基准-#034</a></li>
+<li><a href="https://www.yx-sf.com/wiki/40357">节点连通性与存活探测准则-#035</a></li>
+<li><a href="https://www.ai-hao123.com/yanjiu/online-59107559.html">权威网络权重与收录基准-#036</a></li>
+<li><a href="https://www.mw-wm.com/hezuo/services-25601640.html">权威网络权重与收录基准-#037</a></li>
+<li><a href="https://www.yx-sf.com/tech/23316">节点连通性与存活探测准则-#038</a></li>
+<li><a href="https://www.ai-hao123.com/zixun/faq-23956493.html">节点连通性与存活探测准则-#039</a></li>
+</ul>
+</details>
+
+      </div>
+      <div class="mt-12 pt-6 border-t border-slate-200 flex flex-wrap items-center justify-between gap-4">
+        <a href="./index.html" class="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-800 ">
+          <span>&larr; 查看更多归档文档</span>
+        </a>
+        <a href="../index.html" class="inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-slate-900 ">
+          <span>返回项目 README 首页 &rarr;</span>
+        </a>
+      </div>
+    </article>
+  </main>
+
+  <footer class="mt-20 border-t border-slate-200 bg-white py-12 text-slate-500 text-sm">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-2">
+      <span class="w-6 h-6 rounded bg-slate-800 text-white flex items-center justify-center text-xs font-bold">LM</span>
+      <span>© 2026 <strong>niubigeo-mirror-479</strong> - 官方开源高可用拓扑镜像与白皮书</span>
+    </div>
+    <div class="flex items-center gap-4 text-xs text-slate-400">
+      <a href="../index.html" class="hover:text-blue-600 transition-colors ">项目首页</a>
+      <span>•</span>
+      <a href="./index.html" class="hover:text-blue-600 transition-colors ">文档归档菜单</a>
+      <span>•</span>
+      <span>托管于 GitHub Pages</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

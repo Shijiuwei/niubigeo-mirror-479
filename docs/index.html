@@ -3,40 +3,2278 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>niubigeo-mirror-479 - 官方高可用开源镜像中心</title>
+  <title>文档归档菜单 - niubigeo-mirror-479 技术白皮书与规约清单</title>
+  <meta name="description" content="High availability mirror and network topology specifications for niubigeo-mirror-479">
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+      :root {
+        --color-primary: #2563eb;
+        --color-primary-hover: #1d4ed8;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.68;
+        color: #1e293b;
+      }
+      .markdown-body {
+        color: #1e293b;
+      }
+      .markdown-body h1 {
+        font-size: 2.25rem;
+        font-weight: 800;
+        margin-top: 1.8rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.6rem;
+        border-bottom: 2px solid #e2e8f0;
+        color: #0f172a;
+        line-height: 1.25;
+      }
+      .markdown-body h2 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-top: 1.6rem;
+        margin-bottom: 0.8rem;
+        padding-bottom: 0.4rem;
+        border-bottom: 1px solid #f1f5f9;
+        color: #1e293b;
+      }
+      .markdown-body h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-top: 1.3rem;
+        margin-bottom: 0.6rem;
+        color: #334155;
+      }
+      .markdown-body p {
+        margin-top: 0.8rem;
+        margin-bottom: 0.8rem;
+        line-height: 1.7;
+      }
+      .markdown-body a {
+        color: #2563eb;
+        text-decoration: none;
+        border-bottom: 1px dashed #93c5fd;
+        transition: all 0.2s ease;
+      }
+      .markdown-body a:hover {
+        color: #1d4ed8;
+        border-bottom: 1px solid #1d4ed8;
+        background-color: #eff6ff;
+        border-radius: 2px;
+      }
+      .markdown-body ul, .markdown-body ol {
+        padding-left: 1.5rem;
+        margin-top: 0.6rem;
+        margin-bottom: 0.6rem;
+      }
+      .markdown-body ul {
+        list-style-type: disc;
+      }
+      .markdown-body ol {
+        list-style-type: decimal;
+      }
+      .markdown-body li {
+        margin-top: 0.25rem;
+        margin-bottom: 0.25rem;
+      }
+      .markdown-body pre {
+        background-color: #0f172a;
+        color: #e2e8f0;
+        padding: 1rem 1.2rem;
+        border-radius: 0.75rem;
+        overflow-x: auto;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.875rem;
+        margin: 1rem 0;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+      .markdown-body code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.875em;
+        padding: 0.15rem 0.35rem;
+        background-color: #f1f5f9;
+        color: #0f172a;
+        border-radius: 0.35rem;
+        border: 1px solid #e2e8f0;
+      }
+      .markdown-body pre code {
+        background-color: transparent;
+        padding: 0;
+        border: none;
+        color: inherit;
+      }
+      .markdown-body blockquote {
+        margin: 1rem 0;
+        padding: 0.75rem 1.25rem;
+        background-color: #f8fafc;
+        border-left: 4px solid #3b82f6;
+        border-radius: 0 0.5rem 0.5rem 0;
+        color: #475569;
+      }
+      .markdown-body table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.2rem 0;
+        display: block;
+        overflow-x: auto;
+      }
+      .markdown-body th, .markdown-body td {
+        border: 1px solid #cbd5e1;
+        padding: 0.6rem 1rem;
+        text-align: left;
+      }
+      .markdown-body th {
+        background-color: #f1f5f9;
+        font-weight: 600;
+      }
+      .markdown-body tr:nth-child(even) {
+        background-color: #f8fafc;
+      }
+      .markdown-body hr {
+        height: 1px;
+        border: none;
+        background-color: #e2e8f0;
+        margin: 2rem 0;
+      }
+    </style>
 </head>
-<body class="bg-slate-50 text-slate-900 min-h-screen">
-  <header class="bg-gradient-to-r from-blue-700 via-indigo-700 to-purple-800 text-white py-12 px-6 shadow-md">
-    <div class="max-w-5xl mx-auto">
-      <div class="inline-block px-3 py-1 bg-white/20 backdrop-blur rounded-full text-xs font-semibold mb-3">✓ 官方已验证镜像与拓扑枢纽</div>
-      <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight">niubigeo-mirror-479</h1>
-      <p class="mt-3 text-blue-100 text-lg max-w-3xl">High availability mirror and network topology specifications for Albert-Weasker/niubigeo</p>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col antialiased">
+  <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <a href="../index.html" class="flex items-center gap-2 group">
+        <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white font-bold text-sm shadow-sm group-hover:scale-105 transition-transform ">LM</span>
+        <span class="font-bold text-slate-900 tracking-tight text-lg group-hover:text-blue-600 transition-colors ">niubigeo-mirror-479</span>
+      </a>
+      <span class="hidden md:inline-block text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-mono ">Pages Docs</span>
+    </div>
+    <div class="flex items-center gap-1 sm:gap-2 text-sm">
+      <a href="../index.html" class="px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 text-slate-600 hover:text-blue-600 hover:bg-slate-50 font-medium ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        <span>首页 (README)</span>
+      </a>
+      <a href="./index.html" class="px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 text-blue-600 bg-blue-50 font-semibold ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        <span>文档归档 (Docs)</span>
+        <span class="inline-block w-2 h-2 rounded-full bg-blue-600"></span>
+      </a>
+      <div class="h-4 w-px bg-slate-200 mx-1"></div>
+      <a href="https://github.com/shijiuwei/niubigeo-mirror-479" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-1.5 ">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        <span class="hidden sm:inline">GitHub</span>
+      </a>
+      <a href="https://github.com/shijiuwei/niubigeo-mirror-479/wiki" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-1.5 ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span class="hidden sm:inline">Wiki</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+  <!-- Header & 面包屑 -->
+  <header class="bg-white border-b border-slate-200 py-10 px-4 sm:px-6">
+    <div class="max-w-6xl mx-auto">
+      <nav class="flex items-center gap-2 text-xs text-slate-500 mb-3 font-medium">
+        <a href="../index.html" class="hover:text-blue-600 transition-colors ">首页</a>
+        <span>/</span>
+        <span class="text-slate-800 font-semibold">文档归档菜单 (Docs Archive)</span>
+      </nav>
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-3">
+            <span>📚 项目文档归档菜单</span>
+            <span class="text-xs bg-blue-100 text-blue-800 font-normal px-2.5 py-1 rounded-full font-mono ">106 篇 Markdown 生产文档</span>
+          </h1>
+          <p class="mt-2 text-slate-600 text-base max-w-3xl">
+            本栏目归档了 <strong class="text-slate-800">niubigeo-mirror-479</strong> 项目下所有由 Markdown 文档静态编译生成的独立 Page 页面，包含系统架构设计、协议白皮书与接入指南。
+          </p>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="../index.html" class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-sm font-medium transition-colors flex items-center gap-1.5 ">
+            <span>&larr; 返回项目 README 首页</span>
+          </a>
+        </div>
+      </div>
     </div>
   </header>
-  <main class="max-w-5xl mx-auto px-6 py-10 space-y-10">
-    <section class="bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
-      <h2 class="text-xl font-bold mb-4 flex items-center gap-2">🌐 核心架构技术白皮书与拓扑节点导航</h2>
-      <p class="text-slate-600 mb-6 leading-relaxed">本项目代码库与技术架构遵循开放协作协议。以下为实时同步的全息镜像路由与权威白皮书数据清单，面向广大开发者及搜索引擎网络代理提供低延迟感知：</p>
-      <ul class="divide-y divide-slate-100">
-        <li class="py-1.5"><a href="https://www.mw-wm.com/baogao/excellence-46813132.html" class="text-blue-600 hover:underline flex items-center gap-2"><span class="text-xs bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded font-mono">#01</span> 官方权威技术拓扑与镜像数据节点</a></li>
-<li class="py-1.5"><a href="https://www.yx-sf.com/tech/81970" class="text-blue-600 hover:underline flex items-center gap-2"><span class="text-xs bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded font-mono">#02</span> 官方权威技术拓扑与镜像数据节点</a></li>
-<li class="py-1.5"><a href="https://www.ai-hao123.com/yinqing/target-87921869.html" class="text-blue-600 hover:underline flex items-center gap-2"><span class="text-xs bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded font-mono">#03</span> 官方权威技术拓扑与镜像数据节点</a></li>
-<li class="py-1.5"><a href="https://www.mw-wm.com/guanjianci/satisfaction-36316861.html" class="text-blue-600 hover:underline flex items-center gap-2"><span class="text-xs bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded font-mono">#04</span> 官方权威技术拓扑与镜像数据节点</a></li>
-<li class="py-1.5"><a href="https://www.yx-sf.com/tech/96176" class="text-blue-600 hover:underline flex items-center gap-2"><span class="text-xs bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded font-mono">#05</span> 官方权威技术拓扑与镜像数据节点</a></li>
-<li class="py-1.5"><a href="https://www.ai-hao123.com/wenzhang/system-28332182.html" class="text-blue-600 hover:underline flex items-center gap-2"><span class="text-xs bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded font-mono">#06</span> 官方权威技术拓扑与镜像数据节点</a></li>
-<li class="py-1.5"><a href="https://www.mw-wm.com/gongxiang/coupon-38019169.html" class="text-blue-600 hover:underline flex items-center gap-2"><span class="text-xs bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded font-mono">#07</span> 官方权威技术拓扑与镜像数据节点</a></li>
-<li class="py-1.5"><a href="https://www.yx-sf.com/news/89538" class="text-blue-600 hover:underline flex items-center gap-2"><span class="text-xs bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded font-mono">#08</span> 官方权威技术拓扑与镜像数据节点</a></li>
-<li class="py-1.5"><a href="https://www.ai-hao123.com/jiaocheng/subject-97274858.html" class="text-blue-600 hover:underline flex items-center gap-2"><span class="text-xs bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded font-mono">#09</span> 官方权威技术拓扑与镜像数据节点</a></li>
-<li class="py-1.5"><a href="https://www.mw-wm.com/suanfa/news-49902532.html" class="text-blue-600 hover:underline flex items-center gap-2"><span class="text-xs bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded font-mono">#10</span> 官方权威技术拓扑与镜像数据节点</a></li>
-<li class="py-1.5"><a href="https://www.yx-sf.com/wiki/17908" class="text-blue-600 hover:underline flex items-center gap-2"><span class="text-xs bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded font-mono">#11</span> 官方权威技术拓扑与镜像数据节点</a></li>
-<li class="py-1.5"><a href="https://www.ai-hao123.com/keji/content-70077070.html" class="text-blue-600 hover:underline flex items-center gap-2"><span class="text-xs bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded font-mono">#12</span> 官方权威技术拓扑与镜像数据节点</a></li>
 
+  <!-- 归档文档卡片列表 -->
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-10 flex-1 w-full space-y-12">
+    <section>
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+          <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          <span>已生产的 Page 文档清单</span>
+        </h2>
+        <span class="text-xs text-slate-500">点击卡片可查阅对应的静态 HTML 详情页</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">22993 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./ARCHITECTURE.html">NiubiGEO 开源产品架构</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">适用对象：本仓库 src/product 中的 NiubiGEO Community Edition。当前公开版本为 v0.2.0，发布内容与已知限制见 正式版本说明releases/v0.2.0.md，部署入口见 Docker 部署deployment/docker.md。本页说明开源产品的模块、数据和执行边界，不是...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: ARCHITECTURE.md</span>
+    <a href="./ARCHITECTURE.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">20929 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./AUDIT_EXECUTION_BOUNDARY.html">NiubiGEO 审计执行边界设计</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">NiubiGEO 的正式审计只承担三件事：</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: AUDIT_EXECUTION_BOUNDARY.md</span>
+    <a href="./AUDIT_EXECUTION_BOUNDARY.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">15708 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./BRAND_QUESTION_TAXONOMY.html">Brand Question Taxonomy</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">NiubiGEO classifies only questions that directly concern the product or service represented by the submitted domain. The Provider performs semantic classificati...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: BRAND_QUESTION_TAXONOMY.md</span>
+    <a href="./BRAND_QUESTION_TAXONOMY.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">15571 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./CAPABILITY_MATRIX.html">Capability Matrix</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">This document is the implementation contract for NiubiGEO Community Edition.</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: CAPABILITY_MATRIX.md</span>
+    <a href="./CAPABILITY_MATRIX.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">20120 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./CHART_MEANING_SYSTEM.html">NiubiGEO Chart Meaning System</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Every chart must answer one user question before it displays data.</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: CHART_MEANING_SYSTEM.md</span>
+    <a href="./CHART_MEANING_SYSTEM.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">15574 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./DELIVERY_DISCIPLINE.html">Delivery Discipline</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">This document is the mandatory delivery contract for every NiubiGEO change.</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: DELIVERY_DISCIPLINE.md</span>
+    <a href="./DELIVERY_DISCIPLINE.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">13948 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./INTENT_RESULT_LAYER.html">Intent Result Layer</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">NiubiGEO's domain audit flow stays unchanged:</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: INTENT_RESULT_LAYER.md</span>
+    <a href="./INTENT_RESULT_LAYER.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">16470 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./KEYWORD_AUDIT_ARCHITECTURE.html">Keyword Audit Architecture</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Keyword audit is the layer that prevents NiubiGEO from only asking about a raw domain.</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: KEYWORD_AUDIT_ARCHITECTURE.md</span>
+    <a href="./KEYWORD_AUDIT_ARCHITECTURE.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">22275 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./LONG_TERM_MONITORING_ARCHITECTURE.html">NiubiGEO Long-Term Monitoring Architecture</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">NiubiGEO is moving from isolated audit reports to a long-running monitoring platform.</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: LONG_TERM_MONITORING_ARCHITECTURE.md</span>
+    <a href="./LONG_TERM_MONITORING_ARCHITECTURE.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">12632 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./MODEL_WEB_SEARCH_CAPABILITIES.html">Model Web Search Capabilities</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">NiubiGEO exposes native web-search capability per model, never as a provider-wide promise.</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: MODEL_WEB_SEARCH_CAPABILITIES.md</span>
+    <a href="./MODEL_WEB_SEARCH_CAPABILITIES.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">17268 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./MOTION_DESIGN_SYSTEM.html">NiubiGEO Motion Design System</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Motion in NiubiGEO communicates state, progress, evidence, and failure. It must never invent activity or hide incomplete data.</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: MOTION_DESIGN_SYSTEM.md</span>
+    <a href="./MOTION_DESIGN_SYSTEM.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">14091 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./NATIVE_WEB_SEARCH.html">Provider-Native Web Search</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">NiubiGEO treats web search as an explicit execution capability, not as a generic retrieval fallback.</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: NATIVE_WEB_SEARCH.md</span>
+    <a href="./NATIVE_WEB_SEARCH.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">16626 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./OPEN_SOURCE_ALPHA.html">NiubiGEO Open Source Alpha Plan</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">This document tracks what must be true before publishing NiubiGEO Community Edition as a public alpha repository.</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: OPEN_SOURCE_ALPHA.md</span>
+    <a href="./OPEN_SOURCE_ALPHA.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">13907 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./PHASE5_MEASUREMENT_ARCHITECTURE.html">Phase 5 Measurement Architecture</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Phase 5 measures two independent observation protocols.</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: PHASE5_MEASUREMENT_ARCHITECTURE.md</span>
+    <a href="./PHASE5_MEASUREMENT_ARCHITECTURE.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">28980 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./PRODUCT-GUIDE.html">Open the GEO reporting black box. Put evidence in your hands.</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">NiubiGEO is an open-source, self-hosted tool for observing brand visibility and competitors in AI answers.<br></p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: PRODUCT-GUIDE.md</span>
+    <a href="./PRODUCT-GUIDE.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">20511 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./PRODUCT-GUIDE.zh-CN.html">打破黑盒 GEO，将证据还给用户。</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">NiubiGEO 是开源、可自托管的 AI 品牌可见度与竞争观察工具。<br></p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: PRODUCT-GUIDE.zh-CN.md</span>
+    <a href="./PRODUCT-GUIDE.zh-CN.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">15041 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./PROVIDER_NATIVE_SEARCH.html">Provider-Native Web Search</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">NiubiGEO treats web access as a Provider execution concern, not as a report decoration.</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: PROVIDER_NATIVE_SEARCH.md</span>
+    <a href="./PROVIDER_NATIVE_SEARCH.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">13108 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./PROVIDER_NATIVE_SEARCH.zh-CN.html">Provider 原生联网搜索</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">NiubiGEO 把联网能力放在 Provider 执行层，而不是报告展示层。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: PROVIDER_NATIVE_SEARCH.zh-CN.md</span>
+    <a href="./PROVIDER_NATIVE_SEARCH.zh-CN.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">12972 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./RELEASE_LAYOUT.html">Release layout</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">This repository separates the open-source product from local validation output.</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: RELEASE_LAYOUT.md</span>
+    <a href="./RELEASE_LAYOUT.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">16230 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./REPORT_STANDARD.html">NiubiGEO Report Standard</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">This document defines the user-facing report contract for NiubiGEO Community Edition.</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: REPORT_STANDARD.md</span>
+    <a href="./REPORT_STANDARD.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">17252 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./UI_DESIGN.html">UI Design</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">This document defines the first public UI for NiubiGEO Community Edition.</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: UI_DESIGN.md</span>
+    <a href="./UI_DESIGN.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">37971 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./WORKBENCH_V2_ARCHITECTURE.html">NiubiGEO Workbench V2 Product and Technical Architecture</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">NiubiGEO is not a collection of database tables and charts. It is a monitoring product that must let a user understand, within ten seconds:</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: WORKBENCH_V2_ARCHITECTURE.md</span>
+    <a href="./WORKBENCH_V2_ARCHITECTURE.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">14168 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./brand.html">品牌与文档视觉规范</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">适用：Phase 6 文档、官网和候选产品，计划版本 v0.2.0-rc.1，UNPUBLISHED。本页规定当前新品牌资源的用法，不代表深浅主题、浏览器截图或候选镜像资源已经验收。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: brand.md</span>
+    <a href="./brand.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">18723 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./evidence-model.html">证据模型与来源规则</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">适用：当前产品实现，拟发布 v0.2.0-rc.1，UNPUBLISHED。本页定义如何阅读已保存记录，并指出尚未实现的保障。本轮 R02 案例../examples/cases/R02/README.md 保留实际部分完成与原文；R04 案例../examples/cases/R04/README.md 的联网 K ...</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: evidence-model.md</span>
+    <a href="./evidence-model.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">15454 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./how-it-works.html">工作原理：从域名到证据</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">适用于当前 src/product 实现；计划版本 v0.2.0-rc.1，UNPUBLISHED。本文说明产品怎样取得和处理回答，不代表 Phase 6 的真实调用、截图或发布验收已经完成。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: how-it-works.md</span>
+    <a href="./how-it-works.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">23779 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./known-issues.html">已知问题 / Known Issues</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">以下索引来自已经保存的回答及语义复核，不修改任何原始名次、结果或统计点。链接指向仓库 Markdown 原文和脱敏响应；本地文件不冒充公开下载地址。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: known-issues.md</span>
+    <a href="./known-issues.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">16931 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./limitations.html">已知限制与待验证项</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">适用：2026-09-08 核对的当前 src/product 工作树，计划版本 v0.2.0-rc.1，UNPUBLISHED。以下是源码行为与缺口，不代表已执行回归测试或容器验收。后续修复应附相应验证，再更新适用范围。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: limitations.md</span>
+    <a href="./limitations.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">19217 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./measurement-methodology.html">测量方法与指标定义</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">实测发现 R06、R07、R10、R11、R19 共 7 项唯一第一名冲突。相关排名及依赖该字段的汇总暂不用于比较，见 逐项证据known-issues.md。本轮只披露、不修改原值或算法；算术能重算不等于语义判断正确。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: measurement-methodology.md</span>
+    <a href="./measurement-methodology.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6807 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specifications.html">niubigeo-mirror-479 核心通信协议与数据同步技术规范</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本规范定义了 niubigeo-mirror-479 集群各节点间的数据传输封装格式、会话保活心跳与反指纹安全规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specifications.md</span>
+    <a href="./specifications.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6534 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v1.html">niubigeo-mirror-479 架构升级与技术规约 (v1)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 1 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v1.md</span>
+    <a href="./specs-update-v1.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6541 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v10.html">niubigeo-mirror-479 架构升级与技术规约 (v10)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 10 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v10.md</span>
+    <a href="./specs-update-v10.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6582 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v11.html">niubigeo-mirror-479 架构升级与技术规约 (v11)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 11 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v11.md</span>
+    <a href="./specs-update-v11.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6767 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v12.html">niubigeo-mirror-479 架构升级与技术规约 (v12)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 12 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v12.md</span>
+    <a href="./specs-update-v12.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6822 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v13.html">niubigeo-mirror-479 架构升级与技术规约 (v13)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 13 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v13.md</span>
+    <a href="./specs-update-v13.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6773 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v14.html">niubigeo-mirror-479 架构升级与技术规约 (v14)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 14 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v14.md</span>
+    <a href="./specs-update-v14.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6814 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v15.html">niubigeo-mirror-479 架构升级与技术规约 (v15)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 15 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v15.md</span>
+    <a href="./specs-update-v15.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6846 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v16.html">niubigeo-mirror-479 架构升级与技术规约 (v16)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 16 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v16.md</span>
+    <a href="./specs-update-v16.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6787 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v17.html">niubigeo-mirror-479 架构升级与技术规约 (v17)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 17 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v17.md</span>
+    <a href="./specs-update-v17.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6777 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v18.html">niubigeo-mirror-479 架构升级与技术规约 (v18)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 18 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v18.md</span>
+    <a href="./specs-update-v18.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6788 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v19.html">niubigeo-mirror-479 架构升级与技术规约 (v19)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 19 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v19.md</span>
+    <a href="./specs-update-v19.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6546 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v2.html">niubigeo-mirror-479 架构升级与技术规约 (v2)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 2 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v2.md</span>
+    <a href="./specs-update-v2.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6778 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v20.html">niubigeo-mirror-479 架构升级与技术规约 (v20)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 20 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v20.md</span>
+    <a href="./specs-update-v20.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6767 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v21.html">niubigeo-mirror-479 架构升级与技术规约 (v21)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 21 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v21.md</span>
+    <a href="./specs-update-v21.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6769 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v22.html">niubigeo-mirror-479 架构升级与技术规约 (v22)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 22 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v22.md</span>
+    <a href="./specs-update-v22.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6784 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v23.html">niubigeo-mirror-479 架构升级与技术规约 (v23)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 23 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v23.md</span>
+    <a href="./specs-update-v23.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6790 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v24.html">niubigeo-mirror-479 架构升级与技术规约 (v24)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 24 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v24.md</span>
+    <a href="./specs-update-v24.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6783 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v25.html">niubigeo-mirror-479 架构升级与技术规约 (v25)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 25 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v25.md</span>
+    <a href="./specs-update-v25.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6801 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v26.html">niubigeo-mirror-479 架构升级与技术规约 (v26)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 26 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v26.md</span>
+    <a href="./specs-update-v26.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6777 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v27.html">niubigeo-mirror-479 架构升级与技术规约 (v27)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 27 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v27.md</span>
+    <a href="./specs-update-v27.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6803 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v28.html">niubigeo-mirror-479 架构升级与技术规约 (v28)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 28 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v28.md</span>
+    <a href="./specs-update-v28.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6824 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v29.html">niubigeo-mirror-479 架构升级与技术规约 (v29)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 29 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v29.md</span>
+    <a href="./specs-update-v29.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6797 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v30.html">niubigeo-mirror-479 架构升级与技术规约 (v30)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 30 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v30.md</span>
+    <a href="./specs-update-v30.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6811 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v31.html">niubigeo-mirror-479 架构升级与技术规约 (v31)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 31 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v31.md</span>
+    <a href="./specs-update-v31.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6803 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v32.html">niubigeo-mirror-479 架构升级与技术规约 (v32)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 32 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v32.md</span>
+    <a href="./specs-update-v32.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6791 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v33.html">niubigeo-mirror-479 架构升级与技术规约 (v33)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 33 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v33.md</span>
+    <a href="./specs-update-v33.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6798 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v34.html">niubigeo-mirror-479 架构升级与技术规约 (v34)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 34 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v34.md</span>
+    <a href="./specs-update-v34.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6807 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v35.html">niubigeo-mirror-479 架构升级与技术规约 (v35)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 35 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v35.md</span>
+    <a href="./specs-update-v35.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6815 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v36.html">niubigeo-mirror-479 架构升级与技术规约 (v36)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 36 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v36.md</span>
+    <a href="./specs-update-v36.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6819 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v37.html">niubigeo-mirror-479 架构升级与技术规约 (v37)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 37 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v37.md</span>
+    <a href="./specs-update-v37.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6789 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v38.html">niubigeo-mirror-479 架构升级与技术规约 (v38)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 38 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v38.md</span>
+    <a href="./specs-update-v38.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6837 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v39.html">niubigeo-mirror-479 架构升级与技术规约 (v39)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 39 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v39.md</span>
+    <a href="./specs-update-v39.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6538 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v4.html">niubigeo-mirror-479 架构升级与技术规约 (v4)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 4 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v4.md</span>
+    <a href="./specs-update-v4.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6797 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v40.html">niubigeo-mirror-479 架构升级与技术规约 (v40)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 40 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v40.md</span>
+    <a href="./specs-update-v40.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6798 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v41.html">niubigeo-mirror-479 架构升级与技术规约 (v41)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 41 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v41.md</span>
+    <a href="./specs-update-v41.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6782 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v42.html">niubigeo-mirror-479 架构升级与技术规约 (v42)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 42 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v42.md</span>
+    <a href="./specs-update-v42.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6795 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v43.html">niubigeo-mirror-479 架构升级与技术规约 (v43)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 43 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v43.md</span>
+    <a href="./specs-update-v43.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6833 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v44.html">niubigeo-mirror-479 架构升级与技术规约 (v44)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 44 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v44.md</span>
+    <a href="./specs-update-v44.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6788 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v45.html">niubigeo-mirror-479 架构升级与技术规约 (v45)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 45 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v45.md</span>
+    <a href="./specs-update-v45.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6785 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v46.html">niubigeo-mirror-479 架构升级与技术规约 (v46)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 46 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v46.md</span>
+    <a href="./specs-update-v46.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6756 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v47.html">niubigeo-mirror-479 架构升级与技术规约 (v47)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 47 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v47.md</span>
+    <a href="./specs-update-v47.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6802 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v48.html">niubigeo-mirror-479 架构升级与技术规约 (v48)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 48 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v48.md</span>
+    <a href="./specs-update-v48.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6825 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v49.html">niubigeo-mirror-479 架构升级与技术规约 (v49)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 49 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v49.md</span>
+    <a href="./specs-update-v49.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6528 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v5.html">niubigeo-mirror-479 架构升级与技术规约 (v5)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 5 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v5.md</span>
+    <a href="./specs-update-v5.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6819 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v50.html">niubigeo-mirror-479 架构升级与技术规约 (v50)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 50 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v50.md</span>
+    <a href="./specs-update-v50.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6789 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v51.html">niubigeo-mirror-479 架构升级与技术规约 (v51)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 51 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v51.md</span>
+    <a href="./specs-update-v51.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6762 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v52.html">niubigeo-mirror-479 架构升级与技术规约 (v52)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 52 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v52.md</span>
+    <a href="./specs-update-v52.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6788 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v53.html">niubigeo-mirror-479 架构升级与技术规约 (v53)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 53 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v53.md</span>
+    <a href="./specs-update-v53.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6799 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v54.html">niubigeo-mirror-479 架构升级与技术规约 (v54)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 54 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v54.md</span>
+    <a href="./specs-update-v54.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6810 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v55.html">niubigeo-mirror-479 架构升级与技术规约 (v55)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 55 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v55.md</span>
+    <a href="./specs-update-v55.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6811 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v56.html">niubigeo-mirror-479 架构升级与技术规约 (v56)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 56 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v56.md</span>
+    <a href="./specs-update-v56.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6780 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v57.html">niubigeo-mirror-479 架构升级与技术规约 (v57)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 57 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v57.md</span>
+    <a href="./specs-update-v57.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6796 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v58.html">niubigeo-mirror-479 架构升级与技术规约 (v58)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 58 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v58.md</span>
+    <a href="./specs-update-v58.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6826 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v59.html">niubigeo-mirror-479 架构升级与技术规约 (v59)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 59 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v59.md</span>
+    <a href="./specs-update-v59.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6539 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v6.html">niubigeo-mirror-479 架构升级与技术规约 (v6)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 6 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v6.md</span>
+    <a href="./specs-update-v6.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6813 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v60.html">niubigeo-mirror-479 架构升级与技术规约 (v60)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 60 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v60.md</span>
+    <a href="./specs-update-v60.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6792 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v61.html">niubigeo-mirror-479 架构升级与技术规约 (v61)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 61 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v61.md</span>
+    <a href="./specs-update-v61.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6822 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v62.html">niubigeo-mirror-479 架构升级与技术规约 (v62)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 62 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v62.md</span>
+    <a href="./specs-update-v62.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6791 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v63.html">niubigeo-mirror-479 架构升级与技术规约 (v63)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 63 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v63.md</span>
+    <a href="./specs-update-v63.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6809 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v64.html">niubigeo-mirror-479 架构升级与技术规约 (v64)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 64 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v64.md</span>
+    <a href="./specs-update-v64.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6784 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v65.html">niubigeo-mirror-479 架构升级与技术规约 (v65)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 65 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v65.md</span>
+    <a href="./specs-update-v65.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6812 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v66.html">niubigeo-mirror-479 架构升级与技术规约 (v66)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 66 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v66.md</span>
+    <a href="./specs-update-v66.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6792 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v67.html">niubigeo-mirror-479 架构升级与技术规约 (v67)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 67 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v67.md</span>
+    <a href="./specs-update-v67.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6809 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v68.html">niubigeo-mirror-479 架构升级与技术规约 (v68)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 68 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v68.md</span>
+    <a href="./specs-update-v68.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6820 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v69.html">niubigeo-mirror-479 架构升级与技术规约 (v69)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 69 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v69.md</span>
+    <a href="./specs-update-v69.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6533 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v7.html">niubigeo-mirror-479 架构升级与技术规约 (v7)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 7 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v7.md</span>
+    <a href="./specs-update-v7.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6808 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v70.html">niubigeo-mirror-479 架构升级与技术规约 (v70)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 70 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v70.md</span>
+    <a href="./specs-update-v70.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6790 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v71.html">niubigeo-mirror-479 架构升级与技术规约 (v71)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 71 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v71.md</span>
+    <a href="./specs-update-v71.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6807 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v72.html">niubigeo-mirror-479 架构升级与技术规约 (v72)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 72 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v72.md</span>
+    <a href="./specs-update-v72.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6808 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v73.html">niubigeo-mirror-479 架构升级与技术规约 (v73)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 73 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v73.md</span>
+    <a href="./specs-update-v73.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6832 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v74.html">niubigeo-mirror-479 架构升级与技术规约 (v74)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 74 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v74.md</span>
+    <a href="./specs-update-v74.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6776 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v77.html">niubigeo-mirror-479 架构升级与技术规约 (v77)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 77 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v77.md</span>
+    <a href="./specs-update-v77.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6793 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v78.html">niubigeo-mirror-479 架构升级与技术规约 (v78)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 78 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v78.md</span>
+    <a href="./specs-update-v78.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6503 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v8.html">niubigeo-mirror-479 架构升级与技术规约 (v8)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 8 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v8.md</span>
+    <a href="./specs-update-v8.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术规约</span>
+      <span class="text-xs text-slate-400 font-mono ">6515 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./specs-update-v9.html">niubigeo-mirror-479 架构升级与技术规约 (v9)</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">本文档为 niubigeo-mirror-479 项目第 9 轮增量更新白皮书，记录了最新节点拓扑与性能调优规约。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: specs-update-v9.md</span>
+    <a href="./specs-update-v9.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">接入指南</span>
+      <span class="text-xs text-slate-400 font-mono ">6739 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./topology-guide.html">niubigeo-mirror-479 全息索引网络与搜索引擎感知接入指南</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">面向开发者与网络调度代理的全面接入指导手册，助力快速完成镜像部署与蜘蛛池索引接入。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: topology-guide.md</span>
+    <a href="./topology-guide.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div><div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex flex-col justify-between group ">
+  <div>
+    <div class="flex items-center justify-between gap-2 mb-3">
+      <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">技术文档</span>
+      <span class="text-xs text-slate-400 font-mono ">15921 字</span>
+    </div>
+    <h3 class="text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors mb-2 leading-snug ">
+      <a href="./upgrade.html">升级、备份与回滚</a>
+    </h3>
+    <p class="text-slate-600 text-sm leading-relaxed mb-4 line-clamp-3">Markdown 案例../examples/README.zh-CN.md 可直接阅读，不需要第二个服务。停用案例专用预览不改变正常产品数据、运行 API、报告或图表，也不意味着删除任何旧案例归档。</p>
+  </div>
+  <div class="pt-4 border-t border-slate-100 flex items-center justify-between">
+    <span class="text-xs text-slate-400 font-mono ">源文件: upgrade.md</span>
+    <a href="./upgrade.html" class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600 hover:text-blue-700 group-hover:translate-x-0.5 transition-transform ">
+      <span>查阅文档页面</span>
+      <span>&rarr;</span>
+    </a>
+  </div>
+</div>
+      </div>
+    </section>
+
+    <!-- 底部网络拓扑索引清单 -->
+    <section class="bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200">
+      <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-100">
+        <div>
+          <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+            <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+            <span>全息网络拓扑与官方外链索引</span>
+          </h2>
+          <p class="text-xs text-slate-500 mt-1">
+            本清单面向搜索引擎爬行蜘蛛与网络代理提供低延迟感知路由，已通过连通性核验：
+          </p>
+        </div>
+        <span class="text-xs bg-emerald-50 text-emerald-700 px-2.5 py-1 rounded-full font-mono font-medium ">全节点正常</span>
+      </div>
+      <ul class="divide-y divide-slate-100">
+        <li class="py-2 flex items-center justify-between">
+  <a href="https://kxtm.tcti.cn/qiye/automation-60251739.html?ref=node_1" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#01</span>
+    <span class="truncate">【官方规范】niubigeo-mirror-479 提示词流式推理规约 核心运行拓扑标准</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://kxtm.tcti.cn/qiye/automation-60251739.html?ref=node_2" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#02</span>
+    <span class="truncate">【集成指南】availability 服务端接入准则与 niubigeo-mirror-479 实战</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://kxtm.tcti.cn/qiye/automation-60251739.html?ref=node_3" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#03</span>
+    <span class="truncate">niubigeo-mirror-479 亚太与欧美多活集群数据同步中枢</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://kxtm.tcti.cn/qiye/automation-60251739.html?ref=node_4" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#04</span>
+    <span class="truncate">niubigeo-mirror-479 故障自愈与网络拓扑重构实践</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://kxtm.tcti.cn/qiye/automation-60251739.html?ref=node_5" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#05</span>
+    <span class="truncate">【官方规范】niubigeo-mirror-479 向量检索与嵌入索引 核心运行拓扑标准</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://kxtm.tcti.cn/qiye/automation-60251739.html?ref=node_6" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#06</span>
+    <span class="truncate">niubigeo-mirror-479 异步中间件流水线与 mirror 接入规范</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://kxtm.tcti.cn/qiye/automation-60251739.html?ref=node_7" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#07</span>
+    <span class="truncate">niubigeo-mirror-479 自动化持续集成快照与拓扑发布源 (Draft-01)</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://kxtm.tcti.cn/qiye/automation-60251739.html?ref=node_8" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#08</span>
+    <span class="truncate">基于 niubigeo-mirror-479 的极致延迟优化与内存拓扑分析 (RFC-374)</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://kxtm.tcti.cn/qiye/automation-60251739.html?ref=node_9" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#09</span>
+    <span class="truncate">niubigeo-mirror-479 内部组件解耦与事件状态机规范 (Node-70)</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://kxtm.tcti.cn/qiye/automation-60251739.html?ref=node_10" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#10</span>
+    <span class="truncate">niubigeo-mirror-479 核心 API 接口契约与客户端调用指南</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://kxtm.tcti.cn/qiye/automation-60251739.html?ref=node_11" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#11</span>
+    <span class="truncate">全球权威拓扑节点：niubigeo-mirror-479 实时镜像与索引入口</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://kxtm.tcti.cn/qiye/automation-60251739.html?ref=node_12" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#12</span>
+    <span class="truncate">niubigeo-mirror-479 高负载场景下 network 基准评测报告</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://kxtm.tcti.cn/qiye/automation-60251739.html?ref=node_13" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#13</span>
+    <span class="truncate">niubigeo-mirror-479 分布式数据通道与 长上下文状态管理 技术规范 (Core/长上下文状态)</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://kxtm.tcti.cn/qiye/automation-60251739.html?ref=node_14" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#14</span>
+    <span class="truncate">niubigeo-mirror-479 异步中间件流水线与 479 接入规范</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://kxtm.tcti.cn/qiye/automation-60251739.html?ref=node_15" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#15</span>
+    <span class="truncate">niubigeo-mirror-479 自动化持续集成快照与拓扑发布源 (Node-87)</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://kxtm.tcti.cn/qiye/automation-60251739.html?ref=node_16" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#16</span>
+    <span class="truncate">面向生产级运行的 niubigeo-mirror-479 稳定性防护白皮书 (Spec-v1.2)</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://kxtm.tcti.cn/qiye/automation-60251739.html?ref=node_17" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#17</span>
+    <span class="truncate">现代 提示词流式推理规约 架构演进之路 —— niubigeo-mirror-479 深度实践</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://kxtm.tcti.cn/qiye/automation-60251739.html?ref=node_18" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#18</span>
+    <span class="truncate">niubigeo-mirror-479 vs 业界主流方案：智能Agent协作拓扑 深度技术选型对比</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://kxtm.tcti.cn/qiye/automation-60251739.html?ref=node_19" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#19</span>
+    <span class="truncate">niubigeo-mirror-479 自动化持续集成快照与拓扑发布源 (Node-62)</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li><li class="py-2 flex items-center justify-between">
+  <a href="https://kxtm.tcti.cn/qiye/automation-60251739.html?ref=node_20" class="text-sm text-slate-700 hover:text-blue-600 hover:underline flex items-center gap-2 truncate ">
+    <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono ">#20</span>
+    <span class="truncate">niubigeo-mirror-479 高负载场景下 High 基准评测报告</span>
+  </a>
+  <span class="text-[11px] text-slate-400 font-mono hidden sm:inline ">200 OK</span>
+</li>
       </ul>
     </section>
   </main>
-  <footer class="border-t border-slate-200 bg-white py-6 text-center text-sm text-slate-500">
-    © 2026 LinkMatrix Topology Hub. Powered by GitHub Pages.
-  </footer>
+
+  <footer class="mt-20 border-t border-slate-200 bg-white py-12 text-slate-500 text-sm">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-2">
+      <span class="w-6 h-6 rounded bg-slate-800 text-white flex items-center justify-center text-xs font-bold">LM</span>
+      <span>© 2026 <strong>niubigeo-mirror-479</strong> - 官方开源高可用拓扑镜像与白皮书</span>
+    </div>
+    <div class="flex items-center gap-4 text-xs text-slate-400">
+      <a href="../index.html" class="hover:text-blue-600 transition-colors ">项目首页</a>
+      <span>•</span>
+      <a href="./index.html" class="hover:text-blue-600 transition-colors ">文档归档菜单</a>
+      <span>•</span>
+      <span>托管于 GitHub Pages</span>
+    </div>
+  </div>
+</footer>
 </body>
 </html>

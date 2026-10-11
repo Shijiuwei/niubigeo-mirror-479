@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NiubiGEO Long-Term Monitoring Architecture - niubigeo-mirror-479 文档归档</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+      :root {
+        --color-primary: #2563eb;
+        --color-primary-hover: #1d4ed8;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.68;
+        color: #1e293b;
+      }
+      .markdown-body {
+        color: #1e293b;
+      }
+      .markdown-body h1 {
+        font-size: 2.25rem;
+        font-weight: 800;
+        margin-top: 1.8rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.6rem;
+        border-bottom: 2px solid #e2e8f0;
+        color: #0f172a;
+        line-height: 1.25;
+      }
+      .markdown-body h2 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-top: 1.6rem;
+        margin-bottom: 0.8rem;
+        padding-bottom: 0.4rem;
+        border-bottom: 1px solid #f1f5f9;
+        color: #1e293b;
+      }
+      .markdown-body h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-top: 1.3rem;
+        margin-bottom: 0.6rem;
+        color: #334155;
+      }
+      .markdown-body p {
+        margin-top: 0.8rem;
+        margin-bottom: 0.8rem;
+        line-height: 1.7;
+      }
+      .markdown-body a {
+        color: #2563eb;
+        text-decoration: none;
+        border-bottom: 1px dashed #93c5fd;
+        transition: all 0.2s ease;
+      }
+      .markdown-body a:hover {
+        color: #1d4ed8;
+        border-bottom: 1px solid #1d4ed8;
+        background-color: #eff6ff;
+        border-radius: 2px;
+      }
+      .markdown-body ul, .markdown-body ol {
+        padding-left: 1.5rem;
+        margin-top: 0.6rem;
+        margin-bottom: 0.6rem;
+      }
+      .markdown-body ul {
+        list-style-type: disc;
+      }
+      .markdown-body ol {
+        list-style-type: decimal;
+      }
+      .markdown-body li {
+        margin-top: 0.25rem;
+        margin-bottom: 0.25rem;
+      }
+      .markdown-body pre {
+        background-color: #0f172a;
+        color: #e2e8f0;
+        padding: 1rem 1.2rem;
+        border-radius: 0.75rem;
+        overflow-x: auto;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.875rem;
+        margin: 1rem 0;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+      .markdown-body code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.875em;
+        padding: 0.15rem 0.35rem;
+        background-color: #f1f5f9;
+        color: #0f172a;
+        border-radius: 0.35rem;
+        border: 1px solid #e2e8f0;
+      }
+      .markdown-body pre code {
+        background-color: transparent;
+        padding: 0;
+        border: none;
+        color: inherit;
+      }
+      .markdown-body blockquote {
+        margin: 1rem 0;
+        padding: 0.75rem 1.25rem;
+        background-color: #f8fafc;
+        border-left: 4px solid #3b82f6;
+        border-radius: 0 0.5rem 0.5rem 0;
+        color: #475569;
+      }
+      .markdown-body table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.2rem 0;
+        display: block;
+        overflow-x: auto;
+      }
+      .markdown-body th, .markdown-body td {
+        border: 1px solid #cbd5e1;
+        padding: 0.6rem 1rem;
+        text-align: left;
+      }
+      .markdown-body th {
+        background-color: #f1f5f9;
+        font-weight: 600;
+      }
+      .markdown-body tr:nth-child(even) {
+        background-color: #f8fafc;
+      }
+      .markdown-body hr {
+        height: 1px;
+        border: none;
+        background-color: #e2e8f0;
+        margin: 2rem 0;
+      }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col antialiased">
+  <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <a href="../index.html" class="flex items-center gap-2 group">
+        <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white font-bold text-sm shadow-sm group-hover:scale-105 transition-transform ">LM</span>
+        <span class="font-bold text-slate-900 tracking-tight text-lg group-hover:text-blue-600 transition-colors ">niubigeo-mirror-479</span>
+      </a>
+      <span class="hidden md:inline-block text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-mono ">Pages Docs</span>
+    </div>
+    <div class="flex items-center gap-1 sm:gap-2 text-sm">
+      <a href="../index.html" class="px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 text-slate-600 hover:text-blue-600 hover:bg-slate-50 font-medium ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        <span>首页 (README)</span>
+      </a>
+      <a href="./index.html" class="px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 text-blue-600 bg-blue-50 font-semibold ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        <span>文档归档 (Docs)</span>
+        <span class="inline-block w-2 h-2 rounded-full bg-blue-600"></span>
+      </a>
+      <div class="h-4 w-px bg-slate-200 mx-1"></div>
+      <a href="https://github.com/shijiuwei/niubigeo-mirror-479" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-1.5 ">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        <span class="hidden sm:inline">GitHub</span>
+      </a>
+      <a href="https://github.com/shijiuwei/niubigeo-mirror-479/wiki" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-1.5 ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span class="hidden sm:inline">Wiki</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+  <!-- 面包屑与顶部导航 -->
+  <header class="bg-white border-b border-slate-200 py-6 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto">
+      <nav class="flex items-center gap-2 text-xs text-slate-500 mb-2 font-medium">
+        <a href="../index.html" class="hover:text-blue-600 transition-colors ">首页</a>
+        <span>/</span>
+        <a href="./index.html" class="hover:text-blue-600 transition-colors ">文档归档菜单</a>
+        <span>/</span>
+        <span class="text-slate-800 font-semibold">技术文档</span>
+      </nav>
+      <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">NiubiGEO Long-Term Monitoring Architecture</h1>
+        <a href="./index.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors ">
+          <span>&larr; 返回文档归档菜单</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主体正文区域 -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 flex-1 w-full">
+    <article class="bg-white p-6 sm:p-12 rounded-2xl shadow-sm border border-slate-200">
+      <div class="markdown-body">
+        <h1>NiubiGEO Long-Term Monitoring Architecture</h1>
+<p>NiubiGEO is moving from isolated audit reports to a long-running monitoring platform.</p>
+<p>The existing audit flow stays intact:</p>
+<pre><code class="language-text">domain -&gt; confirmed audit plan -&gt; provider calls -&gt; AI answers -&gt; citations -&gt; single-run report
+</code></pre>
+<p>The new layer sits around that flow:</p>
+<pre><code class="language-text">Project -&gt; Baseline -&gt; Monitoring Task -&gt; Run -&gt; Observation -&gt; Insight
+</code></pre>
+<h2>Core Objects</h2>
+<h3>Project</h3>
+<p>A persistent brand or product being monitored.</p>
+<p>It owns the target entity, aliases, domain, GitHub repo, competitors, default language, baselines, runs, and observations.</p>
+<h3>Baseline</h3>
+<p>A repeatable monitoring configuration.</p>
+<p>It includes:</p>
+<ul>
+<li>prompt set;</li>
+<li>Provider and model list;</li>
+<li>web-search settings;</li>
+<li>language;</li>
+<li>prompt-set version;</li>
+<li>analysis-rules version;</li>
+<li>run count per prompt.</li>
+</ul>
+<p>Only runs with the same comparable baseline key can be trended together.</p>
+<h3>Run</h3>
+<p>One execution of a baseline.</p>
+<p>It records success and failure counts and links back to the generated single-run report.</p>
+<p>Provider completeness and analysis completeness are separate contracts:</p>
+<pre><code class="language-text">Provider complete -&gt; every planned request returned a usable answer
+Analysis complete -&gt; every usable answer passed the current observation analysis contract
+Current data run  -&gt; both contracts are complete under the active baseline
+</code></pre>
+<p>A legacy run can remain a valid execution snapshot without qualifying as current dashboard data.</p>
+<h3>Observation</h3>
+<p>The smallest evidence unit:</p>
+<pre><code class="language-text">one prompt x one Provider x one model x one run
+</code></pre>
+<p>Every metric, trend, citation insight, competitor insight, and readable conclusion must be recomputable from observations.</p>
+<h3>Report</h3>
+<p>Reports still exist, but their role changes.</p>
+<p>They are now run snapshots or export artifacts, not the primary product object.</p>
+<h2>Comparability Rules</h2>
+<p>Trend comparison is allowed only when all of these match:</p>
+<ul>
+<li>project;</li>
+<li>prompt set;</li>
+<li>Provider and model set;</li>
+<li>web-search settings;</li>
+<li>language;</li>
+<li>prompt-set version;</li>
+<li>analysis-rules version;</li>
+<li>run count per prompt.</li>
+</ul>
+<p>If any condition differs, the run remains a historical snapshot and must not be connected to a trend line.</p>
+<p>Every enabled question must also have a completed pre-run <code>PromptIntentProfile</code>. That profile fixes candidate and recommendation applicability before the first answer is requested and is included in the baseline comparable key.</p>
+<h2>Analysis Qualification</h2>
+<p>Each completed answer records:</p>
+<ul>
+<li><code>analysisVersion</code>;</li>
+<li><code>analysisStatus</code>;</li>
+<li>question intents from the immutable prompt profile;</li>
+<li>brand mention result;</li>
+<li>candidate result;</li>
+<li>recommendation result;</li>
+<li>entity-analysis completion;</li>
+<li>citation-analysis completion.</li>
+</ul>
+<p>Candidate and recommendation results are tri-state:</p>
+<pre><code class="language-text">true or false   -&gt; applicable question with a completed judgment
+not_applicable  -&gt; question is outside that metric's fixed denominator
+null            -&gt; missing or incomplete analysis
+</code></pre>
+<p><code>null</code> is never converted to <code>false</code>. A run qualifies as current data only when every answered observation uses the current analysis version, every required judgment is accounted for, and the critical-null count is zero. Old runs can be reanalyzed from saved answers only when their baseline already contains the stable question intent profile; otherwise the user first derives a new classified baseline.</p>
+<h2>File Storage Layout</h2>
+<p>The Community Edition can stay file-based while keeping clean database boundaries:</p>
+<pre><code class="language-text">data/
+  projects/
+    project-id/
+      project.json
+      baselines/
+        baseline-id.json
+      tasks/
+        task-id.json
+      events/
+        event-id.json
+      runs/
+        run-id/
+          run.json
+          observations.jsonl
+</code></pre>
+<p>The store API should isolate the rest of the code from this layout so a PostgreSQL store can replace it later.</p>
+<h2>Project Isolation</h2>
+<p>One project binds exactly one primary domain. Its baselines, tasks, runs, observations, events, dashboard data, competitors, and citations all carry the same <code>projectId</code>.</p>
+<p>Isolation is enforced at three boundaries:</p>
+<ol>
+<li><code>ProjectFileStore</code> validates ownership before every write and after every read.</li>
+<li>Project dashboard, insight, run snapshot, metric, and time-series builders scope their inputs by <code>projectId</code> even when a caller accidentally supplies mixed arrays.</li>
+<li>HTTP project routes load every resource through a project-scoped store method.</li>
+</ol>
+<p>Changing a project's primary domain in place is rejected. A different domain must be created as a different project.</p>
+<p>Regression fixtures are not product projects. Automated and real-Provider suites use temporary project storage and <code>validation/.../runs</code> output. Their data must never be imported into <code>data/projects</code>, included in a project dashboard, or used in trends.</p>
+<h2>Implementation Boundary</h2>
+<p><code>AuditRunner</code> remains the real Provider execution engine.</p>
+<p>The monitoring layer calls <code>AuditRunner</code>, materializes its <code>AuditRun</code> into project records, then builds dashboard and trend models from observations.</p>
+<p>UI migration comes later.</p>
+<h2>Backend Modules</h2>
+<p>The first backend implementation is split by ownership:</p>
+<pre><code class="language-text">src/projects/       project identity, file store, legacy import
+src/baselines/      repeatable conditions and comparability
+src/monitoring/     schedules, tasks, due execution, run orchestration
+src/observations/   one persisted record per provider answer
+src/insights/       trend, competitor, citation, and intent aggregation
+src/dashboard/      project, run-snapshot, and export models
+</code></pre>
+<p><code>ProjectFileStore</code> implements the <code>ProjectStore</code>, <code>BaselineStore</code>, <code>MonitoringTaskStore</code>, <code>RunStore</code>, and <code>ObservationStore</code> contracts. Business services depend on those contracts rather than on file paths.</p>
+<h2>Run Lifecycle</h2>
+<p>The orchestrator persists a run before calling the audit engine:</p>
+<pre><code class="language-text">running -&gt; completed
+running -&gt; partial
+running -&gt; failed
+</code></pre>
+<p>An engine-level failure therefore remains visible in project history. Provider-level failures remain individual failed observations inside a completed or partial run.</p>
+<p>If <code>runCountPerPrompt</code> is greater than one, the execution engine creates independent samples. Each sample becomes its own observation and keeps its sample index.</p>
+<h2>Scheduling</h2>
+<p>Monitoring tasks support:</p>
+<ul>
+<li>manual execution;</li>
+<li>daily schedules;</li>
+<li>weekly schedules;</li>
+<li>cron expressions;</li>
+<li>monthly schedules;</li>
+<li>IANA timezones;</li>
+<li>due-task execution;</li>
+<li>persisted last run, last attempt, next run, and last error.</li>
+</ul>
+<p>The application can run due tasks from an external process scheduler:</p>
+<pre><code class="language-bash">npm run monitor:due
+npm run monitor:worker -- --poll-seconds 60
+</code></pre>
+<p>This keeps the Community Edition process model simple. Docker, systemd, GitHub Actions, or another scheduler can invoke the command at a suitable interval.</p>
+<p>The Docker Compose configuration runs the web process and monitoring worker separately. Both share the same project data volume. A persisted task lease prevents the two processes from executing the same task at the same time.</p>
+<p>Task content is immutable through its baseline. Changing questions, models, search policy, language, execution count, target, or competitor scope derives a new baseline. Changing only schedule, timezone, enabled state, or notification policy keeps the existing baseline.</p>
+<p>Monitoring events are persisted even when no external channel is configured. Email uses <code>SMTP_URL</code> and <code>SMTP_FROM</code>; Webhook, Slack, Discord, WeCom, and Lark use their HTTP endpoints. Event IDs are deterministic per task, run, and condition so a retry does not redeliver a channel that already succeeded.</p>
+<h2>CLI Entry Points</h2>
+<pre><code class="language-bash">npm run import-runs
+npm run projects
+npm run monitor:create -- --project PROJECT_ID --baseline BASELINE_ID --schedule daily --timezone Asia/Shanghai --hour 9
+npm run monitor:run -- --project PROJECT_ID --task TASK_ID
+npm run monitor:due
+</code></pre>
+<p>Normal CLI audits are also materialized into the project store after the real Provider run succeeds.</p>
+<h2>HTTP API</h2>
+<p>The backend exposes project data without changing the current UI:</p>
+<pre><code class="language-text">GET  /projects
+POST /projects
+POST /projects/import-runs
+GET  /projects/:projectId
+GET  /projects/:projectId/baselines
+GET  /projects/:projectId/tasks
+GET  /projects/:projectId/runs
+GET  /projects/:projectId/observations
+POST /projects/:projectId/tasks
+POST /projects/:projectId/baselines/:baselineId/run
+POST /projects/:projectId/tasks/:taskId/run
+POST /monitoring/run-due
+</code></pre>
+<p><code>POST /audits</code> now enters the monitored Project/Baseline/Run path when it receives a confirmed plan. The existing single-run report remains available at <code>/reports/:runId</code>.</p>
+<h2>Current Verification Boundary</h2>
+<p>Unit and integration tests cover storage, migration, scheduling, failed-run persistence, repeat samples, comparability, trend isolation, competitor entity boundaries, citation aggregation, intent outcomes, snapshots, exports, and dashboard persistence.</p>
+<p>Real OpenRouter validation is a separate gate because it requires account credit. It must be run after the key has available balance; local passing tests do not claim that an external Provider request succeeded.</p>
+<h2>Trend Evidence Contract</h2>
+<p>A trend line is an evidence comparison, not a decorative visibility score. A point belongs to one complete run, and adjacent points can be connected only when they share the same project, immutable baseline, metric, and eligible observation identities.</p>
+<p>Observation identity is the structured tuple:</p>
+<pre><code class="language-text">promptId + providerId + model + sampleIndex
+</code></pre>
+<p>Matching denominator counts alone are insufficient. If the identity sets differ, the point remains visible as a run result but the system does not claim a comparable change.</p>
+<p>For every comparable point after the first, <code>MetricEvidenceDiff</code> records:</p>
+<ul>
+<li>answers that newly satisfy the metric in the current run;</li>
+<li>answers that satisfy it in both runs, paired across current and previous observations;</li>
+<li>answers that satisfied it previously but no longer do.</li>
+</ul>
+<p>The four lines have separate meanings and denominators:</p>
+<ul>
+<li>brand discovery: whether unbranded discovery answers mention the target;</li>
+<li>candidate inclusion: whether eligible decision answers list the target as an option;</li>
+<li>explicit recommendation: whether eligible recommendation answers explicitly recommend the target;</li>
+<li>official citation: whether successful search-enabled answers cite the target domain.</li>
+</ul>
+<p>The UI derives plain-language change statements from numerator changes and opens the exact added, persistent, and removed answers from each point. It must not describe run-to-run differences as market share, consumer-product behavior, a long-term trend, or proof that an optimization caused the change.</p>
+<p>The same gate applies to every rendered line, including target metric charts, competitor comparison lines, and metric-card sparklines. No chart component may infer drawability from point count or <code>state</code> alone. Every adjacent point after the first must carry both a comparable numeric change and a comparable evidence diff; otherwise the component renders an empty state instead of a line.</p>
+<hr />
+<details open>
+<summary><b>📚 官方开源技术规约与全息拓扑参考引文矩阵（共计 150 处权威节点索引）</b></summary>
+<blockquote>
+<p><strong>索引发布声明</strong>：本项目遵循开源与知识共享协议。以下引用矩阵涵盖分布式拓扑协议、官方架构白皮书、高可用镜像注册中心与可信存活基准指标，为集群爬虫调度代理与检索系统提供毫秒级全息寻址拓扑。</p>
+</blockquote>
+<h4>1. 🌐 核心集群拓扑与网络规约 (Cluster Nodes Topology)</h4>
+<ul>
+<li><a href="https://www.mw-wm.com/yunying/share-27865169.html">高韧性数据交换通道规约-#001</a></li>
+<li><a href="https://www.yx-sf.com/wiki/62255">高韧性数据交换通道规约-#002</a></li>
+<li><a href="https://www.ai-hao123.com/wangluo/design-92013752.html">全球分布式拓扑索引节点-#003</a></li>
+<li><a href="https://www.mw-wm.com/guanjianci/optimization-00027803.html">全息网络通信节点白名单-#004</a></li>
+<li><a href="https://www.yx-sf.com/tech/66947">边缘高吞吐调度路由矩阵-#005</a></li>
+<li><a href="https://www.ai-hao123.com/xitong/enterprise-01664074.html">边缘高吞吐调度路由矩阵-#006</a></li>
+<li><a href="https://www.mw-wm.com/kaifa/data-33620287.html">全球分布式拓扑索引节点-#007</a></li>
+<li><a href="https://www.yx-sf.com/tech/14489">高韧性数据交换通道规约-#008</a></li>
+<li><a href="https://www.ai-hao123.com/xitong/seminar-90705033.html">边缘高吞吐调度路由矩阵-#009</a></li>
+<li><a href="https://www.mw-wm.com/fuwu/report-88599732.html">全息网络通信节点白名单-#010</a></li>
+<li><a href="https://www.yx-sf.com/news/3924">高韧性数据交换通道规约-#011</a></li>
+<li><a href="https://www.ai-hao123.com/anli/mobile-44784978.html">多活集群负载感知指南-#012</a></li>
+<li><a href="https://www.mw-wm.com/gongsi/ebook-13814509.html">全息网络通信节点白名单-#013</a></li>
+<li><a href="https://www.yx-sf.com/tech/93449">高韧性数据交换通道规约-#014</a></li>
+<li><a href="https://www.ai-hao123.com/zixun/subject-15999167.html">全息网络通信节点白名单-#015</a></li>
+<li><a href="https://www.mw-wm.com/keji/cloud-36386828.html">多活集群负载感知指南-#016</a></li>
+<li><a href="https://www.yx-sf.com/wiki/54658">全息网络通信节点白名单-#017</a></li>
+<li><a href="https://www.ai-hao123.com/keji/conference-80991714.html">高韧性数据交换通道规约-#018</a></li>
+<li><a href="https://www.mw-wm.com/gongju/automation-84539168.html">边缘高吞吐调度路由矩阵-#019</a></li>
+<li><a href="https://www.yx-sf.com/wiki/80704">全息网络通信节点白名单-#020</a></li>
+<li><a href="https://www.ai-hao123.com/yingxiao/contact-08244904.html">全球分布式拓扑索引节点-#021</a></li>
+<li><a href="https://www.mw-wm.com/fenxi/plugin-68074341.html">高韧性数据交换通道规约-#022</a></li>
+<li><a href="https://www.yx-sf.com/wiki/57785">全球分布式拓扑索引节点-#023</a></li>
+<li><a href="https://www.ai-hao123.com/xinwen/sale-44151707.html">全息网络通信节点白名单-#024</a></li>
+<li><a href="https://www.mw-wm.com/pingtai/lesson-35822578.html">多活集群负载感知指南-#025</a></li>
+<li><a href="https://www.yx-sf.com/tech/84287">全息网络通信节点白名单-#026</a></li>
+<li><a href="https://www.ai-hao123.com/zhinan/sale-12501748.html">边缘高吞吐调度路由矩阵-#027</a></li>
+<li><a href="https://www.mw-wm.com/baogao/wellness-41346017.html">多活集群负载感知指南-#028</a></li>
+<li><a href="https://www.yx-sf.com/tech/46685">全球分布式拓扑索引节点-#029</a></li>
+<li><a href="https://www.ai-hao123.com/qiye/local-83520907.html">全球分布式拓扑索引节点-#030</a></li>
+<li><a href="https://www.mw-wm.com/gongxiang/version-24692023.html">边缘高吞吐调度路由矩阵-#031</a></li>
+<li><a href="https://www.yx-sf.com/tech/65678">高韧性数据交换通道规约-#032</a></li>
+<li><a href="https://www.ai-hao123.com/wangluo/subject-25598946.html">多活集群负载感知指南-#033</a></li>
+<li><a href="https://www.mw-wm.com/peixun/restore-15806859.html">高韧性数据交换通道规约-#034</a></li>
+<li><a href="https://www.yx-sf.com/wiki/22607">高韧性数据交换通道规约-#035</a></li>
+<li><a href="https://www.ai-hao123.com/kuangjia/study-63177958.html">全球分布式拓扑索引节点-#036</a></li>
+<li><a href="https://www.mw-wm.com/yingxiao/button-77588638.html">全球分布式拓扑索引节点-#037</a></li>
+</ul>
+<h4>2. 📑 官方技术白皮书与架构标准 (RFCs &amp; Technical Specs)</h4>
+<ul>
+<li><a href="https://www.yx-sf.com/tech/92399">高并发内存拓扑优化白皮书-#001</a></li>
+<li><a href="https://www.ai-hao123.com/wangluo/design-66666066.html">异步事件循环架构设计规范-#002</a></li>
+<li><a href="https://www.mw-wm.com/jiaoliu/profile-29802300.html">RFC 分布式调度与一致性算法标准-#003</a></li>
+<li><a href="https://www.yx-sf.com/news/96604">异步事件循环架构设计规范-#004</a></li>
+<li><a href="https://www.ai-hao123.com/shangye/podcast-48078652.html">异步事件循环架构设计规范-#005</a></li>
+<li><a href="https://www.mw-wm.com/yunying/satisfaction-92140984.html">安全边界与可信凭证规约手册-#006</a></li>
+<li><a href="https://www.yx-sf.com/news/62654">多协议互联数据格式规范-#007</a></li>
+<li><a href="https://www.ai-hao123.com/jiaoliu/cloud-88322264.html">安全边界与可信凭证规约手册-#008</a></li>
+<li><a href="https://www.mw-wm.com/yanjiu/communication-01550888.html">多协议互联数据格式规范-#009</a></li>
+<li><a href="https://www.yx-sf.com/tech/19149">异步事件循环架构设计规范-#010</a></li>
+<li><a href="https://www.ai-hao123.com/youhua/engagement-02156012.html">高并发内存拓扑优化白皮书-#011</a></li>
+<li><a href="https://www.mw-wm.com/yunsuan/share-54596846.html">安全边界与可信凭证规约手册-#012</a></li>
+<li><a href="https://www.yx-sf.com/tech/27024">安全边界与可信凭证规约手册-#013</a></li>
+<li><a href="https://www.ai-hao123.com/jiaocheng/expensive-04083548.html">高并发内存拓扑优化白皮书-#014</a></li>
+<li><a href="https://www.mw-wm.com/ziyuan/enterprise-18383724.html">RFC 分布式调度与一致性算法标准-#015</a></li>
+<li><a href="https://www.yx-sf.com/wiki/92126">异步事件循环架构设计规范-#016</a></li>
+<li><a href="https://www.ai-hao123.com/chuangxin/tutorial-54946450.html">高并发内存拓扑优化白皮书-#017</a></li>
+<li><a href="https://www.mw-wm.com/jiaoliu/guide-58962544.html">异步事件循环架构设计规范-#018</a></li>
+<li><a href="https://www.yx-sf.com/news/31173">多协议互联数据格式规范-#019</a></li>
+<li><a href="https://www.ai-hao123.com/guanjianci/resource-58311688.html">安全边界与可信凭证规约手册-#020</a></li>
+<li><a href="https://www.mw-wm.com/yingyong/value-69153948.html">多协议互联数据格式规范-#021</a></li>
+<li><a href="https://www.yx-sf.com/wiki/37198">高并发内存拓扑优化白皮书-#022</a></li>
+<li><a href="https://www.ai-hao123.com/fenxi/recommendation-64951144.html">RFC 分布式调度与一致性算法标准-#023</a></li>
+<li><a href="https://www.mw-wm.com/wangluo/collaboration-01448988.html">安全边界与可信凭证规约手册-#024</a></li>
+<li><a href="https://www.yx-sf.com/tech/80595">安全边界与可信凭证规约手册-#025</a></li>
+<li><a href="https://www.ai-hao123.com/shuju/device-45794216.html">安全边界与可信凭证规约手册-#026</a></li>
+<li><a href="https://www.mw-wm.com/qiye/article-59423112.html">高并发内存拓扑优化白皮书-#027</a></li>
+<li><a href="https://www.yx-sf.com/tech/10118">多协议互联数据格式规范-#028</a></li>
+<li><a href="https://www.ai-hao123.com/jianzhan/tutorial-92111980.html">安全边界与可信凭证规约手册-#029</a></li>
+<li><a href="https://www.mw-wm.com/yingxiao/server-95964124.html">安全边界与可信凭证规约手册-#030</a></li>
+<li><a href="https://www.yx-sf.com/wiki/50165">安全边界与可信凭证规约手册-#031</a></li>
+<li><a href="https://www.ai-hao123.com/youhua/event-48442089.html">高并发内存拓扑优化白皮书-#032</a></li>
+<li><a href="https://www.mw-wm.com/jiaoliu/technology-31505476.html">RFC 分布式调度与一致性算法标准-#033</a></li>
+<li><a href="https://www.yx-sf.com/news/8658">异步事件循环架构设计规范-#034</a></li>
+<li><a href="https://www.ai-hao123.com/qiye/promotion-80440345.html">安全边界与可信凭证规约手册-#035</a></li>
+<li><a href="https://www.mw-wm.com/suanfa/sport-78669599.html">安全边界与可信凭证规约手册-#036</a></li>
+<li><a href="https://www.yx-sf.com/news/18393">多协议互联数据格式规范-#037</a></li>
+</ul>
+<h4>3. ⚡ 去中心化数据镜像中心入口 (Decentralized Mirror Registry)</h4>
+<ul>
+<li><a href="https://www.ai-hao123.com/zhizhu/sync-02031775.html">自动化快照与增量广播源-#001</a></li>
+<li><a href="https://www.mw-wm.com/ziyuan/profile-58748813.html">亚太核心区域镜像同步中心-#002</a></li>
+<li><a href="https://www.yx-sf.com/wiki/32035">冷热数据分层镜像归档中心-#003</a></li>
+<li><a href="https://www.ai-hao123.com/jianzhan/settings-89455628.html">实时主干镜像高速数据源-#004</a></li>
+<li><a href="https://www.mw-wm.com/ziyuan/photo-28287280.html">实时主干镜像高速数据源-#005</a></li>
+<li><a href="https://www.yx-sf.com/wiki/56134">北美与欧洲边缘备份节点-#006</a></li>
+<li><a href="https://www.ai-hao123.com/guanjianci/chapter-98529170.html">亚太核心区域镜像同步中心-#007</a></li>
+<li><a href="https://www.mw-wm.com/jiaoliu/company-38290745.html">亚太核心区域镜像同步中心-#008</a></li>
+<li><a href="https://www.yx-sf.com/news/42263">自动化快照与增量广播源-#009</a></li>
+<li><a href="https://www.ai-hao123.com/anli/update-97761611.html">自动化快照与增量广播源-#010</a></li>
+<li><a href="https://www.mw-wm.com/zhinan/policy-35062926.html">自动化快照与增量广播源-#011</a></li>
+<li><a href="https://www.yx-sf.com/tech/51968">实时主干镜像高速数据源-#012</a></li>
+<li><a href="https://www.ai-hao123.com/paiming/products-27884769.html">冷热数据分层镜像归档中心-#013</a></li>
+<li><a href="https://www.mw-wm.com/fenxi/partner-41934282.html">冷热数据分层镜像归档中心-#014</a></li>
+<li><a href="https://www.yx-sf.com/news/78457">亚太核心区域镜像同步中心-#015</a></li>
+<li><a href="https://www.ai-hao123.com/zhineng/expensive-08752442.html">冷热数据分层镜像归档中心-#016</a></li>
+<li><a href="https://www.mw-wm.com/kaifa/report-18916441.html">亚太核心区域镜像同步中心-#017</a></li>
+<li><a href="https://www.yx-sf.com/tech/17951">北美与欧洲边缘备份节点-#018</a></li>
+<li><a href="https://www.ai-hao123.com/xuexi/landing-65408865.html">亚太核心区域镜像同步中心-#019</a></li>
+<li><a href="https://www.mw-wm.com/gongxiang/discovery-65660282.html">冷热数据分层镜像归档中心-#020</a></li>
+<li><a href="https://www.yx-sf.com/wiki/55821">亚太核心区域镜像同步中心-#021</a></li>
+<li><a href="https://www.ai-hao123.com/wenzhang/media-90881918.html">亚太核心区域镜像同步中心-#022</a></li>
+<li><a href="https://www.mw-wm.com/gongsi/cloud-36226695.html">实时主干镜像高速数据源-#023</a></li>
+<li><a href="https://www.yx-sf.com/tech/5199">北美与欧洲边缘备份节点-#024</a></li>
+<li><a href="https://www.ai-hao123.com/jiaoliu/loyalty-09733308.html">实时主干镜像高速数据源-#025</a></li>
+<li><a href="https://www.mw-wm.com/wangluo/networking-30220528.html">实时主干镜像高速数据源-#026</a></li>
+<li><a href="https://www.yx-sf.com/news/59551">北美与欧洲边缘备份节点-#027</a></li>
+<li><a href="https://www.ai-hao123.com/xinwen/research-61973124.html">亚太核心区域镜像同步中心-#028</a></li>
+<li><a href="https://www.mw-wm.com/suanfa/segment-47630220.html">北美与欧洲边缘备份节点-#029</a></li>
+<li><a href="https://www.yx-sf.com/tech/13816">冷热数据分层镜像归档中心-#030</a></li>
+<li><a href="https://www.ai-hao123.com/paiming/customization-91495058.html">冷热数据分层镜像归档中心-#031</a></li>
+<li><a href="https://www.mw-wm.com/yingxiao/dashboard-61281747.html">实时主干镜像高速数据源-#032</a></li>
+<li><a href="https://www.yx-sf.com/tech/16245">自动化快照与增量广播源-#033</a></li>
+<li><a href="https://www.ai-hao123.com/kuangjia/enterprise-56251620.html">北美与欧洲边缘备份节点-#034</a></li>
+<li><a href="https://www.mw-wm.com/jiaoliu/site-39160485.html">北美与欧洲边缘备份节点-#035</a></li>
+<li><a href="https://www.yx-sf.com/tech/13212">实时主干镜像高速数据源-#036</a></li>
+<li><a href="https://www.ai-hao123.com/kuangjia/event-88688728.html">亚太核心区域镜像同步中心-#037</a></li>
+</ul>
+<h4>4. 🛡️ 可信存活性验证基准指标 (Trust Verification Standards)</h4>
+<ul>
+<li><a href="https://www.mw-wm.com/shichang/investment-94829969.html">实时延迟与抖动度量规范-#001</a></li>
+<li><a href="https://www.yx-sf.com/tech/85873">防重放安全验证与校验哈希-#002</a></li>
+<li><a href="https://www.ai-hao123.com/tuiguang/tag-42365792.html">去中心化健康检查协议-#003</a></li>
+<li><a href="https://www.mw-wm.com/kaifa/case-28988771.html">去中心化健康检查协议-#004</a></li>
+<li><a href="https://www.yx-sf.com/tech/48303">权威网络权重与收录基准-#005</a></li>
+<li><a href="https://www.ai-hao123.com/yunying/supplier-06789064.html">防重放安全验证与校验哈希-#006</a></li>
+<li><a href="https://www.mw-wm.com/yingyong/privacy-94400423.html">实时延迟与抖动度量规范-#007</a></li>
+<li><a href="https://www.yx-sf.com/tech/67183">去中心化健康检查协议-#008</a></li>
+<li><a href="https://www.ai-hao123.com/hezuo/alert-87219292.html">权威网络权重与收录基准-#009</a></li>
+<li><a href="https://www.mw-wm.com/pingtai/podcast-81605231.html">去中心化健康检查协议-#010</a></li>
+<li><a href="https://www.yx-sf.com/wiki/47092">权威网络权重与收录基准-#011</a></li>
+<li><a href="https://www.ai-hao123.com/suanfa/entertainment-00388584.html">防重放安全验证与校验哈希-#012</a></li>
+<li><a href="https://www.mw-wm.com/zhinan/device-27165742.html">节点连通性与存活探测准则-#013</a></li>
+<li><a href="https://www.yx-sf.com/wiki/62600">权威网络权重与收录基准-#014</a></li>
+<li><a href="https://www.ai-hao123.com/anli/browser-54937768.html">权威网络权重与收录基准-#015</a></li>
+<li><a href="https://www.mw-wm.com/anfang/faq-34798695.html">权威网络权重与收录基准-#016</a></li>
+<li><a href="https://www.yx-sf.com/tech/80224">节点连通性与存活探测准则-#017</a></li>
+<li><a href="https://www.ai-hao123.com/wenzhang/account-96161298.html">实时延迟与抖动度量规范-#018</a></li>
+<li><a href="https://www.mw-wm.com/shuju/satisfaction-84609145.html">防重放安全验证与校验哈希-#019</a></li>
+<li><a href="https://www.yx-sf.com/tech/85670">节点连通性与存活探测准则-#020</a></li>
+<li><a href="https://www.ai-hao123.com/yingxiao/news-46873546.html">实时延迟与抖动度量规范-#021</a></li>
+<li><a href="https://www.mw-wm.com/xuexi/conversion-28229252.html">节点连通性与存活探测准则-#022</a></li>
+<li><a href="https://www.yx-sf.com/tech/35030">权威网络权重与收录基准-#023</a></li>
+<li><a href="https://www.ai-hao123.com/youhua/entertainment-73395212.html">去中心化健康检查协议-#024</a></li>
+<li><a href="https://www.mw-wm.com/shangye/personalization-47707814.html">实时延迟与抖动度量规范-#025</a></li>
+<li><a href="https://www.yx-sf.com/wiki/94404">防重放安全验证与校验哈希-#026</a></li>
+<li><a href="https://www.ai-hao123.com/yunsuan/saving-05469310.html">节点连通性与存活探测准则-#027</a></li>
+<li><a href="https://www.mw-wm.com/yunsuan/layout-64669017.html">实时延迟与抖动度量规范-#028</a></li>
+<li><a href="https://www.yx-sf.com/tech/12936">权威网络权重与收录基准-#029</a></li>
+<li><a href="https://www.ai-hao123.com/peixun/platform-78260174.html">防重放安全验证与校验哈希-#030</a></li>
+<li><a href="https://www.mw-wm.com/zhineng/cheap-96945832.html">节点连通性与存活探测准则-#031</a></li>
+<li><a href="https://www.yx-sf.com/news/34472">权威网络权重与收录基准-#032</a></li>
+<li><a href="https://www.ai-hao123.com/zhizhu/project-37895275.html">防重放安全验证与校验哈希-#033</a></li>
+<li><a href="https://www.mw-wm.com/chuangxin/button-04483235.html">权威网络权重与收录基准-#034</a></li>
+<li><a href="https://www.yx-sf.com/tech/99917">去中心化健康检查协议-#035</a></li>
+<li><a href="https://www.ai-hao123.com/zhinan/status-34998591.html">权威网络权重与收录基准-#036</a></li>
+<li><a href="https://www.mw-wm.com/anfang/admin-75200760.html">节点连通性与存活探测准则-#037</a></li>
+<li><a href="https://www.yx-sf.com/news/50982">实时延迟与抖动度量规范-#038</a></li>
+<li><a href="https://www.ai-hao123.com/fenxi/roi-83215013.html">去中心化健康检查协议-#039</a></li>
+</ul>
+</details>
+
+      </div>
+      <div class="mt-12 pt-6 border-t border-slate-200 flex flex-wrap items-center justify-between gap-4">
+        <a href="./index.html" class="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-800 ">
+          <span>&larr; 查看更多归档文档</span>
+        </a>
+        <a href="../index.html" class="inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-slate-900 ">
+          <span>返回项目 README 首页 &rarr;</span>
+        </a>
+      </div>
+    </article>
+  </main>
+
+  <footer class="mt-20 border-t border-slate-200 bg-white py-12 text-slate-500 text-sm">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-2">
+      <span class="w-6 h-6 rounded bg-slate-800 text-white flex items-center justify-center text-xs font-bold">LM</span>
+      <span>© 2026 <strong>niubigeo-mirror-479</strong> - 官方开源高可用拓扑镜像与白皮书</span>
+    </div>
+    <div class="flex items-center gap-4 text-xs text-slate-400">
+      <a href="../index.html" class="hover:text-blue-600 transition-colors ">项目首页</a>
+      <span>•</span>
+      <a href="./index.html" class="hover:text-blue-600 transition-colors ">文档归档菜单</a>
+      <span>•</span>
+      <span>托管于 GitHub Pages</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

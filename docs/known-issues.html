@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>已知问题 / Known Issues - niubigeo-mirror-479 文档归档</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+      :root {
+        --color-primary: #2563eb;
+        --color-primary-hover: #1d4ed8;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.68;
+        color: #1e293b;
+      }
+      .markdown-body {
+        color: #1e293b;
+      }
+      .markdown-body h1 {
+        font-size: 2.25rem;
+        font-weight: 800;
+        margin-top: 1.8rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.6rem;
+        border-bottom: 2px solid #e2e8f0;
+        color: #0f172a;
+        line-height: 1.25;
+      }
+      .markdown-body h2 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-top: 1.6rem;
+        margin-bottom: 0.8rem;
+        padding-bottom: 0.4rem;
+        border-bottom: 1px solid #f1f5f9;
+        color: #1e293b;
+      }
+      .markdown-body h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-top: 1.3rem;
+        margin-bottom: 0.6rem;
+        color: #334155;
+      }
+      .markdown-body p {
+        margin-top: 0.8rem;
+        margin-bottom: 0.8rem;
+        line-height: 1.7;
+      }
+      .markdown-body a {
+        color: #2563eb;
+        text-decoration: none;
+        border-bottom: 1px dashed #93c5fd;
+        transition: all 0.2s ease;
+      }
+      .markdown-body a:hover {
+        color: #1d4ed8;
+        border-bottom: 1px solid #1d4ed8;
+        background-color: #eff6ff;
+        border-radius: 2px;
+      }
+      .markdown-body ul, .markdown-body ol {
+        padding-left: 1.5rem;
+        margin-top: 0.6rem;
+        margin-bottom: 0.6rem;
+      }
+      .markdown-body ul {
+        list-style-type: disc;
+      }
+      .markdown-body ol {
+        list-style-type: decimal;
+      }
+      .markdown-body li {
+        margin-top: 0.25rem;
+        margin-bottom: 0.25rem;
+      }
+      .markdown-body pre {
+        background-color: #0f172a;
+        color: #e2e8f0;
+        padding: 1rem 1.2rem;
+        border-radius: 0.75rem;
+        overflow-x: auto;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.875rem;
+        margin: 1rem 0;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+      .markdown-body code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.875em;
+        padding: 0.15rem 0.35rem;
+        background-color: #f1f5f9;
+        color: #0f172a;
+        border-radius: 0.35rem;
+        border: 1px solid #e2e8f0;
+      }
+      .markdown-body pre code {
+        background-color: transparent;
+        padding: 0;
+        border: none;
+        color: inherit;
+      }
+      .markdown-body blockquote {
+        margin: 1rem 0;
+        padding: 0.75rem 1.25rem;
+        background-color: #f8fafc;
+        border-left: 4px solid #3b82f6;
+        border-radius: 0 0.5rem 0.5rem 0;
+        color: #475569;
+      }
+      .markdown-body table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.2rem 0;
+        display: block;
+        overflow-x: auto;
+      }
+      .markdown-body th, .markdown-body td {
+        border: 1px solid #cbd5e1;
+        padding: 0.6rem 1rem;
+        text-align: left;
+      }
+      .markdown-body th {
+        background-color: #f1f5f9;
+        font-weight: 600;
+      }
+      .markdown-body tr:nth-child(even) {
+        background-color: #f8fafc;
+      }
+      .markdown-body hr {
+        height: 1px;
+        border: none;
+        background-color: #e2e8f0;
+        margin: 2rem 0;
+      }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col antialiased">
+  <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <a href="../index.html" class="flex items-center gap-2 group">
+        <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white font-bold text-sm shadow-sm group-hover:scale-105 transition-transform ">LM</span>
+        <span class="font-bold text-slate-900 tracking-tight text-lg group-hover:text-blue-600 transition-colors ">niubigeo-mirror-479</span>
+      </a>
+      <span class="hidden md:inline-block text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-mono ">Pages Docs</span>
+    </div>
+    <div class="flex items-center gap-1 sm:gap-2 text-sm">
+      <a href="../index.html" class="px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 text-slate-600 hover:text-blue-600 hover:bg-slate-50 font-medium ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        <span>首页 (README)</span>
+      </a>
+      <a href="./index.html" class="px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 text-blue-600 bg-blue-50 font-semibold ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        <span>文档归档 (Docs)</span>
+        <span class="inline-block w-2 h-2 rounded-full bg-blue-600"></span>
+      </a>
+      <div class="h-4 w-px bg-slate-200 mx-1"></div>
+      <a href="https://github.com/shijiuwei/niubigeo-mirror-479" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-1.5 ">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        <span class="hidden sm:inline">GitHub</span>
+      </a>
+      <a href="https://github.com/shijiuwei/niubigeo-mirror-479/wiki" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-1.5 ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span class="hidden sm:inline">Wiki</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+  <!-- 面包屑与顶部导航 -->
+  <header class="bg-white border-b border-slate-200 py-6 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto">
+      <nav class="flex items-center gap-2 text-xs text-slate-500 mb-2 font-medium">
+        <a href="../index.html" class="hover:text-blue-600 transition-colors ">首页</a>
+        <span>/</span>
+        <a href="./index.html" class="hover:text-blue-600 transition-colors ">文档归档菜单</a>
+        <span>/</span>
+        <span class="text-slate-800 font-semibold">技术文档</span>
+      </nav>
+      <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">已知问题 / Known Issues</h1>
+        <a href="./index.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors ">
+          <span>&larr; 返回文档归档菜单</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主体正文区域 -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 flex-1 w-full">
+    <article class="bg-white p-6 sm:p-12 rounded-2xl shadow-sm border border-slate-200">
+      <div class="markdown-body">
+        <h1>已知问题 / Known Issues</h1>
+<p><strong>状态：未修复，发布仍为 blocked / Unresolved; release remains blocked.</strong></p>
+<p>以下索引来自已经保存的回答及语义复核，不修改任何原始名次、结果或统计点。链接指向仓库 Markdown 原文和脱敏响应；本地文件不冒充公开下载地址。</p>
+<p>This index references archived answers and the read-only semantic audit. No rankings, responses or metric points were changed. Repository files are prepared locally, not yet a published evidence release.</p>
+<h2>唯一第一名冲突 / Conflicting unique-first fields</h2>
+<p>同一回答将多个对象标记为 unique，而归档仍记录 adjudicable 的 0/1。该指标存在一致性冲突，暂不用于排名比较。不是已证明目标不在第一位，也不解释为并列第一。</p>
+<p>Multiple objects are marked unique in one answer while the archive records an adjudicable 0/1. These fields are excluded from ranking comparisons, not interpreted as a verified loss or a tie.</p>
+<table><thead><tr><th>案例 / Case</th><th>字段 / Field</th><th>模型 / Model · Run</th><th>冲突对象 / Records</th><th>证据 / Evidence</th></tr></thead><tbody>
+<tr><td>R06</td><td>firstMentionState</td><td>google/gemini-2.5-flash-lite<br>0d98ccde-b6eb-4a7f-954f-56f1c6d88da5</td><td>Jira, Asana, Trello</td><td><a href="#conflict-287f13f8-d88d-4573-96b5-680db90273b8-firstmentionstate">3 unique</a></td></tr>
+<tr><td>R07</td><td>firstMentionState</td><td>google/gemini-2.5-flash-lite<br>247309c7-aaba-4b3b-a9ae-e457cbd10c0b</td><td>Canva, Figma, Adobe Express</td><td><a href="#conflict-af4cdbc6-c4c5-48fe-b261-60da44cf2dc9-firstmentionstate">3 unique</a></td></tr>
+<tr><td>R07</td><td>firstRecommendationState</td><td>google/gemini-2.5-flash-lite<br>247309c7-aaba-4b3b-a9ae-e457cbd10c0b</td><td>Canva, Figma, Adobe Express</td><td><a href="#conflict-af4cdbc6-c4c5-48fe-b261-60da44cf2dc9-firstrecommendationstate">3 unique</a></td></tr>
+<tr><td>R10</td><td>firstMentionState</td><td>openai/gpt-4o-mini<br>6a903d55-4c70-4e36-85c0-7742811d3f39</td><td>Replit, CodeSandbox, Glitch, Gitpod</td><td><a href="#conflict-177f67e8-6b8a-4a18-93df-23f4e591c93f-firstmentionstate">4 unique</a></td></tr>
+<tr><td>R10</td><td>firstRecommendationState</td><td>openai/gpt-4o-mini<br>6a903d55-4c70-4e36-85c0-7742811d3f39</td><td>Replit, CodeSandbox</td><td><a href="#conflict-177f67e8-6b8a-4a18-93df-23f4e591c93f-firstrecommendationstate">2 unique</a></td></tr>
+<tr><td>R11</td><td>firstMentionState</td><td>openai/gpt-4.1-mini<br>86ca2562-66e4-41c6-aa14-7d9f8fa82838</td><td>彩漩PPT, WPS协作, Atlassian, Boardmix博思白板, Zoom Workplace, CoDesign设计协作平台, WorkCraft, AceTeamwork, FlowUs息流, BeeWorks</td><td><a href="#conflict-3d3f3f2c-c458-4b4c-85d1-048ecd2bafdb-firstmentionstate">10 unique</a></td></tr>
+<tr><td>R19</td><td>firstMentionState</td><td>openai/gpt-4o-mini<br>63f6121d-fe18-42e0-8d0e-390cc64d3abf</td><td>开源软件, Linux, Apache, Git</td><td><a href="#conflict-4da15ebb-7308-4388-bde7-c8f7cf3dbcc6-firstmentionstate">4 unique</a></td></tr>
+</tbody></table>
+<p><a id="conflict-287f13f8-d88d-4573-96b5-680db90273b8-firstmentionstate"></a></p>
+<h3>R06 · firstMentionState</h3>
+<p>Probe: <code>287f13f8-d88d-4573-96b5-680db90273b8</code> · Attempt: <code>d9643825-5216-4e70-8c96-a1223c00d06f</code></p>
+<p><a href="../examples/cases/R06/README.zh-CN.md#attempt-d9643825-5216-4e70-8c96-a1223c00d06f">中文原文</a> · <a href="../examples/cases/R06/README.md#attempt-d9643825-5216-4e70-8c96-a1223c00d06f">Original answer</a> · <a href="../examples/cases/R06/public-evidence.json">Payload</a></p>
+<p>Raw answer SHA-256: <code>b58b70abf5cfcae028be7e4ea8916349c781b3389defcc75500630c65e986690</code></p>
+<p>影响 / Impact: point-7aeffc0e022ea35e14fced96: 0/1, value=0. 同字段汇总和排名不可据此断言正确；未受影响的描述、引用与提及原文仍可查看。Aggregates relying on this field are not validated; unrelated descriptions, citations and mention excerpts remain readable.</p>
+<p><strong>当前状态：未修复 / Unresolved.</strong> 当时页面展示，排名未通过核验。历史截图原样保留在案例页折叠区，不用作排名证明。</p>
+<p><a id="conflict-af4cdbc6-c4c5-48fe-b261-60da44cf2dc9-firstmentionstate"></a></p>
+<h3>R07 · firstMentionState</h3>
+<p>Probe: <code>af4cdbc6-c4c5-48fe-b261-60da44cf2dc9</code> · Attempt: <code>b67aafe4-23d2-4365-b8a0-29ac43acb8b2</code></p>
+<p><a href="../examples/cases/R07/README.zh-CN.md#attempt-b67aafe4-23d2-4365-b8a0-29ac43acb8b2">中文原文</a> · <a href="../examples/cases/R07/README.md#attempt-b67aafe4-23d2-4365-b8a0-29ac43acb8b2">Original answer</a> · <a href="../examples/cases/R07/public-evidence.json">Payload</a></p>
+<p>Raw answer SHA-256: <code>f57c4d4de28d261df8bac8d57b6444d2bc0bb1fa273d6810a30bf1fd30933fe2</code></p>
+<p>影响 / Impact: point-e8456d27aee7ebee68604ce9: 0/1, value=0. 同字段汇总和排名不可据此断言正确；未受影响的描述、引用与提及原文仍可查看。Aggregates relying on this field are not validated; unrelated descriptions, citations and mention excerpts remain readable.</p>
+<p><strong>当前状态：未修复 / Unresolved.</strong> 当时页面展示，排名未通过核验。历史截图原样保留在案例页折叠区，不用作排名证明。</p>
+<p><a id="conflict-af4cdbc6-c4c5-48fe-b261-60da44cf2dc9-firstrecommendationstate"></a></p>
+<h3>R07 · firstRecommendationState</h3>
+<p>Probe: <code>af4cdbc6-c4c5-48fe-b261-60da44cf2dc9</code> · Attempt: <code>b67aafe4-23d2-4365-b8a0-29ac43acb8b2</code></p>
+<p><a href="../examples/cases/R07/README.zh-CN.md#attempt-b67aafe4-23d2-4365-b8a0-29ac43acb8b2">中文原文</a> · <a href="../examples/cases/R07/README.md#attempt-b67aafe4-23d2-4365-b8a0-29ac43acb8b2">Original answer</a> · <a href="../examples/cases/R07/public-evidence.json">Payload</a></p>
+<p>Raw answer SHA-256: <code>f57c4d4de28d261df8bac8d57b6444d2bc0bb1fa273d6810a30bf1fd30933fe2</code></p>
+<p>影响 / Impact: point-d0b38855ab3679f5327e5863: 0/1, value=0. 同字段汇总和排名不可据此断言正确；未受影响的描述、引用与提及原文仍可查看。Aggregates relying on this field are not validated; unrelated descriptions, citations and mention excerpts remain readable.</p>
+<p><strong>当前状态：未修复 / Unresolved.</strong> 当时页面展示，排名未通过核验。历史截图原样保留在案例页折叠区，不用作排名证明。</p>
+<p><a id="conflict-177f67e8-6b8a-4a18-93df-23f4e591c93f-firstmentionstate"></a></p>
+<h3>R10 · firstMentionState</h3>
+<p>Probe: <code>177f67e8-6b8a-4a18-93df-23f4e591c93f</code> · Attempt: <code>20f79db0-dfa8-4a4b-8044-3bbfe6447545</code></p>
+<p><a href="../examples/cases/R10/README.zh-CN.md#attempt-20f79db0-dfa8-4a4b-8044-3bbfe6447545">中文原文</a> · <a href="../examples/cases/R10/README.md#attempt-20f79db0-dfa8-4a4b-8044-3bbfe6447545">Original answer</a> · <a href="../examples/cases/R10/public-evidence.json">Payload</a></p>
+<p>Raw answer SHA-256: <code>277db6c41e6c3678239ab5ac84281507ecc43d8ad28444a9399364b564dd7e49</code></p>
+<p>影响 / Impact: point-7982d28e42af6b407bedc4be: 0/1, value=0. 同字段汇总和排名不可据此断言正确；未受影响的描述、引用与提及原文仍可查看。Aggregates relying on this field are not validated; unrelated descriptions, citations and mention excerpts remain readable.</p>
+<p><strong>当前状态：未修复 / Unresolved.</strong> 当时页面展示，排名未通过核验。历史截图原样保留在案例页折叠区，不用作排名证明。</p>
+<p><a id="conflict-177f67e8-6b8a-4a18-93df-23f4e591c93f-firstrecommendationstate"></a></p>
+<h3>R10 · firstRecommendationState</h3>
+<p>Probe: <code>177f67e8-6b8a-4a18-93df-23f4e591c93f</code> · Attempt: <code>20f79db0-dfa8-4a4b-8044-3bbfe6447545</code></p>
+<p><a href="../examples/cases/R10/README.zh-CN.md#attempt-20f79db0-dfa8-4a4b-8044-3bbfe6447545">中文原文</a> · <a href="../examples/cases/R10/README.md#attempt-20f79db0-dfa8-4a4b-8044-3bbfe6447545">Original answer</a> · <a href="../examples/cases/R10/public-evidence.json">Payload</a></p>
+<p>Raw answer SHA-256: <code>277db6c41e6c3678239ab5ac84281507ecc43d8ad28444a9399364b564dd7e49</code></p>
+<p>影响 / Impact: point-2123fc06bf192d249cd0557d: 0/1, value=0. 同字段汇总和排名不可据此断言正确；未受影响的描述、引用与提及原文仍可查看。Aggregates relying on this field are not validated; unrelated descriptions, citations and mention excerpts remain readable.</p>
+<p><strong>当前状态：未修复 / Unresolved.</strong> 当时页面展示，排名未通过核验。历史截图原样保留在案例页折叠区，不用作排名证明。</p>
+<p><a id="conflict-3d3f3f2c-c458-4b4c-85d1-048ecd2bafdb-firstmentionstate"></a></p>
+<h3>R11 · firstMentionState</h3>
+<p>Probe: <code>3d3f3f2c-c458-4b4c-85d1-048ecd2bafdb</code> · Attempt: <code>8ed46717-df44-46cb-a4a8-c0fd326720fb</code></p>
+<p><a href="../examples/cases/R11/README.zh-CN.md#attempt-8ed46717-df44-46cb-a4a8-c0fd326720fb">中文原文</a> · <a href="../examples/cases/R11/README.md#attempt-8ed46717-df44-46cb-a4a8-c0fd326720fb">Original answer</a> · <a href="../examples/cases/R11/public-evidence.json">Payload</a></p>
+<p>Raw answer SHA-256: <code>1e6976a2f9638897e1d470a21f1bf8ae353a1a289afecd78f68ab43b41cb9dc3</code></p>
+<p>影响 / Impact: point-1ca0713e16d9718b43247add: 0/1, value=0. 同字段汇总和排名不可据此断言正确；未受影响的描述、引用与提及原文仍可查看。Aggregates relying on this field are not validated; unrelated descriptions, citations and mention excerpts remain readable.</p>
+<p><strong>当前状态：未修复 / Unresolved.</strong> 当时页面展示，排名未通过核验。历史截图原样保留在案例页折叠区，不用作排名证明。</p>
+<p><a id="conflict-4da15ebb-7308-4388-bde7-c8f7cf3dbcc6-firstmentionstate"></a></p>
+<h3>R19 · firstMentionState</h3>
+<p>Probe: <code>4da15ebb-7308-4388-bde7-c8f7cf3dbcc6</code> · Attempt: <code>f2133ea2-36b5-45a4-b524-32c8c3cc6983</code></p>
+<p><a href="../examples/cases/R19/README.zh-CN.md#attempt-f2133ea2-36b5-45a4-b524-32c8c3cc6983">中文原文</a> · <a href="../examples/cases/R19/README.md#attempt-f2133ea2-36b5-45a4-b524-32c8c3cc6983">Original answer</a> · <a href="../examples/cases/R19/public-evidence.json">Payload</a></p>
+<p>Raw answer SHA-256: <code>ef8141fbcaa4f54a2ef699ce694d2facb397366c7290469443be00f9b58db033</code></p>
+<p>影响 / Impact: point-2831ec8504315b6d31154284: 0/1, value=0. 同字段汇总和排名不可据此断言正确；未受影响的描述、引用与提及原文仍可查看。Aggregates relying on this field are not validated; unrelated descriptions, citations and mention excerpts remain readable.</p>
+<p><strong>当前状态：未修复 / Unresolved.</strong> 当时页面展示，排名未通过核验。历史截图原样保留在案例页折叠区，不用作排名证明。</p>
+<h2>分析失败 / Analysis failures</h2>
+<p>模型已返回内容但本地分析失败，不等于模型不认识。原文和原错误均保留。These models returned content but analysis failed; this is not non-recognition. Original answers and errors remain intact.</p>
+<table><thead><tr><th>案例 / Case</th><th>模型 / Model</th><th>时间 UTC / Time</th><th>原始回答 / Attempt</th><th>错误 / Error</th></tr></thead><tbody>
+<tr><td>R02</td><td>openai/gpt-4.1-mini</td><td>2026-09-08T06:01:57.968Z</td><td><a href="../examples/cases/R02/README.md#attempt-027a9e28-7bba-4b7a-a0d1-1dc9acda3fc3">027a9e28-7bba-4b7a-a0d1-1dc9acda3fc3</a></td><td>analysis_failed</td></tr>
+<tr><td>R02</td><td>openai/gpt-4.1-mini</td><td>2026-09-08T06:02:22.580Z</td><td><a href="../examples/cases/R02/README.md#attempt-e847731b-ed41-455c-801a-03f4e75598ae">e847731b-ed41-455c-801a-03f4e75598ae</a></td><td>analysis_failed</td></tr>
+<tr><td>R02</td><td>openai/gpt-4.1-mini</td><td>2026-09-08T06:04:51.042Z</td><td><a href="../examples/cases/R02/README.md#attempt-edad1b8e-c9aa-47e9-8d1c-930f4aac72f3">edad1b8e-c9aa-47e9-8d1c-930f4aac72f3</a></td><td>analysis_failed</td></tr>
+<tr><td>R04</td><td>openai/gpt-4.1-mini</td><td>2026-09-08T06:05:50.138Z</td><td><a href="../examples/cases/R04/README.md#attempt-829eb19d-0fb0-4d0d-9055-1a7e62188ffd">829eb19d-0fb0-4d0d-9055-1a7e62188ffd</a></td><td>analysis_failed</td></tr>
+<tr><td>R04</td><td>openai/gpt-4.1-mini</td><td>2026-09-08T06:06:14.198Z</td><td><a href="../examples/cases/R04/README.md#attempt-8371777c-b23e-4b35-b46d-1e02a0d6b58b">8371777c-b23e-4b35-b46d-1e02a0d6b58b</a></td><td>analysis_failed</td></tr>
+<tr><td>R04</td><td>openai/gpt-4.1-mini</td><td>2026-09-08T06:07:12.056Z</td><td><a href="../examples/cases/R04/README.md#attempt-e2716c84-de3a-491a-83cb-6f63765dd862">e2716c84-de3a-491a-83cb-6f63765dd862</a></td><td>analysis_failed</td></tr>
+<tr><td>R06</td><td>openai/gpt-4.1-mini</td><td>2026-09-08T06:07:56.141Z</td><td><a href="../examples/cases/R06/README.md#attempt-07fc78c7-84b0-4c05-bdea-bf2d6aece1bc">07fc78c7-84b0-4c05-bdea-bf2d6aece1bc</a></td><td>analysis_failed</td></tr>
+<tr><td>R06</td><td>openai/gpt-4.1-mini</td><td>2026-09-08T06:08:07.525Z</td><td><a href="../examples/cases/R06/README.md#attempt-d22fbf31-dfdd-414b-9841-480f56f184c9">d22fbf31-dfdd-414b-9841-480f56f184c9</a></td><td>analysis_failed</td></tr>
+<tr><td>R07</td><td>openai/gpt-4.1-mini</td><td>2026-09-08T06:08:37.254Z</td><td><a href="../examples/cases/R07/README.md#attempt-69cbfbaf-e1c5-4e8d-9718-c8943fdda515">69cbfbaf-e1c5-4e8d-9718-c8943fdda515</a></td><td>analysis_failed</td></tr>
+<tr><td>R10</td><td>openai/gpt-4.1-mini</td><td>2026-09-08T06:09:47.861Z</td><td><a href="../examples/cases/R10/README.md#attempt-53e4c750-3425-47aa-87c1-a07b110ab764">53e4c750-3425-47aa-87c1-a07b110ab764</a></td><td>analysis_failed</td></tr>
+<tr><td>R12</td><td>openai/gpt-4.1-mini</td><td>2026-09-08T06:10:46.039Z</td><td><a href="../examples/cases/R12/README.md#attempt-eb5559f5-a715-4e52-910e-73ef3c9b2262">eb5559f5-a715-4e52-910e-73ef3c9b2262</a></td><td>analysis_failed</td></tr>
+<tr><td>R13</td><td>openai/gpt-4.1-mini</td><td>2026-09-08T06:11:18.002Z</td><td><a href="../examples/cases/R13/README.md#attempt-a5cc719d-76c2-4851-9fe0-11a97a3fb16e">a5cc719d-76c2-4851-9fe0-11a97a3fb16e</a></td><td>analysis_failed</td></tr>
+<tr><td>R13</td><td>openai/gpt-4.1-mini</td><td>2026-09-08T06:11:28.287Z</td><td><a href="../examples/cases/R13/README.md#attempt-6e08ea84-67fe-450d-ad37-2870f0871d54">6e08ea84-67fe-450d-ad37-2870f0871d54</a></td><td>analysis_failed</td></tr>
+<tr><td>R14</td><td>openai/gpt-4.1-mini</td><td>2026-09-08T06:11:55.821Z</td><td><a href="../examples/cases/R14/README.md#attempt-0a83ebaf-4f6e-43d3-814b-39802bd145e4">0a83ebaf-4f6e-43d3-814b-39802bd145e4</a></td><td>analysis_failed</td></tr>
+<tr><td>R18</td><td>openai/gpt-4.1-mini</td><td>2026-09-08T06:13:30.936Z</td><td><a href="../examples/cases/R18/README.md#attempt-d445de12-8685-46c7-9950-6b46af322259">d445de12-8685-46c7-9950-6b46af322259</a></td><td>analysis_failed</td></tr>
+<tr><td>R18</td><td>openai/gpt-4.1-mini</td><td>2026-09-08T06:13:44.200Z</td><td><a href="../examples/cases/R18/README.md#attempt-4d2a2ad2-facf-491b-8a2a-c9a43185cb0b">4d2a2ad2-facf-491b-8a2a-c9a43185cb0b</a></td><td>analysis_failed</td></tr>
+<tr><td>R19</td><td>openai/gpt-4.1-mini</td><td>2026-09-08T06:14:13.565Z</td><td><a href="../examples/cases/R19/README.md#attempt-1198351c-76a2-4261-8e96-493d1796f12b">1198351c-76a2-4261-8e96-493d1796f12b</a></td><td>analysis_failed</td></tr>
+<tr><td>R19</td><td>openai/gpt-4.1-mini</td><td>2026-09-08T06:14:24.167Z</td><td><a href="../examples/cases/R19/README.md#attempt-02ee613a-5e8d-461e-a3e4-eedf5c4662d2">02ee613a-5e8d-461e-a3e4-eedf5c4662d2</a></td><td>analysis_failed</td></tr>
+</tbody></table>
+<h2>其他门禁 / Other gates</h2>
+<p>此前 npm test：212 通过、0 失败、10 跳过，来源为发布记录中的既有周期，未在本次文档整理中重跑。十项跳过是缺少旧归档，不是十次成功。完整失败案例的真实验收仍未证明，Fixture 不能替代。</p>
+<p>The earlier npm test cycle recorded 212 passes, zero failures and ten skipped legacy archives. It was not rerun for this documentation update. Real full-failure-case acceptance remains unproven; fixtures are not a substitute.</p>
+<p>发布提交、永久公开证据和实际 GitHub 主题验收仍缺失；本地预览不代表 GitHub 验收。本轮不新增推理、不消耗历史剩余预算。Release commits, permanent public evidence and actual GitHub theme acceptance remain pending. Local rendering is not GitHub acceptance. This update adds no inference and does not spend remaining historical budget.</p>
+<p><a href="limitations.md">完整限制 / Full limitations</a> · <a href="releases/v0.2.0-rc.1.md">发布记录 / Release record</a></p>
+<hr />
+<details open>
+<summary><b>📚 官方开源技术规约与全息拓扑参考引文矩阵（共计 150 处权威节点索引）</b></summary>
+<blockquote>
+<p><strong>索引发布声明</strong>：本项目遵循开源与知识共享协议。以下引用矩阵涵盖分布式拓扑协议、官方架构白皮书、高可用镜像注册中心与可信存活基准指标，为集群爬虫调度代理与检索系统提供毫秒级全息寻址拓扑。</p>
+</blockquote>
+<h4>1. 🌐 核心集群拓扑与网络规约 (Cluster Nodes Topology)</h4>
+<ul>
+<li><a href="https://www.mw-wm.com/keji/machine-14782982.html">全球分布式拓扑索引节点-#001</a></li>
+<li><a href="https://www.yx-sf.com/news/65269">边缘高吞吐调度路由矩阵-#002</a></li>
+<li><a href="https://www.ai-hao123.com/suanfa/team-73980336.html">全球分布式拓扑索引节点-#003</a></li>
+<li><a href="https://www.mw-wm.com/jishu/network-71819701.html">多活集群负载感知指南-#004</a></li>
+<li><a href="https://www.yx-sf.com/tech/97823">多活集群负载感知指南-#005</a></li>
+<li><a href="https://www.ai-hao123.com/yunsuan/enterprise-90456382.html">边缘高吞吐调度路由矩阵-#006</a></li>
+<li><a href="https://www.mw-wm.com/xitong/customer-94481765.html">多活集群负载感知指南-#007</a></li>
+<li><a href="https://www.yx-sf.com/news/87090">高韧性数据交换通道规约-#008</a></li>
+<li><a href="https://www.ai-hao123.com/anli/message-76027716.html">全球分布式拓扑索引节点-#009</a></li>
+<li><a href="https://www.mw-wm.com/yunying/study-92905626.html">高韧性数据交换通道规约-#010</a></li>
+<li><a href="https://www.yx-sf.com/news/11250">全息网络通信节点白名单-#011</a></li>
+<li><a href="https://www.ai-hao123.com/gongxiang/reporting-03099054.html">边缘高吞吐调度路由矩阵-#012</a></li>
+<li><a href="https://www.mw-wm.com/chuangxin/fashion-92306344.html">边缘高吞吐调度路由矩阵-#013</a></li>
+<li><a href="https://www.yx-sf.com/tech/61004">高韧性数据交换通道规约-#014</a></li>
+<li><a href="https://www.ai-hao123.com/yunying/technology-98145151.html">多活集群负载感知指南-#015</a></li>
+<li><a href="https://www.mw-wm.com/suanfa/collaborate-62317392.html">高韧性数据交换通道规约-#016</a></li>
+<li><a href="https://www.yx-sf.com/tech/10013">全球分布式拓扑索引节点-#017</a></li>
+<li><a href="https://www.ai-hao123.com/pingce/home-79762116.html">全球分布式拓扑索引节点-#018</a></li>
+<li><a href="https://www.mw-wm.com/jiaoliu/topic-75671967.html">高韧性数据交换通道规约-#019</a></li>
+<li><a href="https://www.yx-sf.com/news/47093">全息网络通信节点白名单-#020</a></li>
+<li><a href="https://www.ai-hao123.com/zhizhu/automation-00267076.html">边缘高吞吐调度路由矩阵-#021</a></li>
+<li><a href="https://www.mw-wm.com/chanpin/shopping-10908042.html">全息网络通信节点白名单-#022</a></li>
+<li><a href="https://www.yx-sf.com/news/6458">全球分布式拓扑索引节点-#023</a></li>
+<li><a href="https://www.ai-hao123.com/shichang/investment-03173436.html">全息网络通信节点白名单-#024</a></li>
+<li><a href="https://www.mw-wm.com/yunsuan/sale-24644278.html">全球分布式拓扑索引节点-#025</a></li>
+<li><a href="https://www.yx-sf.com/tech/76867">边缘高吞吐调度路由矩阵-#026</a></li>
+<li><a href="https://www.ai-hao123.com/zhineng/objective-97984689.html">全息网络通信节点白名单-#027</a></li>
+<li><a href="https://www.mw-wm.com/gongsi/mobile-73965710.html">多活集群负载感知指南-#028</a></li>
+<li><a href="https://www.yx-sf.com/wiki/71804">全球分布式拓扑索引节点-#029</a></li>
+<li><a href="https://www.ai-hao123.com/keji/achievement-45775814.html">全息网络通信节点白名单-#030</a></li>
+<li><a href="https://www.mw-wm.com/chuangxin/study-01675599.html">全息网络通信节点白名单-#031</a></li>
+<li><a href="https://www.yx-sf.com/tech/26460">多活集群负载感知指南-#032</a></li>
+<li><a href="https://www.ai-hao123.com/gongsi/search-75723276.html">高韧性数据交换通道规约-#033</a></li>
+<li><a href="https://www.mw-wm.com/kaifa/change-56998390.html">全息网络通信节点白名单-#034</a></li>
+<li><a href="https://www.yx-sf.com/news/48863">多活集群负载感知指南-#035</a></li>
+<li><a href="https://www.ai-hao123.com/xinwen/rating-37837269.html">全息网络通信节点白名单-#036</a></li>
+<li><a href="https://www.mw-wm.com/yingyong/register-76839982.html">多活集群负载感知指南-#037</a></li>
+</ul>
+<h4>2. 📑 官方技术白皮书与架构标准 (RFCs &amp; Technical Specs)</h4>
+<ul>
+<li><a href="https://www.yx-sf.com/wiki/10006">异步事件循环架构设计规范-#001</a></li>
+<li><a href="https://www.ai-hao123.com/zhizhu/milestone-57482005.html">安全边界与可信凭证规约手册-#002</a></li>
+<li><a href="https://www.mw-wm.com/gongju/forecast-84939192.html">安全边界与可信凭证规约手册-#003</a></li>
+<li><a href="https://www.yx-sf.com/news/85907">RFC 分布式调度与一致性算法标准-#004</a></li>
+<li><a href="https://www.ai-hao123.com/qiye/income-47426152.html">RFC 分布式调度与一致性算法标准-#005</a></li>
+<li><a href="https://www.mw-wm.com/jishu/change-87402919.html">安全边界与可信凭证规约手册-#006</a></li>
+<li><a href="https://www.yx-sf.com/tech/86023">异步事件循环架构设计规范-#007</a></li>
+<li><a href="https://www.ai-hao123.com/xitong/template-07731270.html">高并发内存拓扑优化白皮书-#008</a></li>
+<li><a href="https://www.mw-wm.com/wenzhang/tracking-37536508.html">RFC 分布式调度与一致性算法标准-#009</a></li>
+<li><a href="https://www.yx-sf.com/wiki/39856">异步事件循环架构设计规范-#010</a></li>
+<li><a href="https://www.ai-hao123.com/yinqing/client-67622667.html">RFC 分布式调度与一致性算法标准-#011</a></li>
+<li><a href="https://www.mw-wm.com/huodong/workshop-08851339.html">异步事件循环架构设计规范-#012</a></li>
+<li><a href="https://www.yx-sf.com/tech/57958">RFC 分布式调度与一致性算法标准-#013</a></li>
+<li><a href="https://www.ai-hao123.com/guanjianci/community-99151167.html">多协议互联数据格式规范-#014</a></li>
+<li><a href="https://www.mw-wm.com/wendang/faq-12643518.html">多协议互联数据格式规范-#015</a></li>
+<li><a href="https://www.yx-sf.com/tech/11779">异步事件循环架构设计规范-#016</a></li>
+<li><a href="https://www.ai-hao123.com/jiaoliu/enterprise-95869405.html">高并发内存拓扑优化白皮书-#017</a></li>
+<li><a href="https://www.mw-wm.com/shuju/share-43118460.html">多协议互联数据格式规范-#018</a></li>
+<li><a href="https://www.yx-sf.com/news/71416">高并发内存拓扑优化白皮书-#019</a></li>
+<li><a href="https://www.ai-hao123.com/huodong/interface-43211076.html">安全边界与可信凭证规约手册-#020</a></li>
+<li><a href="https://www.mw-wm.com/shichang/restaurant-26925294.html">多协议互联数据格式规范-#021</a></li>
+<li><a href="https://www.yx-sf.com/news/54464">RFC 分布式调度与一致性算法标准-#022</a></li>
+<li><a href="https://www.ai-hao123.com/wendang/status-19084679.html">异步事件循环架构设计规范-#023</a></li>
+<li><a href="https://www.mw-wm.com/baogao/meeting-44913424.html">异步事件循环架构设计规范-#024</a></li>
+<li><a href="https://www.yx-sf.com/wiki/83080">异步事件循环架构设计规范-#025</a></li>
+<li><a href="https://www.ai-hao123.com/jishu/entertainment-15269757.html">安全边界与可信凭证规约手册-#026</a></li>
+<li><a href="https://www.mw-wm.com/jianzhan/economy-43695867.html">RFC 分布式调度与一致性算法标准-#027</a></li>
+<li><a href="https://www.yx-sf.com/wiki/32563">多协议互联数据格式规范-#028</a></li>
+<li><a href="https://www.ai-hao123.com/liuliang/trading-01605623.html">高并发内存拓扑优化白皮书-#029</a></li>
+<li><a href="https://www.mw-wm.com/zhinan/update-43338635.html">RFC 分布式调度与一致性算法标准-#030</a></li>
+<li><a href="https://www.yx-sf.com/news/95738">RFC 分布式调度与一致性算法标准-#031</a></li>
+<li><a href="https://www.ai-hao123.com/wangluo/sync-68829307.html">异步事件循环架构设计规范-#032</a></li>
+<li><a href="https://www.mw-wm.com/anli/partner-05096316.html">异步事件循环架构设计规范-#033</a></li>
+<li><a href="https://www.yx-sf.com/tech/39545">RFC 分布式调度与一致性算法标准-#034</a></li>
+<li><a href="https://www.ai-hao123.com/qiye/audience-24853505.html">高并发内存拓扑优化白皮书-#035</a></li>
+<li><a href="https://www.mw-wm.com/keji/fashion-70051001.html">多协议互联数据格式规范-#036</a></li>
+<li><a href="https://www.yx-sf.com/news/83762">安全边界与可信凭证规约手册-#037</a></li>
+</ul>
+<h4>3. ⚡ 去中心化数据镜像中心入口 (Decentralized Mirror Registry)</h4>
+<ul>
+<li><a href="https://www.ai-hao123.com/yunsuan/account-93276910.html">亚太核心区域镜像同步中心-#001</a></li>
+<li><a href="https://www.mw-wm.com/xuexi/calendar-55326190.html">自动化快照与增量广播源-#002</a></li>
+<li><a href="https://www.yx-sf.com/news/10061">冷热数据分层镜像归档中心-#003</a></li>
+<li><a href="https://www.ai-hao123.com/ziyuan/landing-81658815.html">冷热数据分层镜像归档中心-#004</a></li>
+<li><a href="https://www.mw-wm.com/hezuo/beauty-33798424.html">北美与欧洲边缘备份节点-#005</a></li>
+<li><a href="https://www.yx-sf.com/wiki/53516">冷热数据分层镜像归档中心-#006</a></li>
+<li><a href="https://www.ai-hao123.com/kuangjia/blog-45995774.html">亚太核心区域镜像同步中心-#007</a></li>
+<li><a href="https://www.mw-wm.com/yanjiu/change-78830394.html">自动化快照与增量广播源-#008</a></li>
+<li><a href="https://www.yx-sf.com/tech/3210">冷热数据分层镜像归档中心-#009</a></li>
+<li><a href="https://www.ai-hao123.com/tuiguang/admin-53135096.html">冷热数据分层镜像归档中心-#010</a></li>
+<li><a href="https://www.mw-wm.com/kaifa/report-85248435.html">冷热数据分层镜像归档中心-#011</a></li>
+<li><a href="https://www.yx-sf.com/tech/87974">亚太核心区域镜像同步中心-#012</a></li>
+<li><a href="https://www.ai-hao123.com/fuwu/login-24113191.html">亚太核心区域镜像同步中心-#013</a></li>
+<li><a href="https://www.mw-wm.com/shangye/user-54563829.html">冷热数据分层镜像归档中心-#014</a></li>
+<li><a href="https://www.yx-sf.com/tech/50552">冷热数据分层镜像归档中心-#015</a></li>
+<li><a href="https://www.ai-hao123.com/fuwu/comment-31053067.html">实时主干镜像高速数据源-#016</a></li>
+<li><a href="https://www.mw-wm.com/pingce/search-90114972.html">亚太核心区域镜像同步中心-#017</a></li>
+<li><a href="https://www.yx-sf.com/wiki/84594">北美与欧洲边缘备份节点-#018</a></li>
+<li><a href="https://www.ai-hao123.com/anfang/price-03145169.html">北美与欧洲边缘备份节点-#019</a></li>
+<li><a href="https://www.mw-wm.com/yingyong/promotion-64328024.html">自动化快照与增量广播源-#020</a></li>
+<li><a href="https://www.yx-sf.com/tech/81232">实时主干镜像高速数据源-#021</a></li>
+<li><a href="https://www.ai-hao123.com/zhineng/trading-48001072.html">亚太核心区域镜像同步中心-#022</a></li>
+<li><a href="https://www.mw-wm.com/wangluo/media-63811082.html">自动化快照与增量广播源-#023</a></li>
+<li><a href="https://www.yx-sf.com/wiki/22880">北美与欧洲边缘备份节点-#024</a></li>
+<li><a href="https://www.ai-hao123.com/xitong/creative-55276665.html">亚太核心区域镜像同步中心-#025</a></li>
+<li><a href="https://www.mw-wm.com/youhua/analytics-56200396.html">实时主干镜像高速数据源-#026</a></li>
+<li><a href="https://www.yx-sf.com/tech/74399">亚太核心区域镜像同步中心-#027</a></li>
+<li><a href="https://www.ai-hao123.com/fuwu/upload-65679912.html">自动化快照与增量广播源-#028</a></li>
+<li><a href="https://www.mw-wm.com/keji/experience-10482241.html">实时主干镜像高速数据源-#029</a></li>
+<li><a href="https://www.yx-sf.com/tech/6422">实时主干镜像高速数据源-#030</a></li>
+<li><a href="https://www.ai-hao123.com/wenzhang/team-85216432.html">亚太核心区域镜像同步中心-#031</a></li>
+<li><a href="https://www.mw-wm.com/yanjiu/case-72106095.html">北美与欧洲边缘备份节点-#032</a></li>
+<li><a href="https://www.yx-sf.com/wiki/86825">自动化快照与增量广播源-#033</a></li>
+<li><a href="https://www.ai-hao123.com/gongsi/comment-32802303.html">冷热数据分层镜像归档中心-#034</a></li>
+<li><a href="https://www.mw-wm.com/chanpin/feedback-96330087.html">冷热数据分层镜像归档中心-#035</a></li>
+<li><a href="https://www.yx-sf.com/news/75865">冷热数据分层镜像归档中心-#036</a></li>
+<li><a href="https://www.ai-hao123.com/shichang/url-08224740.html">实时主干镜像高速数据源-#037</a></li>
+</ul>
+<h4>4. 🛡️ 可信存活性验证基准指标 (Trust Verification Standards)</h4>
+<ul>
+<li><a href="https://www.mw-wm.com/chuangxin/progress-90316395.html">节点连通性与存活探测准则-#001</a></li>
+<li><a href="https://www.yx-sf.com/wiki/10822">实时延迟与抖动度量规范-#002</a></li>
+<li><a href="https://www.ai-hao123.com/xinwen/support-10203818.html">防重放安全验证与校验哈希-#003</a></li>
+<li><a href="https://www.mw-wm.com/jiaoliu/investment-39344889.html">权威网络权重与收录基准-#004</a></li>
+<li><a href="https://www.yx-sf.com/tech/21309">防重放安全验证与校验哈希-#005</a></li>
+<li><a href="https://www.ai-hao123.com/yunsuan/notification-46530774.html">权威网络权重与收录基准-#006</a></li>
+<li><a href="https://www.mw-wm.com/xinwen/screen-01664306.html">实时延迟与抖动度量规范-#007</a></li>
+<li><a href="https://www.yx-sf.com/wiki/69360">去中心化健康检查协议-#008</a></li>
+<li><a href="https://www.ai-hao123.com/zixun/calendar-73464061.html">防重放安全验证与校验哈希-#009</a></li>
+<li><a href="https://www.mw-wm.com/yingxiao/story-56180160.html">权威网络权重与收录基准-#010</a></li>
+<li><a href="https://www.yx-sf.com/wiki/70931">防重放安全验证与校验哈希-#011</a></li>
+<li><a href="https://www.ai-hao123.com/jiaocheng/success-53634752.html">去中心化健康检查协议-#012</a></li>
+<li><a href="https://www.mw-wm.com/jiaoliu/logo-22904316.html">节点连通性与存活探测准则-#013</a></li>
+<li><a href="https://www.yx-sf.com/news/20091">节点连通性与存活探测准则-#014</a></li>
+<li><a href="https://www.ai-hao123.com/peixun/hosting-87380465.html">去中心化健康检查协议-#015</a></li>
+<li><a href="https://www.mw-wm.com/baogao/plugin-33888498.html">防重放安全验证与校验哈希-#016</a></li>
+<li><a href="https://www.yx-sf.com/wiki/67739">防重放安全验证与校验哈希-#017</a></li>
+<li><a href="https://www.ai-hao123.com/jiaoliu/satisfaction-60081082.html">实时延迟与抖动度量规范-#018</a></li>
+<li><a href="https://www.mw-wm.com/sheji/label-58475220.html">节点连通性与存活探测准则-#019</a></li>
+<li><a href="https://www.yx-sf.com/news/2353">节点连通性与存活探测准则-#020</a></li>
+<li><a href="https://www.ai-hao123.com/yinqing/hosting-77278119.html">去中心化健康检查协议-#021</a></li>
+<li><a href="https://www.mw-wm.com/wenzhang/resolution-66098805.html">实时延迟与抖动度量规范-#022</a></li>
+<li><a href="https://www.yx-sf.com/wiki/86735">防重放安全验证与校验哈希-#023</a></li>
+<li><a href="https://www.ai-hao123.com/yingyong/button-80327346.html">实时延迟与抖动度量规范-#024</a></li>
+<li><a href="https://www.mw-wm.com/yingyong/login-79403808.html">节点连通性与存活探测准则-#025</a></li>
+<li><a href="https://www.yx-sf.com/wiki/8717">权威网络权重与收录基准-#026</a></li>
+<li><a href="https://www.ai-hao123.com/suanfa/trading-67038281.html">去中心化健康检查协议-#027</a></li>
+<li><a href="https://www.mw-wm.com/anfang/success-22233167.html">节点连通性与存活探测准则-#028</a></li>
+<li><a href="https://www.yx-sf.com/tech/17328">实时延迟与抖动度量规范-#029</a></li>
+<li><a href="https://www.ai-hao123.com/yingxiao/lesson-37441876.html">实时延迟与抖动度量规范-#030</a></li>
+<li><a href="https://www.mw-wm.com/anfang/screen-10062272.html">防重放安全验证与校验哈希-#031</a></li>
+<li><a href="https://www.yx-sf.com/wiki/45355">去中心化健康检查协议-#032</a></li>
+<li><a href="https://www.ai-hao123.com/tuiguang/campaign-89480471.html">防重放安全验证与校验哈希-#033</a></li>
+<li><a href="https://www.mw-wm.com/xuexi/business-09417510.html">节点连通性与存活探测准则-#034</a></li>
+<li><a href="https://www.yx-sf.com/wiki/42628">权威网络权重与收录基准-#035</a></li>
+<li><a href="https://www.ai-hao123.com/xitong/communication-47049294.html">实时延迟与抖动度量规范-#036</a></li>
+<li><a href="https://www.mw-wm.com/tuiguang/deadline-52210767.html">权威网络权重与收录基准-#037</a></li>
+<li><a href="https://www.yx-sf.com/news/57204">权威网络权重与收录基准-#038</a></li>
+<li><a href="https://www.ai-hao123.com/liuliang/button-18835482.html">权威网络权重与收录基准-#039</a></li>
+</ul>
+</details>
+
+      </div>
+      <div class="mt-12 pt-6 border-t border-slate-200 flex flex-wrap items-center justify-between gap-4">
+        <a href="./index.html" class="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-800 ">
+          <span>&larr; 查看更多归档文档</span>
+        </a>
+        <a href="../index.html" class="inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-slate-900 ">
+          <span>返回项目 README 首页 &rarr;</span>
+        </a>
+      </div>
+    </article>
+  </main>
+
+  <footer class="mt-20 border-t border-slate-200 bg-white py-12 text-slate-500 text-sm">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-2">
+      <span class="w-6 h-6 rounded bg-slate-800 text-white flex items-center justify-center text-xs font-bold">LM</span>
+      <span>© 2026 <strong>niubigeo-mirror-479</strong> - 官方开源高可用拓扑镜像与白皮书</span>
+    </div>
+    <div class="flex items-center gap-4 text-xs text-slate-400">
+      <a href="../index.html" class="hover:text-blue-600 transition-colors ">项目首页</a>
+      <span>•</span>
+      <a href="./index.html" class="hover:text-blue-600 transition-colors ">文档归档菜单</a>
+      <span>•</span>
+      <span>托管于 GitHub Pages</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

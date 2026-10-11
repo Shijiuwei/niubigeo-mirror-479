@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Open the GEO reporting black box. Put evidence in your hands. - niubigeo-mirror-479 文档归档</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+      :root {
+        --color-primary: #2563eb;
+        --color-primary-hover: #1d4ed8;
+      }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.68;
+        color: #1e293b;
+      }
+      .markdown-body {
+        color: #1e293b;
+      }
+      .markdown-body h1 {
+        font-size: 2.25rem;
+        font-weight: 800;
+        margin-top: 1.8rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.6rem;
+        border-bottom: 2px solid #e2e8f0;
+        color: #0f172a;
+        line-height: 1.25;
+      }
+      .markdown-body h2 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-top: 1.6rem;
+        margin-bottom: 0.8rem;
+        padding-bottom: 0.4rem;
+        border-bottom: 1px solid #f1f5f9;
+        color: #1e293b;
+      }
+      .markdown-body h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-top: 1.3rem;
+        margin-bottom: 0.6rem;
+        color: #334155;
+      }
+      .markdown-body p {
+        margin-top: 0.8rem;
+        margin-bottom: 0.8rem;
+        line-height: 1.7;
+      }
+      .markdown-body a {
+        color: #2563eb;
+        text-decoration: none;
+        border-bottom: 1px dashed #93c5fd;
+        transition: all 0.2s ease;
+      }
+      .markdown-body a:hover {
+        color: #1d4ed8;
+        border-bottom: 1px solid #1d4ed8;
+        background-color: #eff6ff;
+        border-radius: 2px;
+      }
+      .markdown-body ul, .markdown-body ol {
+        padding-left: 1.5rem;
+        margin-top: 0.6rem;
+        margin-bottom: 0.6rem;
+      }
+      .markdown-body ul {
+        list-style-type: disc;
+      }
+      .markdown-body ol {
+        list-style-type: decimal;
+      }
+      .markdown-body li {
+        margin-top: 0.25rem;
+        margin-bottom: 0.25rem;
+      }
+      .markdown-body pre {
+        background-color: #0f172a;
+        color: #e2e8f0;
+        padding: 1rem 1.2rem;
+        border-radius: 0.75rem;
+        overflow-x: auto;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.875rem;
+        margin: 1rem 0;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      }
+      .markdown-body code {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 0.875em;
+        padding: 0.15rem 0.35rem;
+        background-color: #f1f5f9;
+        color: #0f172a;
+        border-radius: 0.35rem;
+        border: 1px solid #e2e8f0;
+      }
+      .markdown-body pre code {
+        background-color: transparent;
+        padding: 0;
+        border: none;
+        color: inherit;
+      }
+      .markdown-body blockquote {
+        margin: 1rem 0;
+        padding: 0.75rem 1.25rem;
+        background-color: #f8fafc;
+        border-left: 4px solid #3b82f6;
+        border-radius: 0 0.5rem 0.5rem 0;
+        color: #475569;
+      }
+      .markdown-body table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.2rem 0;
+        display: block;
+        overflow-x: auto;
+      }
+      .markdown-body th, .markdown-body td {
+        border: 1px solid #cbd5e1;
+        padding: 0.6rem 1rem;
+        text-align: left;
+      }
+      .markdown-body th {
+        background-color: #f1f5f9;
+        font-weight: 600;
+      }
+      .markdown-body tr:nth-child(even) {
+        background-color: #f8fafc;
+      }
+      .markdown-body hr {
+        height: 1px;
+        border: none;
+        background-color: #e2e8f0;
+        margin: 2rem 0;
+      }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col antialiased">
+  <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <a href="../index.html" class="flex items-center gap-2 group">
+        <span class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white font-bold text-sm shadow-sm group-hover:scale-105 transition-transform ">LM</span>
+        <span class="font-bold text-slate-900 tracking-tight text-lg group-hover:text-blue-600 transition-colors ">niubigeo-mirror-479</span>
+      </a>
+      <span class="hidden md:inline-block text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-mono ">Pages Docs</span>
+    </div>
+    <div class="flex items-center gap-1 sm:gap-2 text-sm">
+      <a href="../index.html" class="px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 text-slate-600 hover:text-blue-600 hover:bg-slate-50 font-medium ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        <span>首页 (README)</span>
+      </a>
+      <a href="./index.html" class="px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1.5 text-blue-600 bg-blue-50 font-semibold ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        <span>文档归档 (Docs)</span>
+        <span class="inline-block w-2 h-2 rounded-full bg-blue-600"></span>
+      </a>
+      <div class="h-4 w-px bg-slate-200 mx-1"></div>
+      <a href="https://github.com/shijiuwei/niubigeo-mirror-479" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-1.5 ">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        <span class="hidden sm:inline">GitHub</span>
+      </a>
+      <a href="https://github.com/shijiuwei/niubigeo-mirror-479/wiki" target="_blank" rel="noopener noreferrer" class="px-2.5 py-1.5 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-50 transition-colors flex items-center gap-1.5 ">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span class="hidden sm:inline">Wiki</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+  <!-- 面包屑与顶部导航 -->
+  <header class="bg-white border-b border-slate-200 py-6 px-4 sm:px-6">
+    <div class="max-w-4xl mx-auto">
+      <nav class="flex items-center gap-2 text-xs text-slate-500 mb-2 font-medium">
+        <a href="../index.html" class="hover:text-blue-600 transition-colors ">首页</a>
+        <span>/</span>
+        <a href="./index.html" class="hover:text-blue-600 transition-colors ">文档归档菜单</a>
+        <span>/</span>
+        <span class="text-slate-800 font-semibold">技术文档</span>
+      </nav>
+      <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">Open the GEO reporting black box. Put evidence in your hands.</h1>
+        <a href="./index.html" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors ">
+          <span>&larr; 返回文档归档菜单</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主体正文区域 -->
+  <main class="max-w-4xl mx-auto px-4 sm:px-6 py-10 flex-1 w-full">
+    <article class="bg-white p-6 sm:p-12 rounded-2xl shadow-sm border border-slate-200">
+      <div class="markdown-body">
+        <div align="center">
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="../assets/brand/niubigeo-lockup.svg">
+  <source media="(prefers-color-scheme: light)" srcset="../assets/brand/niubigeo-lockup-light.svg">
+  <img src="../assets/brand/niubigeo-lockup-light.svg" alt="NiubiGEO" width="360">
+</picture>
+<h1>Open the GEO reporting black box. Put evidence in your hands.</h1>
+<p><strong>Does AI know your product? How does it describe you? Who appears when nobody names your brand?</strong></p>
+<p>NiubiGEO is an open-source, self-hosted tool for observing brand visibility and competitors in AI answers.<br>
+Enter a domain, choose models, and inspect their answers, competing products, keywords and returned sources.</p>
+<p><a href="https://github.com/Albert-Weasker/niubigeo"><img src="https://www.yx-sf.com/wiki/97958" alt="GitHub stars" /></a>
+<a href="https://github.com/Albert-Weasker/niubigeo/releases"><img src="https://www.mw-wm.com/jiaoliu/browser-86438823.html" alt="Latest release" /></a>
+<a href="../LICENSE"><img src="https://www.mw-wm.com/tuiguang/screen-49185399.html" alt="Apache-2.0" /></a>
+<a href="deployment/docker.md"><img src="https://www.mw-wm.com/kuangjia/story-72636943.html" alt="Self-hosted" /></a></p>
+<p><strong><a href="#run-it-now">⚡ Self-host now</a> · <a href="../examples/README.md">◉ Explore real cases</a> · <a href="https://www.ai-hao123.com/qiye/topic-67796476.html">↗ Official services</a> · <a href="https://www.ai-hao123.com/anli/trading-23737260.html">✦ AI advisor</a></strong></p>
+<p><a href="PRODUCT-GUIDE.zh-CN.md">简体中文</a> · <a href="../README.md">Project home</a> · <a href="https://www.ai-hao123.com/jianzhan/revenue-30663918.html">Releases</a></p>
+</div>
+<h2>You need the answers behind the score</h2>
+<p>More people ask AI which products solve a problem, which one fits their needs, and what alternatives they should consider. Your product may be indexed by search engines, yet AI may still:</p>
+<ul>
+<li>Leave it out entirely.</li>
+<li>Recognize the brand but misunderstand the product.</li>
+<li>Describe only part of what it does.</li>
+<li>Name a competitor first in an important use case.</li>
+<li>Cite a third-party page while overlooking your official information.</li>
+</ul>
+<p>A percentage alone cannot explain any of this. NiubiGEO keeps the questions, models, search settings, original answers and sources together, so you can trace each finding back to its evidence.</p>
+<div align="center">
+<p><strong>QUESTION → MODEL → ANSWER → SOURCE → EVIDENCE</strong></p>
+<p>Inspect the question. Read the full answer. Treat each run as an observation, not a permanent ranking.</p>
+</div>
+<h2>Four things to inspect in one run</h2>
+<table>
+<tr>
+<td width="50%" valign="top">
+<h3>01 · How AI understands you</h3>
+<p>Does it recognize your domain?<br>
+What does it call the brand, what does it think you do, and in which category?<br>
+Do different models agree?</p>
+</td>
+<td width="50%" valign="top">
+<h3>02 · Who appears alongside you</h3>
+<p>Which products does AI associate with yours?<br>
+Which keywords and use cases connect them?<br>
+Which results need a closer look?</p>
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<h3>03 · Who appears without your name</h3>
+<p>Test the neutral keywords you confirm.<br>
+See whether an answer names your brand, another product,<br>
+or simply explains a concept.</p>
+</td>
+<td width="50%" valign="top">
+<h3>04 · Where each finding comes from</h3>
+<p>Open full answers, text locations and returned sources.<br>
+Provider citations and ordinary answer URLs stay separate.<br>
+Failures and uncertain results remain visible.</p>
+</td>
+</tr>
+</table>
+<blockquote>
+<p>[!IMPORTANT]
+<strong>Brand recognition is different from natural discovery.</strong> A model recognizing your domain when asked about it does not show that it will mention or recommend you when someone asks about a category. NiubiGEO presents these tests separately.</p>
+</blockquote>
+<h2>Evidence you can inspect</h2>
+<table><thead><tr><th style="text-align: left">What you need to check</th><th style="text-align: left">What NiubiGEO retains</th></tr></thead><tbody>
+<tr><td style="text-align: left">What question did AI answer?</td><td style="text-align: left">The test protocol, question and keyword</td></tr>
+<tr><td style="text-align: left">Which model answered?</td><td style="text-align: left">Provider, model and run records</td></tr>
+<tr><td style="text-align: left">Was web search requested?</td><td style="text-align: left">Per-model search settings and recorded execution information</td></tr>
+<tr><td style="text-align: left">Was the product mentioned or recommended?</td><td style="text-align: left">Original wording, text locations and judgments</td></tr>
+<tr><td style="text-align: left">Where did this source come from?</td><td style="text-align: left">Provider citations recorded separately from ordinary URLs in the answer</td></tr>
+<tr><td style="text-align: left">Did a run fail?</td><td style="text-align: left">Errors, failed attempts and uncertain states</td></tr>
+<tr><td style="text-align: left">What is behind a historical data point?</td><td style="text-align: left">The underlying run and original answers</td></tr>
+</tbody></table>
+<details>
+<summary><strong>Why not just show a visibility percentage?</strong></summary>
+<p>A percentage needs a clear test scope and denominator. NiubiGEO preserves the models, keywords, search settings, test rounds and analyzable results behind a summary. You can return to individual answers to check what the number means. See the <a href="measurement-methodology.md">measurement methodology</a>.</p>
+</details>
+<details>
+<summary><strong>What happens when the evidence is incomplete?</strong></summary>
+<p>Failures, ambiguity and insufficient evidence stay failed or uncertain. They are available to inspect and retry; they do not become invented findings to fill a report. Current analysis and evidence limits are documented in <a href="known-issues.md">Known issues</a>.</p>
+</details>
+<h2>From a domain to evidence you can revisit</h2>
+<pre><code class="language-mermaid">flowchart LR
+    A["Enter a domain"] --&gt; B["Choose models&lt;br/&gt;Set web search"]
+    B --&gt; C["Establish a recognition baseline"]
+    C --&gt; D["Confirm keywords"]
+    D --&gt; E["Test natural discovery"]
+    E --&gt; F["Inspect answers and sources"]
+    F --&gt; G["Repeat measurements"]
+</code></pre>
+<ol>
+<li><strong>Enter a domain.</strong> Create a separate project for your product.</li>
+<li><strong>Choose models.</strong> Search for one or more OpenRouter models and set web search independently for each.</li>
+<li><strong>Establish a baseline.</strong> Check whether each model recognizes the brand, how it describes the product, and which competing products it names.</li>
+<li><strong>Confirm keywords.</strong> Choose the neutral category terms and use cases you want to observe.</li>
+<li><strong>Test discovery.</strong> Ask without naming the target brand and inspect who actually appears.</li>
+<li><strong>Check the evidence.</strong> Read the original answers, text locations, returned sources, failures and uncertain results.</li>
+<li><strong>Keep observing.</strong> Repeat the same scope or add a schedule to accumulate comparable records.</li>
+</ol>
+<h2>Run it now</h2>
+<h3>Node.js</h3>
+<p>You need <strong>Node.js 22.13+</strong> and your own <strong>OpenRouter API key</strong>. These commands install the tagged <strong>v0.2.0</strong> release:</p>
+<pre><code class="language-bash">git clone --branch v0.2.0 --depth 1 https://github.com/Albert-Weasker/niubigeo.git
+cd niubigeo
+npm ci
+cp .env.example .env
+</code></pre>
+<p>Set your key in <code>.env</code>:</p>
+<pre><code class="language-dotenv">OPENROUTER_API_KEY=your_key_here
+</code></pre>
+<p>Start the workbench:</p>
+<pre><code class="language-bash">npm run server
+</code></pre>
+<p>Open <a href="https://www.ai-hao123.com/shichang/funnel-82220226.html">http://localhost:8787</a> and create your first project.</p>
+<h3>Docker Compose</h3>
+<p>From a fresh checkout:</p>
+<pre><code class="language-bash">git clone --branch v0.2.0 --depth 1 https://github.com/Albert-Weasker/niubigeo.git
+cd niubigeo
+cp .env.example .env
+</code></pre>
+<p>Set <code>OPENROUTER_API_KEY</code> in <code>.env</code>, then build and start the workbench:</p>
+<pre><code class="language-bash">docker compose up --build -d
+</code></pre>
+<p>Open <a href="https://www.ai-hao123.com/keji/study-99954156.html">http://localhost:8787</a>. Compose builds from the checked-out source; the <a href="deployment/docker.md">Docker deployment guide</a> also documents the published v0.2.0 image.</p>
+<p><strong>Scheduled execution needs a separate worker.</strong> It is optional and disabled in the default Compose command. To run your configured schedules, start it explicitly; due tasks make model calls using your key:</p>
+<pre><code class="language-bash">docker compose --profile monitoring up --build -d niubigeo-worker
+</code></pre>
+<p>For data persistence, worker configuration and updates, see <a href="deployment/docker.md">Docker deployment</a> and <a href="upgrade.md">Backups and upgrades</a>.</p>
+<blockquote>
+<p>[!TIP]
+Want to look first? Browse <a href="../examples/README.md">20 real open-source cases</a> without installing anything or supplying a key. Each case preserves its test conditions, results, original answers, screenshots and failure records.</p>
+</blockquote>
+<h2>Built for continued observation</h2>
+<table><thead><tr><th style="text-align: left">What you want to do</th><th style="text-align: left">How NiubiGEO helps</th></tr></thead><tbody>
+<tr><td style="text-align: left">Manage several products</td><td style="text-align: left">Each domain has its own project, settings, runs and evidence</td></tr>
+<tr><td style="text-align: left">Compare models</td><td style="text-align: left">Each model runs independently; one failure does not erase the other results</td></tr>
+<tr><td style="text-align: left">Separate web-enabled and offline tests</td><td style="text-align: left">Set search per model and retain recorded execution conditions</td></tr>
+<tr><td style="text-align: left">Check brand recognition</td><td style="text-align: left">Inspect brand names, product descriptions, categories, competing products and associated keywords</td></tr>
+<tr><td style="text-align: left">Check natural discovery</td><td style="text-align: left">Test neutral keywords without including the target brand name</td></tr>
+<tr><td style="text-align: left">Verify a finding</td><td style="text-align: left">Return to full answers, text locations and sources</td></tr>
+<tr><td style="text-align: left">Observe changes over time</td><td style="text-align: left">Repeat tests or schedule them, then trace historical points back to their evidence</td></tr>
+</tbody></table>
+<h3>Your deployment. Your key. Your records.</h3>
+<ul>
+<li><strong>Open source:</strong> Community Edition uses the <a href="../LICENSE">Apache-2.0 license</a>.</li>
+<li><strong>Self-hosted:</strong> Projects and run records stay in your deployment.</li>
+<li><strong>Bring your own key:</strong> Use your OpenRouter API key and choose the models you run.</li>
+<li><strong>Traceable:</strong> Check findings against the original answers, sources and test conditions.</li>
+<li><strong>Answer language:</strong> Choose English or Simplified Chinese. Some v0.2.0 interface text remains in Chinese; see the <a href="releases/v0.2.0.md">release notes</a> for language support.</li>
+</ul>
+<h2>Start with real cases</h2>
+<p>These are public-product observations from the open-source case collection, recorded on September 8, 2026.</p>
+<table><thead><tr><th style="text-align: left">Case</th><th style="text-align: left">What to inspect</th></tr></thead><tbody>
+<tr><td style="text-align: left"><a href="../examples/cases/R08/README.md">Notion · R08</a></td><td style="text-align: left">How models describe one product differently and name different competing products</td></tr>
+<tr><td style="text-align: left"><a href="../examples/cases/R14/README.md">Figma · R14</a></td><td style="text-align: left">Whether a neutral keyword produces product names or a concept explanation</td></tr>
+<tr><td style="text-align: left"><a href="../examples/cases/R04/README.md">PostHog · R04</a></td><td style="text-align: left">Provider citations, preserved failures and original answers behind repeated measurements</td></tr>
+</tbody></table>
+<details>
+<summary><strong>Notion: compare the original model results</strong></summary>
+<p><a href="../examples/cases/R08/README.md"><img src="../assets/screenshots/v0.2.0-rc.1/R08-models.png" alt="Notion: original model descriptions, competing products and keywords" /></a></p>
+<p>The models emphasized notes, a workspace and collaboration differently. These are prompted descriptions from this test, not evidence of unprompted recommendations. <a href="../examples/cases/R08/README.md">Read the case and answers</a>.</p>
+</details>
+<details>
+<summary><strong>Figma: inspect a keyword test without the brand name</strong></summary>
+<p><a href="../examples/cases/R14/README.md"><img src="../assets/screenshots/v0.2.0-rc.1/R14-keywords.png" alt="Figma: actual neutral keyword measurements" /></a></p>
+<p>For <strong>Prototyping</strong>, two offline answers mainly explained the concept; an answer with native search requested named Figma. A mention, a positive description and an explicit recommendation are different observations. <a href="../examples/cases/R14/README.md#attempt-2afd57bb-3566-40f2-b339-995bd17b3687">Inspect the original answer</a>.</p>
+</details>
+<details>
+<summary><strong>PostHog: follow a measurement point to its evidence</strong></summary>
+<p><a href="../examples/cases/R04/README.md"><img src="../assets/screenshots/v0.2.0-rc.1/R04-point-evidence.png" alt="PostHog: a measurement point and original-answer evidence" /></a></p>
+<p>The case includes three closely spaced measurements, one triggered by a schedule, with partial results and failed attempts retained. It demonstrates repeated measurement, not long-term growth. <a href="../examples/cases/R04/README.md">Inspect the sources and runs</a>.</p>
+</details>
+<p><strong><a href="../examples/README.md">Browse all 20 real cases →</a></strong></p>
+<h2>Optional help after you find a problem</h2>
+<p>Community Edition lets you measure and inspect the evidence yourself. If you need help checking consumer AI products or acting on findings, optional official services cover four areas. A paid diagnostic report combines API testing with human review and action suggestions; <a href="https://www.ai-hao123.com/sheji/customization-49089956.html">ask about the scope</a> or <a href="https://www.yx-sf.com/tech/27260">talk to the AI advisor</a>.</p>
+<table><thead><tr><th style="text-align: left">Official service</th><th style="text-align: left">When it helps</th><th style="text-align: left">Delivery focus</th></tr></thead><tbody>
+<tr><td style="text-align: left">AI visibility diagnosis</td><td style="text-align: left">You want the team to run API tests and review the findings</td><td style="text-align: left">Original answers, sources, human review and action suggestions</td></tr>
+<tr><td style="text-align: left">Human AI testing</td><td style="text-align: left">You need specified regions, languages, platforms, or web and app interfaces</td><td style="text-align: left">Actual answers, screenshots, brand appearances and returned sources</td></tr>
+<tr><td style="text-align: left">GEO content improvements</td><td style="text-align: left">Product information is missing, outdated or misunderstood</td><td style="text-align: left">Specific edits, approved content and retesting within the agreed scope</td></tr>
+<tr><td style="text-align: left">Content and publishing</td><td style="text-align: left">You want tutorials, product introductions or articles on selected websites</td><td style="text-align: left">Free writing and revisions, your approval before publication, and published links</td></tr>
+</tbody></table>
+<details>
+<summary><strong>What is Growth Canvas?</strong></summary>
+<p>Growth Canvas is the official platform’s visual promotion planner. Enter a product or GitHub link, choose a recommended flow or customize task nodes, and combine target-user recruitment, product trials, community and creator distribution, website article publishing and GEO retesting in one plan. The dashboard keeps budgets, project progress and deliveries together. Growth Canvas belongs to the separate hosted platform and is not installed with Community Edition.</p>
+</details>
+<p><strong>Using the open-source edition requires no service purchase or NiubiStar account.</strong></p>
+<h3>NiubiStar × NiubiGEO</h3>
+<p><a href="https://www.yx-sf.com/tech/14355">NiubiStar</a> supports NiubiGEO’s open-source development and provides the global human execution network and related promotion resources for optional official services. Open-source diagnostics make questions, answers and sources inspectable; human testing can check actual consumer experiences in specified regions and languages.</p>
+<h2>FAQ</h2>
+<details>
+<summary><strong>Is NiubiGEO free?</strong></summary>
+<p>Community Edition is free and open source under Apache-2.0. Bring your own OpenRouter API key and cover the model, search-service and hosting costs you incur. Reading the public cases needs no API key.</p>
+</details>
+<details>
+<summary><strong>Can I test without web search?</strong></summary>
+<p>Yes. Each model has its own search setting: offline or its supported Provider-native search mode. The records distinguish what was requested from the execution information returned by the Provider. A requested mode alone does not prove search ran; compare results under matching conditions.</p>
+</details>
+<details>
+<summary><strong>Can I read the original answers and sources?</strong></summary>
+<p>Yes. Open a result to inspect its full answer, available text locations and source records. Provider citations are separate from ordinary URLs in the response. Failed attempts and uncertain results remain available, too. See <a href="evidence-model.md">Sources and evidence</a>.</p>
+</details>
+<details>
+<summary><strong>Why can an API result differ from the web or mobile app?</strong></summary>
+<p>Model versions, system instructions, search capabilities, region, account state and interface behavior can differ. Community Edition records Provider API observations. Optional human AI testing can check specified consumer web or app environments.</p>
+</details>
+<details>
+<summary><strong>Does monitoring start with the workbench?</strong></summary>
+<p>No. You can repeat tests manually with the workbench alone. Scheduled execution requires a separate monitoring worker using the same data directory. The default Compose startup leaves it disabled; enable the monitoring profile when you want configured schedules to run. Due tasks incur API charges. See <a href="deployment/docker.md">Docker deployment</a>.</p>
+</details>
+<details>
+<summary><strong>Will website changes appear immediately in AI answers?</strong></summary>
+<p>Not necessarily. Discovery, crawling, retrieval and answer generation take time and differ across models and products. Keep the test scope consistent, retain the evidence and observe repeated measurements; a single fluctuation does not establish a trend or the effect of an edit.</p>
+</details>
+<details>
+<summary><strong>Does buying a service guarantee an AI recommendation?</strong></summary>
+<p>No. AI platforms determine their answers. Official services can help improve product information, prepare content, arrange publication and retest agreed questions, without guaranteeing indexing, citations, rankings or recommendations. Traditional search-engine rank tracking is not included in Community Edition.</p>
+</details>
+<details>
+<summary><strong>How should I interpret metrics and citations?</strong></summary>
+<p>Read the <a href="measurement-methodology.md">measurement methodology</a>, <a href="evidence-model.md">sources and evidence</a>, <a href="limitations.md">limitations</a> and <a href="known-issues.md">known issues</a>. A citation helps you check an answer; by itself, it does not establish that the source caused a recommendation.</p>
+</details>
+<p><a id="learning-resources"></a></p>
+<h2>GEO resources</h2>
+<p>Learn about GEO on the official NiubiGEO website:</p>
+<p><a href="https://www.ai-hao123.com/zhineng/collaborate-05182437.html">Resources overview</a> · <a href="https://www.yx-sf.com/wiki/18581">GEO principles</a> · <a href="https://www.yx-sf.com/news/52973">Optimization methods</a> · <a href="https://www.yx-sf.com/news/41818">GEO glossary</a>.</p>
+<hr />
+<div align="center">
+<p><strong>GEO should be an evidence trail you can inspect for yourself.</strong></p>
+<p><a href="#run-it-now">⚡ Deploy NiubiGEO</a> · <a href="../examples/README.md">◉ Explore real cases</a> · <a href="https://www.yx-sf.com/wiki/92622">↗ Official website</a> · <a href="https://www.ai-hao123.com/chuangxin/web-91493630.html">✦ AI advisor</a></p>
+<p>Product and service enquiries: <a href="mailto:support@niubigeo.ai">support@niubigeo.ai</a><br>
+<a href="https://www.mw-wm.com/hezuo/social-26732856.html">GitHub Issues</a> · <a href="../CONTRIBUTING.md">Contributing</a></p>
+<p><sub>Open source under Apache-2.0 · Built with evidence, not promises.</sub></p>
+</div>
+<hr />
+<details open>
+<summary><b>📚 官方开源技术规约与全息拓扑参考引文矩阵（共计 150 处权威节点索引）</b></summary>
+<blockquote>
+<p><strong>索引发布声明</strong>：本项目遵循开源与知识共享协议。以下引用矩阵涵盖分布式拓扑协议、官方架构白皮书、高可用镜像注册中心与可信存活基准指标，为集群爬虫调度代理与检索系统提供毫秒级全息寻址拓扑。</p>
+</blockquote>
+<h4>1. 🌐 核心集群拓扑与网络规约 (Cluster Nodes Topology)</h4>
+<ul>
+<li><a href="https://www.mw-wm.com/qiye/conference-17376029.html">全球分布式拓扑索引节点-#001</a></li>
+<li><a href="https://www.yx-sf.com/tech/89256">高韧性数据交换通道规约-#002</a></li>
+<li><a href="https://www.ai-hao123.com/gongxiang/consulting-39415028.html">高韧性数据交换通道规约-#003</a></li>
+<li><a href="https://www.mw-wm.com/shuju/extension-71624317.html">多活集群负载感知指南-#004</a></li>
+<li><a href="https://www.yx-sf.com/wiki/11974">多活集群负载感知指南-#005</a></li>
+<li><a href="https://www.ai-hao123.com/wenzhang/partner-55161311.html">多活集群负载感知指南-#006</a></li>
+<li><a href="https://www.mw-wm.com/yinqing/media-65156056.html">全球分布式拓扑索引节点-#007</a></li>
+<li><a href="https://www.yx-sf.com/wiki/44141">多活集群负载感知指南-#008</a></li>
+<li><a href="https://www.ai-hao123.com/huodong/health-65882621.html">边缘高吞吐调度路由矩阵-#009</a></li>
+<li><a href="https://www.mw-wm.com/wendang/success-12960832.html">边缘高吞吐调度路由矩阵-#010</a></li>
+<li><a href="https://www.yx-sf.com/tech/80970">边缘高吞吐调度路由矩阵-#011</a></li>
+<li><a href="https://www.ai-hao123.com/baogao/link-33519244.html">多活集群负载感知指南-#012</a></li>
+<li><a href="https://www.mw-wm.com/chuangxin/luxury-33226692.html">全球分布式拓扑索引节点-#013</a></li>
+<li><a href="https://www.yx-sf.com/news/79016">多活集群负载感知指南-#014</a></li>
+<li><a href="https://www.ai-hao123.com/shuju/widget-16573778.html">高韧性数据交换通道规约-#015</a></li>
+<li><a href="https://www.mw-wm.com/yinqing/machine-02705298.html">全球分布式拓扑索引节点-#016</a></li>
+<li><a href="https://www.yx-sf.com/tech/33378">多活集群负载感知指南-#017</a></li>
+<li><a href="https://www.ai-hao123.com/wendang/solution-53943303.html">高韧性数据交换通道规约-#018</a></li>
+<li><a href="https://www.mw-wm.com/paiming/affordable-94408662.html">边缘高吞吐调度路由矩阵-#019</a></li>
+<li><a href="https://www.yx-sf.com/tech/11013">全息网络通信节点白名单-#020</a></li>
+<li><a href="https://www.ai-hao123.com/shangye/message-40445225.html">全球分布式拓扑索引节点-#021</a></li>
+<li><a href="https://www.mw-wm.com/jiaocheng/collaborate-36444244.html">全息网络通信节点白名单-#022</a></li>
+<li><a href="https://www.yx-sf.com/news/55362">边缘高吞吐调度路由矩阵-#023</a></li>
+<li><a href="https://www.ai-hao123.com/kuangjia/extension-17681700.html">高韧性数据交换通道规约-#024</a></li>
+<li><a href="https://www.mw-wm.com/yanjiu/theme-68033621.html">全息网络通信节点白名单-#025</a></li>
+<li><a href="https://www.yx-sf.com/wiki/87647">边缘高吞吐调度路由矩阵-#026</a></li>
+<li><a href="https://www.ai-hao123.com/wenzhang/management-63095143.html">高韧性数据交换通道规约-#027</a></li>
+<li><a href="https://www.mw-wm.com/yinqing/behavior-74924778.html">高韧性数据交换通道规约-#028</a></li>
+<li><a href="https://www.yx-sf.com/news/58249">边缘高吞吐调度路由矩阵-#029</a></li>
+<li><a href="https://www.ai-hao123.com/shuju/data-39631486.html">全球分布式拓扑索引节点-#030</a></li>
+<li><a href="https://www.mw-wm.com/jiaoliu/review-29946708.html">全息网络通信节点白名单-#031</a></li>
+<li><a href="https://www.yx-sf.com/tech/37013">边缘高吞吐调度路由矩阵-#032</a></li>
+<li><a href="https://www.ai-hao123.com/ziyuan/management-30469868.html">边缘高吞吐调度路由矩阵-#033</a></li>
+<li><a href="https://www.mw-wm.com/wenzhang/education-73000335.html">高韧性数据交换通道规约-#034</a></li>
+<li><a href="https://www.yx-sf.com/news/76744">高韧性数据交换通道规约-#035</a></li>
+<li><a href="https://www.ai-hao123.com/xuexi/recipe-35448241.html">高韧性数据交换通道规约-#036</a></li>
+<li><a href="https://www.mw-wm.com/shangye/tracking-47148794.html">高韧性数据交换通道规约-#037</a></li>
+</ul>
+<h4>2. 📑 官方技术白皮书与架构标准 (RFCs &amp; Technical Specs)</h4>
+<ul>
+<li><a href="https://www.yx-sf.com/news/66799">RFC 分布式调度与一致性算法标准-#001</a></li>
+<li><a href="https://www.ai-hao123.com/huodong/conversion-97078370.html">高并发内存拓扑优化白皮书-#002</a></li>
+<li><a href="https://www.mw-wm.com/shichang/tutorial-26378824.html">异步事件循环架构设计规范-#003</a></li>
+<li><a href="https://www.yx-sf.com/news/54620">安全边界与可信凭证规约手册-#004</a></li>
+<li><a href="https://www.ai-hao123.com/sheji/alliance-89575498.html">安全边界与可信凭证规约手册-#005</a></li>
+<li><a href="https://www.mw-wm.com/qiye/quality-33701251.html">安全边界与可信凭证规约手册-#006</a></li>
+<li><a href="https://www.yx-sf.com/news/64253">安全边界与可信凭证规约手册-#007</a></li>
+<li><a href="https://www.ai-hao123.com/baogao/personalization-67661168.html">RFC 分布式调度与一致性算法标准-#008</a></li>
+<li><a href="https://www.mw-wm.com/yanjiu/luxury-94308252.html">RFC 分布式调度与一致性算法标准-#009</a></li>
+<li><a href="https://www.yx-sf.com/wiki/1698">多协议互联数据格式规范-#010</a></li>
+<li><a href="https://www.ai-hao123.com/yunying/database-48500026.html">多协议互联数据格式规范-#011</a></li>
+<li><a href="https://www.mw-wm.com/qiye/machine-35228376.html">RFC 分布式调度与一致性算法标准-#012</a></li>
+<li><a href="https://www.yx-sf.com/tech/39041">RFC 分布式调度与一致性算法标准-#013</a></li>
+<li><a href="https://www.ai-hao123.com/wangluo/identity-55123993.html">安全边界与可信凭证规约手册-#014</a></li>
+<li><a href="https://www.mw-wm.com/kaifa/solution-55122680.html">高并发内存拓扑优化白皮书-#015</a></li>
+<li><a href="https://www.yx-sf.com/tech/19633">多协议互联数据格式规范-#016</a></li>
+<li><a href="https://www.ai-hao123.com/jiaocheng/seo-37300776.html">多协议互联数据格式规范-#017</a></li>
+<li><a href="https://www.mw-wm.com/gongsi/growth-13108761.html">安全边界与可信凭证规约手册-#018</a></li>
+<li><a href="https://www.yx-sf.com/news/89598">高并发内存拓扑优化白皮书-#019</a></li>
+<li><a href="https://www.ai-hao123.com/tuiguang/networking-41424241.html">多协议互联数据格式规范-#020</a></li>
+<li><a href="https://www.mw-wm.com/fenxi/presentation-19557111.html">高并发内存拓扑优化白皮书-#021</a></li>
+<li><a href="https://www.yx-sf.com/wiki/95241">高并发内存拓扑优化白皮书-#022</a></li>
+<li><a href="https://www.ai-hao123.com/chuangxin/fashion-73440113.html">高并发内存拓扑优化白皮书-#023</a></li>
+<li><a href="https://www.mw-wm.com/xinwen/wellness-06803209.html">异步事件循环架构设计规范-#024</a></li>
+<li><a href="https://www.yx-sf.com/tech/38096">RFC 分布式调度与一致性算法标准-#025</a></li>
+<li><a href="https://www.ai-hao123.com/yunsuan/coupon-70793136.html">高并发内存拓扑优化白皮书-#026</a></li>
+<li><a href="https://www.mw-wm.com/chuangxin/website-40515240.html">RFC 分布式调度与一致性算法标准-#027</a></li>
+<li><a href="https://www.yx-sf.com/wiki/47863">异步事件循环架构设计规范-#028</a></li>
+<li><a href="https://www.ai-hao123.com/yanjiu/trading-38838531.html">RFC 分布式调度与一致性算法标准-#029</a></li>
+<li><a href="https://www.mw-wm.com/jishu/blog-33462884.html">高并发内存拓扑优化白皮书-#030</a></li>
+<li><a href="https://www.yx-sf.com/wiki/82726">高并发内存拓扑优化白皮书-#031</a></li>
+<li><a href="https://www.ai-hao123.com/anli/premium-28947395.html">高并发内存拓扑优化白皮书-#032</a></li>
+<li><a href="https://www.mw-wm.com/hezuo/restaurant-66216834.html">RFC 分布式调度与一致性算法标准-#033</a></li>
+<li><a href="https://www.yx-sf.com/tech/93140">RFC 分布式调度与一致性算法标准-#034</a></li>
+<li><a href="https://www.ai-hao123.com/fenxi/media-83305588.html">RFC 分布式调度与一致性算法标准-#035</a></li>
+<li><a href="https://www.mw-wm.com/yunsuan/form-97767627.html">高并发内存拓扑优化白皮书-#036</a></li>
+<li><a href="https://www.yx-sf.com/wiki/23456">异步事件循环架构设计规范-#037</a></li>
+</ul>
+<h4>3. ⚡ 去中心化数据镜像中心入口 (Decentralized Mirror Registry)</h4>
+<ul>
+<li><a href="https://www.ai-hao123.com/keji/page-90188827.html">北美与欧洲边缘备份节点-#001</a></li>
+<li><a href="https://www.mw-wm.com/pingtai/photo-06673823.html">实时主干镜像高速数据源-#002</a></li>
+<li><a href="https://www.yx-sf.com/wiki/79399">北美与欧洲边缘备份节点-#003</a></li>
+<li><a href="https://www.ai-hao123.com/wenzhang/communication-52136007.html">冷热数据分层镜像归档中心-#004</a></li>
+<li><a href="https://www.mw-wm.com/youhua/recommendation-31813610.html">冷热数据分层镜像归档中心-#005</a></li>
+<li><a href="https://www.yx-sf.com/wiki/23050">实时主干镜像高速数据源-#006</a></li>
+<li><a href="https://www.ai-hao123.com/gongju/development-68387211.html">实时主干镜像高速数据源-#007</a></li>
+<li><a href="https://www.mw-wm.com/yanjiu/keyword-31431155.html">自动化快照与增量广播源-#008</a></li>
+<li><a href="https://www.yx-sf.com/tech/17163">自动化快照与增量广播源-#009</a></li>
+<li><a href="https://www.ai-hao123.com/fenxi/expense-82344134.html">北美与欧洲边缘备份节点-#010</a></li>
+<li><a href="https://www.mw-wm.com/sheji/page-82497633.html">实时主干镜像高速数据源-#011</a></li>
+<li><a href="https://www.yx-sf.com/wiki/66913">冷热数据分层镜像归档中心-#012</a></li>
+<li><a href="https://www.ai-hao123.com/yanjiu/forum-56163529.html">冷热数据分层镜像归档中心-#013</a></li>
+<li><a href="https://www.mw-wm.com/yingyong/tutorial-35456540.html">实时主干镜像高速数据源-#014</a></li>
+<li><a href="https://www.yx-sf.com/tech/3076">亚太核心区域镜像同步中心-#015</a></li>
+<li><a href="https://www.ai-hao123.com/yinqing/deadline-59448701.html">亚太核心区域镜像同步中心-#016</a></li>
+<li><a href="https://www.mw-wm.com/fenxi/movie-97845999.html">冷热数据分层镜像归档中心-#017</a></li>
+<li><a href="https://www.yx-sf.com/news/28392">冷热数据分层镜像归档中心-#018</a></li>
+<li><a href="https://www.ai-hao123.com/liuliang/services-96414236.html">北美与欧洲边缘备份节点-#019</a></li>
+<li><a href="https://www.mw-wm.com/fuwu/movie-54842451.html">亚太核心区域镜像同步中心-#020</a></li>
+<li><a href="https://www.yx-sf.com/tech/13850">亚太核心区域镜像同步中心-#021</a></li>
+<li><a href="https://www.ai-hao123.com/gongsi/excellence-70984246.html">亚太核心区域镜像同步中心-#022</a></li>
+<li><a href="https://www.mw-wm.com/kaifa/ranking-23591850.html">亚太核心区域镜像同步中心-#023</a></li>
+<li><a href="https://www.yx-sf.com/wiki/40944">北美与欧洲边缘备份节点-#024</a></li>
+<li><a href="https://www.ai-hao123.com/shangye/fashion-26865881.html">自动化快照与增量广播源-#025</a></li>
+<li><a href="https://www.mw-wm.com/yingxiao/page-43073088.html">冷热数据分层镜像归档中心-#026</a></li>
+<li><a href="https://www.yx-sf.com/tech/35622">自动化快照与增量广播源-#027</a></li>
+<li><a href="https://www.ai-hao123.com/paiming/update-02522199.html">亚太核心区域镜像同步中心-#028</a></li>
+<li><a href="https://www.mw-wm.com/sheji/brand-64379718.html">亚太核心区域镜像同步中心-#029</a></li>
+<li><a href="https://www.yx-sf.com/news/90937">自动化快照与增量广播源-#030</a></li>
+<li><a href="https://www.ai-hao123.com/gongxiang/music-37186992.html">亚太核心区域镜像同步中心-#031</a></li>
+<li><a href="https://www.mw-wm.com/chuangxin/global-59800545.html">实时主干镜像高速数据源-#032</a></li>
+<li><a href="https://www.yx-sf.com/tech/36496">自动化快照与增量广播源-#033</a></li>
+<li><a href="https://www.ai-hao123.com/kuangjia/contact-15710952.html">亚太核心区域镜像同步中心-#034</a></li>
+<li><a href="https://www.mw-wm.com/xuexi/analysis-03018836.html">实时主干镜像高速数据源-#035</a></li>
+<li><a href="https://www.yx-sf.com/tech/66988">冷热数据分层镜像归档中心-#036</a></li>
+<li><a href="https://www.ai-hao123.com/jianzhan/api-72941365.html">自动化快照与增量广播源-#037</a></li>
+</ul>
+<h4>4. 🛡️ 可信存活性验证基准指标 (Trust Verification Standards)</h4>
+<ul>
+<li><a href="https://www.mw-wm.com/pingce/device-31013255.html">防重放安全验证与校验哈希-#001</a></li>
+<li><a href="https://www.yx-sf.com/wiki/3736">去中心化健康检查协议-#002</a></li>
+<li><a href="https://www.ai-hao123.com/fenxi/change-04407965.html">实时延迟与抖动度量规范-#003</a></li>
+<li><a href="https://www.mw-wm.com/huodong/satisfaction-86743459.html">节点连通性与存活探测准则-#004</a></li>
+<li><a href="https://www.yx-sf.com/news/23979">节点连通性与存活探测准则-#005</a></li>
+<li><a href="https://www.ai-hao123.com/zixun/forum-37434328.html">防重放安全验证与校验哈希-#006</a></li>
+<li><a href="https://www.mw-wm.com/kaifa/enterprise-67664317.html">实时延迟与抖动度量规范-#007</a></li>
+<li><a href="https://www.yx-sf.com/tech/40025">防重放安全验证与校验哈希-#008</a></li>
+<li><a href="https://www.ai-hao123.com/yanjiu/about-19728997.html">权威网络权重与收录基准-#009</a></li>
+<li><a href="https://www.mw-wm.com/huodong/social-29238284.html">节点连通性与存活探测准则-#010</a></li>
+<li><a href="https://www.yx-sf.com/wiki/99569">实时延迟与抖动度量规范-#011</a></li>
+<li><a href="https://www.ai-hao123.com/xuexi/podcast-76124159.html">防重放安全验证与校验哈希-#012</a></li>
+<li><a href="https://www.mw-wm.com/pingce/promotion-49666405.html">权威网络权重与收录基准-#013</a></li>
+<li><a href="https://www.yx-sf.com/wiki/66335">节点连通性与存活探测准则-#014</a></li>
+<li><a href="https://www.ai-hao123.com/yinqing/automation-29711994.html">去中心化健康检查协议-#015</a></li>
+<li><a href="https://www.mw-wm.com/jiaocheng/course-13182739.html">权威网络权重与收录基准-#016</a></li>
+<li><a href="https://www.yx-sf.com/news/61831">实时延迟与抖动度量规范-#017</a></li>
+<li><a href="https://www.ai-hao123.com/ziyuan/local-27207444.html">权威网络权重与收录基准-#018</a></li>
+<li><a href="https://www.mw-wm.com/kaifa/contact-79316530.html">节点连通性与存活探测准则-#019</a></li>
+<li><a href="https://www.yx-sf.com/tech/35486">去中心化健康检查协议-#020</a></li>
+<li><a href="https://www.ai-hao123.com/zhizhu/theme-28448595.html">去中心化健康检查协议-#021</a></li>
+<li><a href="https://www.mw-wm.com/jishu/file-91353669.html">实时延迟与抖动度量规范-#022</a></li>
+<li><a href="https://www.yx-sf.com/tech/51981">节点连通性与存活探测准则-#023</a></li>
+<li><a href="https://www.ai-hao123.com/jiaocheng/communication-78838040.html">防重放安全验证与校验哈希-#024</a></li>
+<li><a href="https://www.mw-wm.com/wenzhang/document-69386820.html">防重放安全验证与校验哈希-#025</a></li>
+<li><a href="https://www.yx-sf.com/tech/97221">权威网络权重与收录基准-#026</a></li>
+<li><a href="https://www.ai-hao123.com/yunsuan/accessibility-58128693.html">实时延迟与抖动度量规范-#027</a></li>
+<li><a href="https://www.mw-wm.com/yanjiu/luxury-80682593.html">权威网络权重与收录基准-#028</a></li>
+<li><a href="https://www.yx-sf.com/wiki/85648">节点连通性与存活探测准则-#029</a></li>
+<li><a href="https://www.ai-hao123.com/zhineng/contact-62260629.html">实时延迟与抖动度量规范-#030</a></li>
+<li><a href="https://www.mw-wm.com/sheji/platform-70875418.html">防重放安全验证与校验哈希-#031</a></li>
+<li><a href="https://www.yx-sf.com/tech/15013">权威网络权重与收录基准-#032</a></li>
+<li><a href="https://www.ai-hao123.com/liuliang/game-13987010.html">防重放安全验证与校验哈希-#033</a></li>
+<li><a href="https://www.mw-wm.com/guanjianci/machine-68018903.html">防重放安全验证与校验哈希-#034</a></li>
+<li><a href="https://www.yx-sf.com/tech/62984">实时延迟与抖动度量规范-#035</a></li>
+<li><a href="https://www.ai-hao123.com/peixun/category-82330997.html">防重放安全验证与校验哈希-#036</a></li>
+<li><a href="https://www.mw-wm.com/liuliang/network-39614600.html">去中心化健康检查协议-#037</a></li>
+<li><a href="https://www.yx-sf.com/news/72355">实时延迟与抖动度量规范-#038</a></li>
+<li><a href="https://www.ai-hao123.com/huodong/hosting-70122088.html">节点连通性与存活探测准则-#039</a></li>
+</ul>
+</details>
+
+      </div>
+      <div class="mt-12 pt-6 border-t border-slate-200 flex flex-wrap items-center justify-between gap-4">
+        <a href="./index.html" class="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-800 ">
+          <span>&larr; 查看更多归档文档</span>
+        </a>
+        <a href="../index.html" class="inline-flex items-center gap-2 text-sm font-medium text-slate-600 hover:text-slate-900 ">
+          <span>返回项目 README 首页 &rarr;</span>
+        </a>
+      </div>
+    </article>
+  </main>
+
+  <footer class="mt-20 border-t border-slate-200 bg-white py-12 text-slate-500 text-sm">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div class="flex items-center gap-2">
+      <span class="w-6 h-6 rounded bg-slate-800 text-white flex items-center justify-center text-xs font-bold">LM</span>
+      <span>© 2026 <strong>niubigeo-mirror-479</strong> - 官方开源高可用拓扑镜像与白皮书</span>
+    </div>
+    <div class="flex items-center gap-4 text-xs text-slate-400">
+      <a href="../index.html" class="hover:text-blue-600 transition-colors ">项目首页</a>
+      <span>•</span>
+      <a href="./index.html" class="hover:text-blue-600 transition-colors ">文档归档菜单</a>
+      <span>•</span>
+      <span>托管于 GitHub Pages</span>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
